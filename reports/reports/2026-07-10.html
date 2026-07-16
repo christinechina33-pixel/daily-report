@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>持仓日报 · 2026-07-10 · Asset OS v7</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<style>
+:root{--bg:#f4f6fb;--card:#fff;--ink:#1f2733;--muted:#6b7686;--line:#e7ebf2;--green:#1aa06d;--blue:#2f6fed;--orange:#e08a1e;--red:#e0533d;--amber:#e0a81e;--purple:#7c5cfc;--cyan:#0891b2;}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.6;font-size:15px}
+.page{max-width:1100px;margin:0 auto;padding:24px 18px 60px}
+header.top{background:linear-gradient(120deg,#7c5cfc,#0891b2);color:#fff;border-radius:18px;padding:22px 26px}
+header.top h1{margin:0;font-size:23px}header.top .sub{opacity:.92;margin-top:6px;font-size:13.5px}
+.badges{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap}
+.badge{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);padding:3px 11px;border-radius:999px;font-size:12.5px}
+section{margin-top:26px}
+h2.sec{font-size:18px;margin:0 0 14px;display:flex;align-items:center;gap:10px;cursor:pointer}
+h2.sec:hover{opacity:.8}
+h3.blk{font-size:15px;margin:18px 0 10px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:16px}
+table{width:100%;border-collapse:collapse;font-size:13px;table-layout:fixed}th,td{padding:9px 10px;text-align:left;border-bottom:1px solid var(--line);overflow:hidden;text-overflow:ellipsis}
+th{background:#f7f9fc;color:var(--muted);font-weight:600;font-size:12px}
+.num-cell{text-align:right;font-variant-numeric:tabular-nums}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.scroll > table{min-width:640px}
+@media(max-width:700px){.scroll > table{min-width:560px}}
+.ok{color:var(--green);font-weight:600}.dn{color:var(--red);font-weight:600}.amber{color:var(--amber);font-weight:600}
+footer{margin-top:40px;text-align:center;color:var(--muted);font-size:12px}
+
+.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+@media(max-width:700px){.summary-grid{grid-template-columns:1fr}}
+.metric-card{background:#f7f9fc;border-radius:10px;padding:12px 14px;text-align:center}
+.metric-card .val{font-size:20px;font-weight:700}
+.metric-card .lbl{font-size:11.5px;color:var(--muted);margin-top:3px}
+
+.ws-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0}
+@media(max-width:700px){.ws-grid{grid-template-columns:repeat(2,1fr)}}
+.ws-state{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px;text-align:center;font-size:12px}
+.ws-state.active{border-color:var(--orange);border-width:2px;background:#fef9ef}
+.ws-state .label{font-weight:700;font-size:13px;margin-bottom:3px}
+.collapse-btn{margin-left:12px;font-size:12px;color:var(--muted)}
+
+.action-item{display:flex;gap:12px;padding:10px 14px;border-radius:10px;margin-bottom:8px;font-size:13.5px;align-items:flex-start}
+.action-icon{flex-shrink:0;width:32px;height:32px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;font-size:16px;margin-top:2px}
+.ai-add{background:#e6f6ef;color:var(--green)}.ai-sell{background:#fef0ef;color:var(--red)}.ai-watch{background:#fdf6e0;color:var(--amber)}
+.action-item .body{flex:1}.action-item .reason{font-size:12px;color:var(--muted);margin-top:3px}
+
+.realize-bar{display:inline-block;width:60px;height:8px;background:#eef1f7;border-radius:4px;vertical-align:middle}
+.realize-fill{display:block;height:100%;border-radius:4px}
+.note{background:#eafaf3;border:1px solid #bfe9d6;color:#15794f;border-radius:10px;padding:10px 13px;font-size:13px;margin-top:12px}
+.alert{background:#fef0ef;border:1px solid #f5bcb4;color:#c0392b;border-radius:10px;padding:10px 13px;font-size:13px;margin-top:12px}
+.warn-bg{background:#fef9ef;border-left:3px solid var(--orange);padding:8px 12px;border-radius:6px;font-size:13px;margin:6px 0}
+.focus-bg{background:#f5f3ff;border-left:3px solid var(--purple);padding:8px 12px;border-radius:6px;font-size:13px;margin:6px 0}
+.news .item{padding:9px 0;border-bottom:1px dashed var(--line)}
+.news .item:last-child{border-bottom:none}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px;vertical-align:middle}
+.dR{background:var(--green)}.dY{background:var(--amber)}.dK{background:var(--red)}
+ol.risk{margin:0;padding-left:20px}ol.risk li{margin:7px 0}
+.ev-best{color:var(--green)}.ev-base{color:var(--amber)}.ev-worst{color:var(--red)}
+.ev-result{font-size:14px;font-weight:700;color:var(--purple)}
+.heat-stars-green{color:var(--green)}.heat-stars-amber{color:var(--amber)}.heat-stars-red{color:var(--red)}.heat-stars-blue{color:var(--blue)}
+.lifecycle-stage{display:inline-block;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700}
+.stage-peak{background:#f5f3ff;color:var(--purple)}.stage-growth{background:#ecfffe;color:var(--cyan)}
+.stage-birth{background:#f1f5f9;color:#64748b}.stage-decline{background:#fef9ef;color:var(--orange)}
+.aa-bar{height:28px;border-radius:6px;background:#eef1f7;overflow:hidden;display:flex;margin:12px 0 4px}
+.aa-seg{height:100%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:700}
+.aa-legend{display:flex;flex-wrap:wrap;gap:8px;font-size:11.5px;color:var(--muted)}
+.aa-dot{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:4px;vertical-align:middle}
+.chart-container{width:100%;height:320px}
+</style>
+<script>
+function toggle(i){var e=document.getElementById(i),b=document.getElementById(i+'_b');if(e.style.display==='none'){e.style.display='';b.textContent='收起 ▲';}else{e.style.display='none';b.textContent='展开 ▼';}}
+function toggleAlpha(idx){var el=document.getElementById('alpha_'+idx);if(!el)return;if(el.style.display==='none'){el.style.display='';}else{el.style.display='none';}}
+</script>
+</head><body><div class="page">
+
+<header class="top">
+  <h1>持仓日报 · 2026-07-10 · Asset OS v7</h1>
+  <div class="sub">本金 70 万 | TickFlow 实时行情 | Alpha Engine 5D</div>
+  <div class="badges">
+    <span class="badge">投入 361,496 (51.6%)</span>
+    <span class="badge">现金 338,504</span>
+    <span class="badge">总盈亏 +0（+0.00%）</span>
+    <span class="badge" style="background:rgba(255,255,255,.25)">🔴 行情不可用</span>
+  </div>
+</header>
+
+<!-- ===== 1. 今日速览 ===== -->
+<section>
+<h2 class="sec" onclick="toggle('s1')">⚡ 今日速览 & 立即行动<span id="s1_b" class="collapse-btn">收起 ▲</span></h2>
+<div id="s1">
+  <!-- 立即行动 -->
+  <div class="card">
+    <h3 class="blk" style="margin-top:0">⚡ 立即行动（按优先级）</h3>
+    <div class='action-item ai-watch' onclick='toggle("p_600406")' style='cursor:pointer'><div class='action-icon'>▶</div><div class='body'><b>国电南瑞</b> 距T1 +2.5%<div class='reason'>T1 22.0 已加; 待T2 20.0</div><div id="p_600406" style="display:none;margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:12px"><div>T1 <b>22元</b> → 买<b>400</b>股 (8800元) 距T1 +2.5%</div><div>T2 <b>20元</b> → 买<b>300</b>股 (6000元) 距T2 +12.7%</div><div>T3 <b>18元</b> → 买<b>300</b>股 (5400元) 距T3 +25.2%</div><div style='color:var(--muted);margin-top:4px'>目标共 <b>2800</b>股 (56000元) · 已持 <b>1800</b>股 (40572元) · 待建 <b>1000</b>股 (20000元)</div></div></div></div>
+<div class='action-item ai-watch' onclick='toggle("p_600089")' style='cursor:pointer'><div class='action-icon'>▶</div><div class='body'><b>特变电工</b> 距T1 +9.4%<div class='reason'>T1 20.0 已加; 待T2 18.0</div><div id="p_600089" style="display:none;margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:12px"><div>T1 <b>20元</b> → 买<b>480</b>股 (9600元) 距T1 +9.4%</div><div>T2 <b>18元</b> → 买<b>360</b>股 (6480元) 距T2 +21.6%</div><div>T3 <b>16元</b> → 买<b>360</b>股 (5760元) 距T3 +36.7%</div><div style='color:var(--muted);margin-top:4px'>目标共 <b>2500</b>股 (45000元) · 已持 <b>1300</b>股 (28444元) · 待建 <b>1200</b>股 (21600元)</div></div></div></div>
+<div class='action-item ai-watch' onclick='toggle("p_002594")' style='cursor:pointer'><div class='action-icon'>▶</div><div class='body'><b>比亚迪</b> 距T1 +0.2%<div class='reason'>T1 83.0 加</div><div id="p_002594" style="display:none;margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:12px"><div>T1 <b>83元</b> → 买<b>80</b>股 (6640元) 距T1 +0.2%</div><div>T2 <b>75元</b> → 买<b>60</b>股 (4500元) 距T2 +10.9%</div><div>T3 <b>68元</b> → 买<b>60</b>股 (4080元) 距T3 +22.3%</div><div style='color:var(--muted);margin-top:4px'>目标共 <b>300</b>股 (22600元) · 已持 <b>100</b>股 (8318元) · 待建 <b>200</b>股 (15067元)</div></div></div></div>
+<div class='action-item ai-watch' onclick='toggle("p_300124")' style='cursor:pointer'><div class='action-icon'>▶</div><div class='body'><b>汇川技术</b> 距T1 +0.3%<div class='reason'>T1触发; 机器人控制器龙头</div><div id="p_300124" style="display:none;margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:12px"><div>T1 <b>64元</b> → 买<b>120</b>股 (7680元) 距T1 +0.3%</div><div>T2 <b>60元</b> → 买<b>90</b>股 (5400元) 距T2 +7.0%</div><div>T3 <b>55元</b> → 买<b>90</b>股 (4950元) 距T3 +16.7%</div><div style='color:var(--muted);margin-top:4px'>目标共 <b>500</b>股 (29833元) · 已持 <b>200</b>股 (12838元) · 待建 <b>300</b>股 (17900元)</div></div></div></div>
+<div class='action-item ai-sell' onclick='toggle("p_601216")' style='cursor:pointer'><div class='action-icon'>↓</div><div class='body'><b>君正集团</b> 减仓信号<div class='reason'>反弹至5.5→6.16分批减</div></div></div>
+
+  </div>
+
+  <!-- 关键指标 -->
+  <div class="summary-grid">
+    <div>
+      <div class="card">
+        <h3 class="blk" style="margin-top:0">📊 关键指标</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="metric-card"><div class="val" style="color:var(--green)">338,504</div><div class="lbl">手持现金（48.4%）</div></div>
+          <div class="metric-card"><div class="val ok">+0</div><div class="lbl">总浮盈（+0.00%）</div></div>
+          <div class="metric-card"><div class="val dn">+206,114</div><div class="lbl">成长桶缺口</div></div>
+          <div class="metric-card"><div class="val" style="color:var(--purple)">🧠AI</div><div class="lbl">今日聚焦</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3 class="blk" style="margin-top:0">⚠️ Top 3 风险</h3>
+        <ol class="risk"><li><b>中国神华持仓风险：近日，国内媒体报道了多起电力行业的安全事故，可能导致监管部门加强对电力行业的安全监管，进而影响中国神华的运营和股价。</b></li>
+<li><b>国电南瑞持仓风险：公司在智能电网领域的竞争加剧，可能导致市场份额下降，进而影响公司的业绩和股价。</b></li>
+<li><b>紫金矿业持仓风险：全球经济不确定性导致黄金价格波动，可能影响公司的业绩和股价。</b></li>
+</ol>
+      </div>
+    </div>
+    <!-- 配置进度 -->
+    <div class="card">
+      <h3 class="blk" style="margin-top:0">🎯 配置进度</h3>
+      <table><tr><th>桶</th><th>目标</th><th>已投</th><th>填充率</th><th>待投</th></tr><tr><td>核心 Core</td><td class='num-cell'>245,000</td><td class='num-cell'>179674</td><td>73.3%</td><td class='dn'>+65,326</td></tr>
+<tr><td>成长 Growth</td><td class='num-cell'>315,000</td><td class='num-cell'>108886</td><td>34.6%</td><td class='dn'>+206,114</td></tr>
+<tr><td>战术 Tactical</td><td class='num-cell'>105,000</td><td class='num-cell'>72936</td><td>69.5%</td><td class='dn'>+32,064</td></tr>
+</table>
+    </div>
+  </div>
+  <!-- 市场情绪 -->
+  <div class="card" style="font-size:14px;color:var(--muted)">
+    候场区 0 只 | <span class="ok">0 涨</span> | <span class="dn">0 跌</span> | <span class="dn">↓ 弱势</span>
+  </div>
+</div>
+</section>
+
+<!-- ===== 2. 持仓明细 ===== -->
+<section>
+<h2 class="sec" onclick="toggle('s2')">💼 持仓明细 · 实时盈亏<span id="s2_b" class="collapse-btn">收起 ▲</span></h2>
+<div id="s2">
+<div class="card scroll">
+<table><thead><tr><th style="width:8%">代码</th><th style="width:11%">名称</th><th style="width:7%" class="num-cell">股数</th><th style="width:7%" class="num-cell">成本</th><th style="width:7%" class="num-cell">现价</th><th style="width:7%" class="num-cell">涨跌%</th><th style="width:8%" class="num-cell">市值</th><th style="width:7%" class="num-cell">盈亏%</th><th style="width:11%">状态</th><th>操作指示</th></tr></thead><tbody><tr><td colspan='10' style='font-weight:700;color:#2f6fed;background:#f7f9fc'>核心 Core | 目标245,000 | 已投179674(73.3%) | 待投+65,326</td></tr>
+<tr><td>601088</td><td><b>中国神华</b></td><td class='num-cell'>2600</td><td class='num-cell'>42.67</td><td class=''>—</td><td class=''>—</td><td class=''>—</td><td class=''>—</td><td>🟢 逻辑完整</td><td style='font-size:12px'>明天登记; 赔率4.0最高</td></tr>
+<tr><td>600406</td><td><b>国电南瑞</b></td><td class='num-cell'>1800</td><td class='num-cell'>22.54</td><td class=''>—</td><td class=''>—</td><td class=''>—</td><td class=''>—</td><td>🟢 逻辑完整</td><td style='font-size:12px'>T1 22.0 已加; 待T2 20.0</td></tr>
+<tr><td>601899</td><td><b>紫金矿业</b></td><td class='num-cell'>1000</td><td class='num-cell'>28.16</td><td class=''>—</td><td class=''>—</td><td class=''>—</td><td class=''>—</td><td>🟢 逻辑完整</td><td style='font-size:12px'>观望</td></tr>
+<tr><td colspan='10' style='font-weight:700;color:#1aa06d;background:#f7f9fc'>成长 Growth | 目标315,000 | 已投108886(34.6%) | 待投+206,114</td></tr>
+<tr><td>688122</td><td><b>西部超导</b></td><td class='num-cell'>600</td><td class='num-cell'>57.41</td><td class=''>—</td><td class=''>—</td><td class=''>—</td><td class=''>—</td><td>🟡 逻辑存疑</td><td style='font-size:12px'>确认军品订单后再加</td></tr>
+<tr><td>600703</td><td><b>三安光电</b></td><td class='num-cell'>1500</td><td class='num-cell'>16.56</td><td class=''>—</td><td class=''>—</td><td class=''>—</td><td class=''>—</td><td>🟡 小仓埋伏</td><td style='font-size:12px'>等拐点; 不追高不加仓</td></tr>
+<tr><td>600089</td><td><b>特变电工</b></td><td class='num-cell'>1300</td><td class='num-cell'>21.88</td><td class=''>—</td><td class=''>—</td><td class=''>—</td><td class=''>—</td><td>🟢 逻辑完整</td><td style='font-size:12px'>T1 20.0 已加; 待T2 18.0</td></tr>
+<tr><td>002594</td><td><b>比亚迪</b></td><td class='num-cell'>100</td><td class='num-cell'>83.18</td><td class=''>—</td><td class=''>—</td><td class=''>—</td><td class=''>—</td><td>🟢 逻辑完整</td><td style='font-size:12px'>T1 83.0 加</td></tr>
+<tr><td>300124</td><td><b>汇川技术</b></td><td class='num-cell'>200</td><td class='num-cell'>64.19</td><td class=''>—</td><td class=''>—</td><td class=''>—</td><td class=''>—</td><td>🟢 逻辑完整</td><td style='font-size:12px'>T1触发; 机器人控制器龙头</td></tr>
+<tr><td colspan='10' style='font-weight:700;color:#e08a1e;background:#f7f9fc'>战术 Tactical | 目标105,000 | 已投72936(69.5%) | 待投+32,064</td></tr>
+<tr><td>00700</td><td><b>腾讯控股</b></td><td class='num-cell'>100</td><td class='num-cell'>389.66</td><td class=''>—</td><td class=''>—</td><td class=''>—</td><td class=''>—</td><td>🟢 逻辑完整</td><td style='font-size:12px'>持有不加</td></tr>
+<tr><td>601216</td><td><b>君正集团</b></td><td class='num-cell'>3000</td><td class='num-cell'>6.16</td><td class=''>—</td><td class=''>—</td><td class=''>—</td><td class=''>—</td><td>🔴 逻辑待验证</td><td style='font-size:12px'>反弹至5.5→6.16分批减</td></tr>
+<tr><td>300229</td><td><b>拓尔思</b></td><td class='num-cell'>1000</td><td class='num-cell'>15.49</td><td class=''>—</td><td class=''>—</td><td class=''>—</td><td class=''>—</td><td>🟡 小仓埋伏</td><td style='font-size:12px'>等语料变现信号</td></tr>
+</tbody></table>
+</div></div>
+</section>
+
+<!-- ===== 3. 交易映射 ===== -->
+<section>
+<h2 class="sec" onclick="toggle('s3')">🎯 交易映射 · T1/T2/T3 触发<span id="s3_b" class="collapse-btn">收起 ▲</span></h2>
+<div id="s3">
+<div class="card scroll">
+<table><thead><tr><th style="width:5%">P</th><th style="width:8%">代码</th><th style="width:10%">名称</th><th style="width:8%">Driver</th><th style="width:10%">赛道</th><th style="width:7%" class="num-cell">现价</th><th style="width:7%" class="num-cell">涨跌%</th><th style="width:6%" class="num-cell">T1</th><th style="width:6%" class="num-cell">T2</th><th style="width:6%" class="num-cell">T3</th><th style="width:8%">触发</th><th style="width:6%" class="num-cell">止盈T1</th><th style="width:6%" class="num-cell">止盈T2</th><th style="width:6%" class="num-cell">止损</th><th>备注</th></tr></thead><tbody><tr><td><b class='ok'>P0</b></td><td>002475</td><td><b>立讯精密</b></td><td>AI算力</td><td>消费电子/代工</td><td class='num-cell'>0.00</td><td class='num-cell ok'>+0.00%</td><td class='num-cell'>60</td><td class='num-cell'>55</td><td class='num-cell'>50</td><td class=''>-</td><td class='num-cell'>77</td><td class='num-cell'>90</td><td class='num-cell'>48</td><td style='font-size:12px'>接近T1; 果链+GB200代工</td></tr>
+<tr><td><b class='amber'>P2</b></td><td>300308</td><td><b>中际旭创</b></td><td>AI算力</td><td>光模块</td><td class='num-cell'>0.00</td><td class='num-cell ok'>+0.00%</td><td class='num-cell'>1000</td><td class='num-cell'>900</td><td class='num-cell'>800</td><td class=''>-</td><td class='num-cell'>1400</td><td class='num-cell'>1600</td><td class='num-cell'>700</td><td style='font-size:12px'>偏贵等深回撤; 1.6T光模块龙头</td></tr>
+<tr><td><b class=''>P1</b></td><td>002463</td><td><b>沪电股份</b></td><td>AI算力</td><td>PCB</td><td class='num-cell'>0.00</td><td class='num-cell ok'>+0.00%</td><td class='num-cell'>120</td><td class='num-cell'>110</td><td class='num-cell'>100</td><td class=''>-</td><td class='num-cell'>155</td><td class='num-cell'>170</td><td class='num-cell'>90</td><td style='font-size:12px'>等回踩至120; AI服务器PCB</td></tr>
+<tr><td><b class='amber'>P2</b></td><td>300502</td><td><b>新易盛</b></td><td>AI算力</td><td>光模块</td><td class='num-cell'>0.00</td><td class='num-cell ok'>+0.00%</td><td class='num-cell'>450</td><td class='num-cell'>400</td><td class='num-cell'>350</td><td class=''>-</td><td class='num-cell'>600</td><td class='num-cell'>700</td><td class='num-cell'>320</td><td style='font-size:12px'>偏贵等深回撤</td></tr>
+<tr><td><b class='amber'>P2</b></td><td>300394</td><td><b>天孚通信</b></td><td>AI算力</td><td>光器件</td><td class='num-cell'>0.00</td><td class='num-cell ok'>+0.00%</td><td class='num-cell'>210</td><td class='num-cell'>190</td><td class='num-cell'>170</td><td class=''>-</td><td class='num-cell'>280</td><td class='num-cell'>320</td><td class='num-cell'>150</td><td style='font-size:12px'>极贵仅战术小仓</td></tr>
+<tr><td><b class='dn'>P3</b></td><td>688041</td><td><b>海光信息</b></td><td>AI算力</td><td>CPU/GPU</td><td class='num-cell'>0.00</td><td class='num-cell ok'>+0.00%</td><td class='num-cell'>300</td><td class='num-cell'>280</td><td class='num-cell'>260</td><td class=''>-</td><td class='num-cell'>420</td><td class='num-cell'>480</td><td class='num-cell'>230</td><td style='font-size:12px'>极贵仅深跌才动</td></tr>
+<tr><td><b class=''>P1</b></td><td>601689</td><td><b>拓普集团</b></td><td>物理AI</td><td>执行器</td><td class='num-cell'>0.00</td><td class='num-cell ok'>+0.00%</td><td class='num-cell'>58</td><td class='num-cell'>54</td><td class='num-cell'>50</td><td class=''>-</td><td class='num-cell'>70</td><td class='num-cell'>80</td><td class='num-cell'>42</td><td style='font-size:12px'>接近T1; 机器人执行器</td></tr>
+<tr><td><b class=''>P1</b></td><td>002050</td><td><b>三花智控</b></td><td>物理AI</td><td>热管理</td><td class='num-cell'>0.00</td><td class='num-cell ok'>+0.00%</td><td class='num-cell'>40</td><td class='num-cell'>37</td><td class='num-cell'>34</td><td class=''>-</td><td class='num-cell'>52</td><td class='num-cell'>60</td><td class='num-cell'>30</td><td style='font-size:12px'>接近T1; 热管理+执行器</td></tr>
+<tr><td><b class='ok'>P0</b></td><td>300124</td><td><b>汇川技术</b></td><td>物理AI</td><td>控制器</td><td class='num-cell'>0.00</td><td class='num-cell ok'>+0.00%</td><td class='num-cell'>64</td><td class='num-cell'>60</td><td class='num-cell'>55</td><td class=''>-</td><td class='num-cell'>77</td><td class='num-cell'>90</td><td class='num-cell'>48</td><td style='font-size:12px'>接近T1; 机器人控制器龙头</td></tr>
+<tr><td><b class='amber'>P2</b></td><td>300161</td><td><b>柯力传感</b></td><td>物理AI</td><td>传感器</td><td class='num-cell'>0.00</td><td class='num-cell ok'>+0.00%</td><td class='num-cell'>68</td><td class='num-cell'>62</td><td class='num-cell'>56</td><td class=''>-</td><td class='num-cell'>85</td><td class='num-cell'>100</td><td class='num-cell'>45</td><td style='font-size:12px'>概念期高波动小仓</td></tr>
+</tbody></table>
+</div></div>
+</section>
+
+<!-- ===== 13. 新闻速览 ===== -->
+<section>
+<h2 class="sec" onclick="toggle('s13')">📰 新闻速览<span id="s13_b" class="collapse-btn">展开 ▼</span></h2>
+<div id="s13" style="display:none">
+<div class="card"><h3 class="blk" style="margin-top:0">🌍 国际 · AI & 科技</h3><div class="news">
+<div class='item'><span class='dot dR'></span><b>OpenAI says GPT 5.6 is the ‘preferred model’ for Microsoft Copilot 365 amid breakup chatter</b>：OpenAI宣布GPT 5.6将成为Microsoft Copilot 365的首选模型</div>
+<div class='item'><span class='dot dK'></span><b>Fidji Simo steps down from OpenAI’s no. 2 role</b>：OpenAI第二号人物Fidji Simo因病休假时间过长而辞职</div>
+<div class='item'><span class='dot dR'></span><b>OpenAI launches its new family of models with GPT-5.6</b>：OpenAI发布新一代模型GPT-5.6，宣称其在多个领域取得了重大进展</div>
+<div class='item'><span class='dot dR'></span><b>An AI agent startup just let its agent run its $100M fundraise</b>：一家AI代理公司使用自己的AI代理成功完成了1亿美元的融资</div>
+</div></div>
+<div class="card"><h3 class="blk" style="margin-top:0">🇨🇳 国内 · AI & 机器人</h3><div class="news">
+<div class='item'><span class='dot dY'></span><b>36氪首发 | 英伟达全球首家触觉仿真合作伙伴再获数亿融资，上半年订单超去年四倍</b>：英伟达全球首家触觉仿真合作伙伴再获数亿融资</div>
+<div class='item'><span class='dot dR'></span><b>万勋科技发布“柔韧充”自动充电通用服务引擎，以“0.000s无极容差应变”首创混沌服务、全类通解！</b>：万勋科技发布自动充电机器人业务战略，推出行业首个以“混沌服务”模式全面覆盖公用、专用、家用所有应用类别的“柔韧充”自动充电通用服务引擎</div>
+</div></div>
+
+</div>
+</section>
+
+<!-- ===== 4. 持仓逻辑裁决 ===== -->
+<section>
+<h2 class="sec" onclick="toggle('s4')">🔎 持仓逻辑裁决 & 加减仓信号<span id="s4_b" class="collapse-btn">展开 ▼</span></h2>
+<div id="s4" style="display:none">
+<div class="card scroll">
+<table><thead><tr><th>代码</th><th>名称</th><th>状态</th><th>操作指示</th><th>盈亏%</th><th>赛道</th></tr></thead><tbody><tr><td>601088</td><td><b>中国神华</b></td><td class='ok'>🟢 逻辑完整</td><td style='font-size:12px'>明天登记; 赔率4.0最高</td><td class='ok'>+0.00%</td><td>传统能源/红利</td></tr>
+<tr><td>600406</td><td><b>国电南瑞</b></td><td class='ok'>🟢 逻辑完整</td><td style='font-size:12px'>T1 22.0 已加; 待T2 20.0</td><td class='ok'>+0.00%</td><td>高端制造/电网</td></tr>
+<tr><td>601899</td><td><b>紫金矿业</b></td><td class='ok'>🟢 逻辑完整</td><td style='font-size:12px'>观望</td><td class='ok'>+0.00%</td><td>资源/通胀对冲</td></tr>
+<tr><td>688122</td><td><b>西部超导</b></td><td class='ok'>🟡 逻辑存疑</td><td style='font-size:12px'>确认军品订单后再加</td><td class='ok'>+0.00%</td><td>高端制造/军工</td></tr>
+<tr><td>600703</td><td><b>三安光电</b></td><td class='amber'>🟡 小仓埋伏</td><td style='font-size:12px'>等拐点; 不追高不加仓</td><td class='ok'>+0.00%</td><td>半导体国产替代</td></tr>
+<tr><td>600089</td><td><b>特变电工</b></td><td class='ok'>🟢 逻辑完整</td><td style='font-size:12px'>T1 20.0 已加; 待T2 18.0</td><td class='ok'>+0.00%</td><td>高端制造/电力出海</td></tr>
+<tr><td>002594</td><td><b>比亚迪</b></td><td class='ok'>🟢 逻辑完整</td><td style='font-size:12px'>T1 83.0 加</td><td class='ok'>+0.00%</td><td>新能源/电动化</td></tr>
+<tr><td>300124</td><td><b>汇川技术</b></td><td class='ok'>🟢 逻辑完整</td><td style='font-size:12px'>T1触发; 机器人控制器龙头</td><td class='ok'>+0.00%</td><td>物理AI</td></tr>
+<tr><td>00700</td><td><b>腾讯控股</b></td><td class='ok'>🟢 逻辑完整</td><td style='font-size:12px'>持有不加</td><td class='ok'>+0.00%</td><td>AI算力</td></tr>
+<tr><td>601216</td><td><b>君正集团</b></td><td class='dn'>🔴 逻辑待验证</td><td style='font-size:12px'>反弹至5.5→6.16分批减</td><td class='ok'>+0.00%</td><td>化工周期</td></tr>
+<tr><td>300229</td><td><b>拓尔思</b></td><td class='amber'>🟡 小仓埋伏</td><td style='font-size:12px'>等语料变现信号</td><td class='ok'>+0.00%</td><td>AI算力</td></tr>
+</tbody></table>
+</div>
+<div style="font-size:12px;color:var(--muted);padding:8px 0;margin-top:8px">
+📖 投资哲学：know why you invest in, then point out the potential<br>
+🟢 逻辑完整（特变/神华/南瑞/紫金/比亚迪）→ 跌是机会，可加<br>
+🟡 方向对但还没被验证（三安/拓尔思）→ 小仓位埋伏等拐点，不加仓不追高<br>
+🔴 逻辑完全未兑现（君正）→ 等反弹减仓
+</div>
+</div>
+</section>
+
+<!-- ===== 5. 财务排雷 ===== -->
+<section>
+<h2 class="sec" onclick="toggle('s5')">🔎 财务排雷<span id="s5_b" class="collapse-btn">展开 ▼</span></h2>
+<div id="s5" style="display:none">
+<div class="card">
+<table><thead><tr><th>门槛</th><th>状态</th><th>备注</th></tr></thead>
+<tbody>
+<tr><td>日均成交≥3亿</td><td>✅ 多数达标</td><td>神华/腾讯/南瑞/紫金/比亚迪均达标</td></tr>
+<tr><td>ROE≥8%（连2年）</td><td class="dn">⚠️ 三安(亏损)</td><td>三安亏损是过渡期，方向对→小仓埋伏，非止损</td></tr>
+<tr><td>现金流/净利≥70%</td><td class="amber">🟡 待核实</td><td>三安/拓尔思/君正待核实</td></tr>
+<tr><td>负债率≤60%</td><td class="amber">🟡 待核</td><td>特变/君正待核（重资产可放宽70%）</td></tr>
+</tbody></table>
+</div></div>
+</section>
+
+<!-- ===== 6. 相关性对冲 ===== -->
+<section>
+<h2 class="sec" onclick="toggle('s6')">🔗 相关性对冲 · 组合风控<span id="s6_b" class="collapse-btn">展开 ▼</span></h2>
+<div id="s6" style="display:none">
+<div class="card scroll">
+<table><thead><tr><th>系统</th><th>成员</th><th>当前仓位</th><th>上限</th><th>状态</th></tr></thead>
+<tbody><tr><td>传统能源/红利</td><td>中国神华</td><td class='num-cell'>15.8%</td><td class='num-cell'>20%</td><td class='ok'>✓ 安全</td></tr>
+<tr><td>化工周期</td><td>君正集团</td><td class='num-cell'>2.6%</td><td class='num-cell'>10%</td><td class='ok'>✓ 安全</td></tr>
+<tr><td>半导体国产替代</td><td>三安光电</td><td class='num-cell'>3.5%</td><td class='num-cell'>15%</td><td class='ok'>✓ 安全</td></tr>
+<tr><td>平台/AI</td><td>腾讯控股</td><td class='num-cell'>5.6%</td><td class='num-cell'>15%</td><td class='ok'>✓ 安全</td></tr>
+<tr><td>数据/语料</td><td>拓尔思</td><td class='num-cell'>2.2%</td><td class='num-cell'>10%</td><td class='ok'>✓ 安全</td></tr>
+<tr><td>新能源车</td><td>比亚迪</td><td class='num-cell'>1.2%</td><td class='num-cell'>15%</td><td class='ok'>✓ 安全</td></tr>
+<tr><td>物理AI/机器人</td><td>汇川技术</td><td class='num-cell'>1.8%</td><td class='num-cell'>20%</td><td class='ok'>✓ 安全</td></tr>
+<tr><td>资源/通胀对冲</td><td>紫金矿业</td><td class='num-cell'>4.0%</td><td class='num-cell'>15%</td><td class='ok'>✓ 安全</td></tr>
+<tr><td>高端制造/军工</td><td>西部超导</td><td class='num-cell'>4.9%</td><td class='num-cell'>20%</td><td class='ok'>✓ 安全</td></tr>
+<tr><td>高端制造/电网</td><td>国电南瑞, 特变电工</td><td class='num-cell'>9.9%</td><td class='num-cell'>20%</td><td class='ok'>✓ 安全</td></tr>
+</tbody></table>
+</div></div>
+</section>
+
+<!-- ===== 7. 跨资产配置 ===== -->
+<section>
+<h2 class="sec" onclick="toggle('s15')">🌍 跨资产配置（100万总量）<span id="s15_b" class="collapse-btn">展开 ▼</span></h2>
+<div id="s15" style="display:none">
+<div class="card">
+  <h3 class="blk" style="margin-top:0">资金分配：70 万总资产 → 资产类别</h3>
+  <div class="aa-bar">
+    <div class="aa-seg" style="width:45%;background:var(--blue)">A股 45%</div>
+    <div class="aa-seg" style="width:20%;background:#0fb5a6">港股 20%</div>
+    <div class="aa-seg" style="width:15%;background:var(--purple)">海外ETF 15%</div>
+    <div class="aa-seg" style="width:10%;background:var(--amber)">黄金 10%</div>
+    <div class="aa-seg" style="width:10%;background:#94a3b8">现金 10%</div>
+  </div>
+  <div class="aa-legend">
+    <span><span class="aa-dot" style="background:var(--blue)"></span>A股 31.5万（45%）</span>
+    <span><span class="aa-dot" style="background:#0fb5a6"></span>港股 14.0万（20%）</span>
+    <span><span class="aa-dot" style="background:var(--purple)"></span>海外ETF 10.5万（15%）</span>
+    <span><span class="aa-dot" style="background:var(--amber)"></span>黄金 7.0万（10%）</span>
+    <span><span class="aa-dot" style="background:#94a3b8"></span>现金 7.0万（10%）</span>
+  </div>
+  <table style="margin-top:12px">
+    <thead><tr><th>资产</th><th>目标%</th><th>目标额</th><th>当前</th><th>差额</th></tr></thead>
+    <tbody><tr><td><b>A股</b></td><td class='num-cell'>45%</td><td class='num-cell'>315,000</td><td class='num-cell'>326845</td><td class='ok'>超11,845</td></tr>
+<tr><td><b>港股</b></td><td class='num-cell'>20%</td><td class='num-cell'>140,000</td><td class='num-cell'>41104</td><td class='dn'>缺98,896</td></tr>
+<tr><td><b>海外ETF</b></td><td class='num-cell'>15%</td><td class='num-cell'>105,000</td><td class='num-cell'>0</td><td class='dn'>缺105,000</td></tr>
+<tr><td><b>黄金</b></td><td class='num-cell'>10%</td><td class='num-cell'>70,000</td><td class='num-cell'>27810</td><td class='dn'>缺42,190</td></tr>
+<tr><td><b>现金</b></td><td class='num-cell'>10%</td><td class='num-cell'>70,000</td><td class='num-cell'>373155</td><td class='ok'>超303,155</td></tr>
+</tbody>
+  </table>
+</div></div>
+</section>
+
+<!-- ===== 7. 世界状态 ===== -->
+<section>
+<h2 class="sec" onclick="toggle('s16')">🌏 世界状态 · Regime<span id="s16_b" class="collapse-btn">展开 ▼</span></h2>
+<div id="s16" style="display:none">
+<div class="card">
+<div style="margin-bottom:12px;font-weight:700;color:var(--orange)">🟡 Recovery(60%) + Risk Off 局部(30%) + 通胀(10%)</div>
+<div class="ws-grid"><div class='ws-state'><div class='label'>🟡 Risk On</div><div class='desc'>流动性宽松</div></div><div class='ws-state active'><div class='label'>🟢 Risk Off 局部</div><div class='desc'>费城-4.65%</div></div><div class='ws-state'><div class='label'>🟡 Recession</div><div class='desc'>经济衰退</div></div><div class='ws-state active'><div class='label'>🟢 Recovery</div><div class='desc'>社融回升</div></div><div class='ws-state'><div class='label'>🟡 Boom</div><div class='desc'>经济过热</div></div><div class='ws-state'><div class='label'>🟡 Inflation</div><div class='desc'>油价+2.76%</div></div></div>
+</div>
+<div class="card">
+<table><tr><th>指标</th><th>得分</th></tr><tr><td>A股估值</td><td class="ok">3</td></tr><tr><td>流动性</td><td class="ok">2.5</td></tr><tr><td>信用周期</td><td class="ok">2</td></tr><tr><td><b>总分</b></td><td class="amber"><b>2.53 → NEUTRAL</b></td></tr></table>
+</div></div>
+</section>
+
+<!-- ===== 8. AI 赛道 ===== -->
+<section>
+<h2 class="sec" onclick="toggle('s8')">🧠 AI 赛道深度聚焦<span id="s8_b" class="collapse-btn">展开 ▼</span></h2>
+<div id="s8" style="display:none">
+
+<div class="card">
+<h3 class="blk" style="margin-top:0">🔗 AI 算力产业链</h3>
+<table><thead><tr><th>环节</th><th>功能</th><th>代表</th><th>状态</th></tr></thead>
+<tbody>
+<tr><td>上游·芯片</td><td>GPU/NPU</td><td>海光信息</td><td class="dn">P3 PE186x</td></tr>
+<tr><td>上游·光器件</td><td>光模块</td><td>中际旭创/新易盛/天孚</td><td class="amber">P2 偏贵</td></tr>
+<tr><td>中游·PCB/代工</td><td>服务器</td><td>沪电/立讯精密</td><td class="ok">P0/P1</td></tr>
+<tr><td>中游·平台</td><td>大模型</td><td>腾讯控股</td><td class="ok">持仓</td></tr>
+<tr><td>下游·语料</td><td>数据</td><td>拓尔思</td><td class="dn">埋伏</td></tr>
+</tbody></table>
+</div>
+
+<div class="card">
+<h3 class="blk" style="margin-top:0">🤖 物理AI/机器人产业链</h3>
+<table><thead><tr><th>环节</th><th>功能</th><th>代表</th><th>状态</th></tr></thead>
+<tbody>
+<tr><td>执行器</td><td>机器人关节</td><td>拓普/三花</td><td class="ok">P1 接近T1</td></tr>
+<tr><td>控制器</td><td>工控</td><td>汇川技术</td><td class="ok">P0 接近T1</td></tr>
+<tr><td>传感器</td><td>力觉</td><td>柯力传感</td><td class="amber">P2 概念期</td></tr>
+</tbody></table>
+</div>
+
+<div class="card">
+<h3 class="blk" style="margin-top:0">📈 Driver 兑现度跟踪（0-10）</h3>
+<table><thead><tr><th>标的</th><th>赛道</th><th>兑现度</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>中际旭创</td><td>AI光模块</td><td><b style="color:var(--purple)">8</b></td><td>1.6T光模块确定性龙头，北美云CapEx放量</td></tr>
+<tr><td>立讯精密</td><td>AI代工/消费电子</td><td><b class="amber">5</b></td><td>果链+GB200代工，兑现期订单→量产</td></tr>
+<tr><td>拓普集团</td><td>物理AI/执行器</td><td><b class="amber">4</b></td><td>特斯拉产业链+机器人执行器，订单期</td></tr>
+<tr><td>三花智控</td><td>物理AI/热管理</td><td><b class="amber">4</b></td><td>热管理全球龙头→机器人执行器延伸</td></tr>
+<tr><td>汇川技术</td><td>物理AI/控制器</td><td><b style="color:var(--purple)">8</b></td><td>工控+机器人控制器龙头，兑现期</td></tr>
+<tr><td>柯力传感</td><td>物理AI/传感器</td><td><b class="dn">3</b></td><td>六维力传感器，概念早期（0-3禁建仓）</td></tr>
+</tbody></table>
+<div class="note">📖 <b>兑现度规则</b>：0-3 概念期禁建仓 | 4-6 订单期仅 T1 半仓 | 7-8 兑现期正常建 | 9-10 引擎期加满。环比降≥2分触发 Yellow 复核。</div>
+</div>
+
+</div>
+</section>
+
+<!-- ===== 10. 四层漏斗筛选 ===== -->
+<section>
+<h2 class="sec" onclick="toggle('s17')">🔍 四层漏斗 · 筛选评估<span id="s17_b" class="collapse-btn">展开 ▼</span></h2>
+<div id="s17" style="display:none">
+<div class="card">
+  <div class="focus-bg"><b>筛选逻辑</b>：从 3000+ A 股 → 六大主线候选 → 赛道卡位 → 财务排雷 → 估值分位 → 仓位角色定性。以下为候场区股票的四层评估。</div>
+  <div id="funnelChart" class="chart-container" style="margin-top:14px"></div>
+</div>
+<div class="card scroll">
+<table><thead><tr><th>#</th><th>标的</th><th>赛道</th><th>第二增长曲线</th><th>财务</th><th>估值</th><th>角色</th><th>结论</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><b>立讯精密</b></td><td>AI算力</td><td class="ok">✓ 汽车电子185%+通讯光模块</td><td class="ok">✓ ROE19.4%/负债66%</td><td class="amber">⚠ PE分位68%</td><td>Growth</td><td class="ok">P0 → T1 60元</td></tr>
+<tr><td>2</td><td><b>汇川技术</b></td><td>物理AI</td><td class="ok">✓ 人形机器人+AIDC液冷</td><td class="ok">✓ ROE13%/负债46%</td><td class="ok">✓ PE分位34%</td><td>Growth</td><td class="ok">P0 → T1 64元</td></tr>
+<tr><td>3</td><td><b>沪电股份</b></td><td>AI算力</td><td class="ok">✓ AI服务器PCB</td><td class="ok">✓ 盈利良好</td><td class="amber">⚠ 偏高</td><td>Growth</td><td class="amber">P1 → T1 120元</td></tr>
+<tr><td>4</td><td><b>拓普集团</b></td><td>物理AI</td><td class="ok">✓ 机器人执行器</td><td class="ok">✓ ROE良好</td><td class="amber">⚠ 偏高</td><td>Growth</td><td class="amber">P1 → T1 58元</td></tr>
+<tr><td>5</td><td><b>三花智控</b></td><td>物理AI</td><td class="ok">✓ 汽车热管理+机器人</td><td class="ok">✓ ROE12.5%/负债33%</td><td class="amber">⚠ PE分位65%</td><td>Growth</td><td class="amber">P1 → T1 40元</td></tr>
+<tr><td>6</td><td><b>中际旭创</b></td><td>AI算力</td><td class="dn">✗ 纯光模块无第二曲线</td><td class="ok">✓</td><td class="dn">✗ PE分位97%</td><td>-</td><td class="dn">P2 · 等PE回落</td></tr>
+<tr><td>7</td><td><b>新易盛</b></td><td>AI算力</td><td class="dn">✗ 纯光模块</td><td class="ok">✓</td><td class="dn">✗ PE分位极高</td><td>-</td><td class="dn">P2 · 等深回撤</td></tr>
+<tr><td>8</td><td><b>天孚通信</b></td><td>AI算力</td><td class="dn">✗ 纯光器件</td><td class="ok">✓</td><td class="dn">✗ PE分位96%</td><td>-</td><td class="dn">P2 · 等回落</td></tr>
+<tr><td>9</td><td><b>海光信息</b></td><td>半导体</td><td class="ok">✓ 国产CPU/GPU替代</td><td class="ok">✓</td><td class="dn">✗ PE分位99%</td><td>-</td><td class="dn">P3 · PE186x极贵</td></tr>
+<tr><td>10</td><td><b>柯力传感</b></td><td>物理AI</td><td class="amber">⚠ 六维力传感器概念期</td><td class="ok">✓</td><td class="dn">✗ 概念期PE极高</td><td>-</td><td class="dn">P2 · 0-3兑现度禁建仓</td></tr>
+</tbody></table>
+</div>
+</div>
+</section>
+
+<!-- ===== 11. Capital Allocation ===== -->
+<section>
+<h2 class="sec" onclick="toggle('s19')">⭐ Capital Allocation 决策<span id="s19_b" class="collapse-btn">展开 ▼</span></h2>
+<div id="s19" style="display:none">
+<div class="card">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+  <span style="font-size:15px;font-weight:700;color:var(--purple)">资金配置引擎：新增资金 → Driver</span>
+  <span style="font-size:13px;color:var(--muted)">可用资金：338,504（保留 15% 后 ≈ 287,728）</span>
+</div>
+
+<div style="display:flex;align-items:center;padding:10px 14px;border-radius:10px;margin-bottom:8px;font-size:13px;gap:10px;background:#e6f6ef;border-left:3px solid var(--green)">
+  <div style="flex:1;font-weight:600">🟢 储能（Peak · 综合 ★★★）</div>
+  <div style="font-size:14px;font-weight:700;color:var(--purple)">≈ 9.5万</div>
+  <div style="font-size:11px;color:var(--muted);flex-shrink:0">P0 立即 · 阳光/湖南裕能</div>
+</div>
+<div style="display:flex;align-items:center;padding:10px 14px;border-radius:10px;margin-bottom:8px;font-size:13px;gap:10px;background:#e6f6ef;border-left:3px solid var(--green)">
+  <div style="flex:1;font-weight:600">🟢 创新药出海（Growth · 综合 ★★★）</div>
+  <div style="font-size:14px;font-weight:700;color:var(--purple)">≈ 5.5万</div>
+  <div style="font-size:11px;color:var(--muted);flex-shrink:0">P0 立即 · 百济/恒瑞</div>
+</div>
+<div style="display:flex;align-items:center;padding:10px 14px;border-radius:10px;margin-bottom:8px;font-size:13px;gap:10px;background:#fdf6e0;border-left:3px solid var(--amber)">
+  <div style="flex:1;font-weight:600">🟡 AI CapEx/光模块（Peak · 综合 ★★★★）</div>
+  <div style="font-size:14px;font-weight:700;color:var(--purple)">≈ 4.8万</div>
+  <div style="font-size:11px;color:var(--muted);flex-shrink:0">P1 优先 · 立讯/沪电</div>
+</div>
+<div style="display:flex;align-items:center;padding:10px 14px;border-radius:10px;margin-bottom:8px;font-size:13px;gap:10px;background:#fef0ef;border-left:3px solid var(--red)">
+  <div style="flex:1;font-weight:600">🔴 机器人（Growth · 综合 ★★）</div>
+  <div style="font-size:14px;font-weight:700;color:var(--purple)">≈ 2.2万</div>
+  <div style="font-size:11px;color:var(--muted);flex-shrink:0">P3 深跌 · 估值消化</div>
+</div>
+
+<div class="note" style="margin-top:12px">📖 <b>Capital Allocation</b>：不是先选股票，而是先决定新增资金流向哪个 Driver。Allocation = Gap × Score</div>
+</div></div>
+</section>
+
+<!-- ===== 10. Driver 估值热力图 ===== -->
+<section>
+<h2 class="sec" onclick="toggle('s18')">🧠 Driver 估值热力图<span id="s18_b" class="collapse-btn">展开 ▼</span></h2>
+<div id="s18" style="display:none">
+<div class="focus-bg"><b>核心升级</b>：产业景气 × 估值周期 = 综合评分。产业景气决定有没有利润增长；估值周期决定市场给不给估值。</div>
+<div class="card scroll">
+<table><thead><tr><th>Driver</th><th>生命周期</th><th>产业景气</th><th>估值周期</th><th>综合分</th></tr></thead>
+<tbody>
+<tr><td>AI CapEx/光模块</td><td><span class="lifecycle-stage stage-peak">🔥 Peak</span></td><td><span class="heat-stars-green">★★★★★</span></td><td><span class="heat-stars-amber">★★★☆☆</span></td><td><b>★★★★☆</b></td></tr>
+<tr><td>储能</td><td><span class="lifecycle-stage stage-peak">🔥 Peak</span></td><td><span class="heat-stars-green">★★★★★</span></td><td><span class="heat-stars-amber">★★☆☆☆</span></td><td><b>★★★☆☆</b></td></tr>
+<tr><td>机器人</td><td><span class="lifecycle-stage stage-growth">📈 Growth</span></td><td><span class="heat-stars-green">★★★★★</span></td><td><span class="heat-stars-red">★☆☆☆☆</span></td><td><b>★★☆☆☆</b></td></tr>
+<tr><td>创新药出海</td><td><span class="lifecycle-stage stage-growth">📈 Growth</span></td><td><span class="heat-stars-green">★★★★☆</span></td><td><span class="heat-stars-amber">★★☆☆☆</span></td><td><b>★★★☆☆</b></td></tr>
+<tr><td>半导体国产替代</td><td><span class="lifecycle-stage stage-growth">📈 Growth</span></td><td><span class="heat-stars-green">★★★★☆</span></td><td><span class="heat-stars-amber">★★☆☆☆</span></td><td><b>★★★☆☆</b></td></tr>
+<tr><td>铜金（通胀对冲）</td><td><span class="lifecycle-stage stage-growth">📈 Growth</span></td><td><span class="heat-stars-amber">★★★☆☆</span></td><td><span class="heat-stars-amber">★★★☆☆</span></td><td><b>★★★☆☆</b></td></tr>
+<tr><td>传统能源/红利</td><td><span class="lifecycle-stage stage-peak">🔥 Peak</span></td><td><span class="heat-stars-amber">★★★☆☆</span></td><td><span class="heat-stars-green">★★★★☆</span></td><td><b>★★★★☆</b></td></tr>
+<tr><td>化工周期（君正）</td><td><span class="lifecycle-stage stage-decline">📉 Decline</span></td><td><span class="heat-stars-red">★★☆☆☆</span></td><td><span class="heat-stars-green">★★★★☆</span></td><td><b>★★☆☆☆</b></td></tr>
+</tbody></table>
+</div></div>
+</section>
+
+<!-- ===== 11. 期望收益概率模型 ===== -->
+<section>
+<h2 class="sec" onclick="toggle('s20')">📊 期望收益概率模型（EV）<span id="s20_b" class="collapse-btn">展开 ▼</span></h2>
+<div id="s20" style="display:none">
+<div class="card scroll">
+<table><thead><tr><th>Driver</th><th>Best Case</th><th>Base Case</th><th>Worst Case</th><th>Expected Return</th><th>排序</th></tr></thead>
+<tbody>
+<tr><td>AI CapEx（光模块）</td><td><span class="ev-best">50%×+50%</span></td><td><span class="ev-base">35%×+25%</span></td><td><span class="ev-worst">15%×-20%</span></td><td><span class="ev-result">+29.3%</span></td><td><b>#1</b></td></tr>
+<tr><td>储能</td><td><span class="ev-best">60%×+45%</span></td><td><span class="ev-base">30%×+20%</span></td><td><span class="ev-worst">10%×-15%</span></td><td><span class="ev-result">+28.5%</span></td><td><b>#2</b></td></tr>
+<tr><td>创新药出海</td><td><span class="ev-best">55%×+40%</span></td><td><span class="ev-base">30%×+15%</span></td><td><span class="ev-worst">15%×-25%</span></td><td><span class="ev-result">+20.8%</span></td><td><b>#3</b></td></tr>
+<tr><td>机器人</td><td><span class="ev-best">40%×+80%</span></td><td><span class="ev-base">35%×+20%</span></td><td><span class="ev-worst">25%×-40%</span></td><td><span class="ev-result">+20.0%</span></td><td><b>#4</b></td></tr>
+<tr><td>半导体设备</td><td><span class="ev-best">45%×+50%</span></td><td><span class="ev-base">35%×+20%</span></td><td><span class="ev-worst">20%×-25%</span></td><td><span class="ev-result">+17.3%</span></td><td><b>#5</b></td></tr>
+<tr><td>海外科技</td><td><span class="ev-best">50%×+25%</span></td><td><span class="ev-base">35%×+10%</span></td><td><span class="ev-worst">15%×-30%</span></td><td><span class="ev-result">+12.3%</span></td><td><b>#6</b></td></tr>
+<tr><td>港股平台</td><td><span class="ev-best">40%×+35%</span></td><td><span class="ev-base">40%×+10%</span></td><td><span class="ev-worst">20%×-20%</span></td><td><span class="ev-result">+12.0%</span></td><td><b>#7</b></td></tr>
+<tr><td>铜金</td><td><span class="ev-best">30%×+30%</span></td><td><span class="ev-base">50%×+10%</span></td><td><span class="ev-worst">20%×-15%</span></td><td><span class="ev-result">+9.0%</span></td><td><b>#8</b></td></tr>
+</tbody></table>
+<div class="note">📖 EV = p1×r1 + p2×r2 + p3×r3。机器人 EV 高是因为 Best Case 赔率极大（+80%），但方差太大不能重仓。</div>
+</div></div>
+</section>
+
+<!-- ===== 12. 时间维度 ===== -->
+<section>
+<h2 class="sec" onclick="toggle('s12')">⏱️ 时间维度评估<span id="s12_b" class="collapse-btn">展开 ▼</span></h2>
+<div id="s12" style="display:none">
+<div class="card scroll">
+<table><thead><tr><th>Driver</th><th>1年</th><th>3年</th><th>5年</th><th>10年</th><th>核心变量</th></tr></thead>
+<tbody>
+<tr><td>AI CapEx</td><td><span class="heat-stars-green">★★★★★</span></td><td><span class="heat-stars-green">★★★★★</span></td><td class="amber">★★★★☆</td><td class="amber">★★★☆☆</td><td>1-3年CapEx兑现，之后竞争加剧</td></tr>
+<tr><td>储能</td><td><span class="heat-stars-green">★★★★★</span></td><td><span class="heat-stars-green">★★★★★</span></td><td class="amber">★★★★☆</td><td class="amber">★★★☆☆</td><td>1-3年全球大储放量</td></tr>
+<tr><td>机器人</td><td><span class="heat-stars-red">★★☆☆☆</span></td><td><span class="heat-stars-green">★★★★★</span></td><td><span class="heat-stars-green">★★★★★</span></td><td class="amber">★★★★☆</td><td>3年量产，1-2年讲故事</td></tr>
+<tr><td>创新药</td><td class="amber">★★★★☆</td><td><span class="heat-stars-green">★★★★★</span></td><td class="amber">★★★★☆</td><td class="amber">★★★☆☆</td><td>管线持续兑现</td></tr>
+<tr><td>半导体</td><td class="amber">★★★★☆</td><td><span class="heat-stars-green">★★★★★</span></td><td class="amber">★★★★☆</td><td class="amber">★★★☆☆</td><td>国产替代1-3年加速</td></tr>
+<tr><td>铜金</td><td class="amber">★★★☆☆</td><td class="amber">★★★★☆</td><td class="amber">★★★★☆</td><td class="amber">★★★☆☆</td><td>长期电气化趋势</td></tr>
+<tr><td>能源/红利</td><td class="amber">★★★☆☆</td><td class="amber">★★★☆☆</td><td class="amber">★★☆☆☆</td><td><span class="heat-stars-red">★☆☆☆☆</span></td><td>煤电长期替代</td></tr>
+<tr><td>港股平台</td><td class="amber">★★★★☆</td><td><span class="heat-stars-green">★★★★★</span></td><td class="amber">★★★★☆</td><td class="amber">★★★★☆</td><td>估值修复1-3年</td></tr>
+</tbody></table>
+<div class="note">📖 短期资金（1年）→ AI CapEx/储能/港股 | 中期（3年）→ 机器人/创新药/半导体 | 长期（5年+）→ 机器人/铜金</div>
+</div></div>
+</section>
+
+<!-- ===== 14. Alpha Top 15 ===== -->
+<section>
+<h2 class="sec" onclick="toggle('s14')">🎯 Alpha Discovery Engine · Top 15<span id="s14_b" class="collapse-btn">展开 ▼</span></h2>
+<div id="s14" style="display:none">
+<div class="card scroll">
+<div class="focus-bg"><b>5D评分体系</b>：D1产业驱动(30%) × D2质量(25%) × D3兑现(20%) × D4估值(15%) × D5认知(10%)。点击行展开选品逻辑。</div>
+<table><thead><tr><th>#</th><th>代码</th><th>名称</th><th>Driver</th><th>D1</th><th>D2</th><th>D3</th><th>D4</th><th>D5</th><th>总分</th></tr></thead><tbody><tr onclick="toggleAlpha(1)" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='#f3e8ff'" onmouseout="this.style.background=''"><td class='ok'>1</td><td>300308</td><td><b>中际旭创</b></td><td>AI算力</td><td>92</td><td>89</td><td>0</td><td>35</td><td>70</td><td style="font-weight:700;color:var(--purple)">62.1</td></tr><tr onclick="toggleAlpha(2)" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='#f3e8ff'" onmouseout="this.style.background=''"><td class='ok'>2</td><td>688041</td><td><b>海光信息</b></td><td>AI算力</td><td>92</td><td>86</td><td>0</td><td>35</td><td>70</td><td style="font-weight:700;color:var(--purple)">61.3</td></tr><tr onclick="toggleAlpha(3)" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='#f3e8ff'" onmouseout="this.style.background=''"><td class='ok'>3</td><td>300502</td><td><b>新易盛</b></td><td>AI算力</td><td>92</td><td>86</td><td>0</td><td>35</td><td>70</td><td style="font-weight:700;color:var(--purple)">61.3</td></tr><tr onclick="toggleAlpha(4)" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='#f3e8ff'" onmouseout="this.style.background=''"><td class='amber'>4</td><td>601138</td><td><b>工业富联</b></td><td>AI算力</td><td>92</td><td>86</td><td>0</td><td>35</td><td>70</td><td style="font-weight:700;color:var(--purple)">61.3</td></tr><tr onclick="toggleAlpha(5)" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='#f3e8ff'" onmouseout="this.style.background=''"><td class='amber'>5</td><td>002475</td><td><b>立讯精密</b></td><td>AI算力</td><td>92</td><td>86</td><td>0</td><td>35</td><td>70</td><td style="font-weight:700;color:var(--purple)">61.3</td></tr><tr onclick="toggleAlpha(6)" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='#f3e8ff'" onmouseout="this.style.background=''"><td class='amber'>6</td><td>00700</td><td><b>腾讯控股</b></td><td>AI算力</td><td>92</td><td>85</td><td>0</td><td>35</td><td>70</td><td style="font-weight:700;color:var(--purple)">61.1</td></tr><tr onclick="toggleAlpha(7)" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='#f3e8ff'" onmouseout="this.style.background=''"><td class='amber'>7</td><td>688256</td><td><b>寒武纪</b></td><td>AI算力</td><td>92</td><td>84</td><td>0</td><td>35</td><td>70</td><td style="font-weight:700;color:var(--purple)">60.8</td></tr><tr onclick="toggleAlpha(8)" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='#f3e8ff'" onmouseout="this.style.background=''"><td class='amber'>8</td><td>000977</td><td><b>浪潮信息</b></td><td>AI算力</td><td>92</td><td>84</td><td>0</td><td>35</td><td>70</td><td style="font-weight:700;color:var(--purple)">60.8</td></tr><tr onclick="toggleAlpha(9)" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='#f3e8ff'" onmouseout="this.style.background=''"><td class='amber'>9</td><td>002463</td><td><b>沪电股份</b></td><td>AI算力</td><td>92</td><td>82</td><td>0</td><td>35</td><td>70</td><td style="font-weight:700;color:var(--purple)">60.3</td></tr><tr onclick="toggleAlpha(10)" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='#f3e8ff'" onmouseout="this.style.background=''"><td class='amber'>10</td><td>300394</td><td><b>天孚通信</b></td><td>AI算力</td><td>92</td><td>81</td><td>0</td><td>35</td><td>70</td><td style="font-weight:700;color:var(--purple)">60.1</td></tr><tr onclick="toggleAlpha(11)" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='#f3e8ff'" onmouseout="this.style.background=''"><td class=''>11</td><td>603019</td><td><b>中科曙光</b></td><td>AI算力</td><td>92</td><td>81</td><td>0</td><td>35</td><td>70</td><td style="font-weight:700;color:var(--purple)">60.1</td></tr><tr onclick="toggleAlpha(12)" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='#f3e8ff'" onmouseout="this.style.background=''"><td class=''>12</td><td>002050</td><td><b>三花智控</b></td><td>物理AI</td><td>88</td><td>86</td><td>0</td><td>35</td><td>70</td><td style="font-weight:700;color:var(--purple)">60.1</td></tr><tr onclick="toggleAlpha(13)" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='#f3e8ff'" onmouseout="this.style.background=''"><td class=''>13</td><td>002230</td><td><b>科大讯飞</b></td><td>AI算力</td><td>92</td><td>80</td><td>0</td><td>35</td><td>70</td><td style="font-weight:700;color:var(--purple)">59.8</td></tr><tr onclick="toggleAlpha(14)" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='#f3e8ff'" onmouseout="this.style.background=''"><td class=''>14</td><td>9988</td><td><b>阿里巴巴</b></td><td>AI算力</td><td>92</td><td>79</td><td>0</td><td>35</td><td>70</td><td style="font-weight:700;color:var(--purple)">59.6</td></tr><tr onclick="toggleAlpha(15)" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='#f3e8ff'" onmouseout="this.style.background=''"><td class=''>15</td><td>9888</td><td><b>百度集团</b></td><td>AI算力</td><td>92</td><td>79</td><td>0</td><td>35</td><td>70</td><td style="font-weight:700;color:var(--purple)">59.6</td></tr></tbody></table>
+<div id="alpha_1" style="display:none;margin-top:12px;padding:14px 16px;background:#f7f9fc;border-radius:10px;border-left:3px solid var(--purple);font-size:13px"><div style="font-weight:700;margin-bottom:8px">中际旭创，光模块，AI算力</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px"><div><b style="color:var(--purple)">D1 驱动</b> <span style="color:var(--purple);font-weight:700">92</span><br><span style="color:var(--muted);font-size:11px">AI算力（权重30%）</span></div><div><b style="color:var(--purple)">D2 质量</b> <span style="color:var(--purple);font-weight:700">89</span><br><span style="color:var(--muted);font-size:11px">Q92×M88×G85（权重25%）</span></div></div><div><b style="color:var(--purple)">D3 兑现</b> <span style="color:var(--purple);font-weight:700">0</span>（权重20%） · <b style="color:var(--purple)">D4 估值</b> <span style="color:var(--purple);font-weight:700">35</span>（权重15%） · <b style="color:var(--purple)">D5 认知</b> <span style="color:var(--purple);font-weight:700">70</span>（权重10%）</div><div style="margin-top:6px;color:var(--muted);font-size:11px">💡 护城河：1.6T全球龙头</div></div><div id="alpha_2" style="display:none;margin-top:12px;padding:14px 16px;background:#f7f9fc;border-radius:10px;border-left:3px solid var(--purple);font-size:13px"><div style="font-weight:700;margin-bottom:8px">海光信息，算力芯片，AI算力</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px"><div><b style="color:var(--purple)">D1 驱动</b> <span style="color:var(--purple);font-weight:700">92</span><br><span style="color:var(--muted);font-size:11px">AI算力（权重30%）</span></div><div><b style="color:var(--purple)">D2 质量</b> <span style="color:var(--purple);font-weight:700">86</span><br><span style="color:var(--muted);font-size:11px">Q90×M85×G80（权重25%）</span></div></div><div><b style="color:var(--purple)">D3 兑现</b> <span style="color:var(--purple);font-weight:700">0</span>（权重20%） · <b style="color:var(--purple)">D4 估值</b> <span style="color:var(--purple);font-weight:700">35</span>（权重15%） · <b style="color:var(--purple)">D5 认知</b> <span style="color:var(--purple);font-weight:700">70</span>（权重10%）</div><div style="margin-top:6px;color:var(--muted);font-size:11px">💡 护城河：国产CPU/GPU龙头</div></div><div id="alpha_3" style="display:none;margin-top:12px;padding:14px 16px;background:#f7f9fc;border-radius:10px;border-left:3px solid var(--purple);font-size:13px"><div style="font-weight:700;margin-bottom:8px">新易盛，光模块，AI算力</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px"><div><b style="color:var(--purple)">D1 驱动</b> <span style="color:var(--purple);font-weight:700">92</span><br><span style="color:var(--muted);font-size:11px">AI算力（权重30%）</span></div><div><b style="color:var(--purple)">D2 质量</b> <span style="color:var(--purple);font-weight:700">86</span><br><span style="color:var(--muted);font-size:11px">Q88×M82×G88（权重25%）</span></div></div><div><b style="color:var(--purple)">D3 兑现</b> <span style="color:var(--purple);font-weight:700">0</span>（权重20%） · <b style="color:var(--purple)">D4 估值</b> <span style="color:var(--purple);font-weight:700">35</span>（权重15%） · <b style="color:var(--purple)">D5 认知</b> <span style="color:var(--purple);font-weight:700">70</span>（权重10%）</div><div style="margin-top:6px;color:var(--muted);font-size:11px">💡 护城河：1.6T全球龙二</div></div><div id="alpha_4" style="display:none;margin-top:12px;padding:14px 16px;background:#f7f9fc;border-radius:10px;border-left:3px solid var(--purple);font-size:13px"><div style="font-weight:700;margin-bottom:8px">工业富联，服务器，AI算力</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px"><div><b style="color:var(--purple)">D1 驱动</b> <span style="color:var(--purple);font-weight:700">92</span><br><span style="color:var(--muted);font-size:11px">AI算力（权重30%）</span></div><div><b style="color:var(--purple)">D2 质量</b> <span style="color:var(--purple);font-weight:700">86</span><br><span style="color:var(--muted);font-size:11px">Q90×M85×G80（权重25%）</span></div></div><div><b style="color:var(--purple)">D3 兑现</b> <span style="color:var(--purple);font-weight:700">0</span>（权重20%） · <b style="color:var(--purple)">D4 估值</b> <span style="color:var(--purple);font-weight:700">35</span>（权重15%） · <b style="color:var(--purple)">D5 认知</b> <span style="color:var(--purple);font-weight:700">70</span>（权重10%）</div><div style="margin-top:6px;color:var(--muted);font-size:11px">💡 护城河：GB200代工核心</div></div><div id="alpha_5" style="display:none;margin-top:12px;padding:14px 16px;background:#f7f9fc;border-radius:10px;border-left:3px solid var(--purple);font-size:13px"><div style="font-weight:700;margin-bottom:8px">立讯精密，代工，AI算力</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px"><div><b style="color:var(--purple)">D1 驱动</b> <span style="color:var(--purple);font-weight:700">92</span><br><span style="color:var(--muted);font-size:11px">AI算力（权重30%）</span></div><div><b style="color:var(--purple)">D2 质量</b> <span style="color:var(--purple);font-weight:700">86</span><br><span style="color:var(--muted);font-size:11px">Q92×M88×G75（权重25%）</span></div></div><div><b style="color:var(--purple)">D3 兑现</b> <span style="color:var(--purple);font-weight:700">0</span>（权重20%） · <b style="color:var(--purple)">D4 估值</b> <span style="color:var(--purple);font-weight:700">35</span>（权重15%） · <b style="color:var(--purple)">D5 认知</b> <span style="color:var(--purple);font-weight:700">70</span>（权重10%）</div><div style="margin-top:6px;color:var(--muted);font-size:11px">💡 护城河：GB200+Apple代工</div></div><div id="alpha_6" style="display:none;margin-top:12px;padding:14px 16px;background:#f7f9fc;border-radius:10px;border-left:3px solid var(--purple);font-size:13px"><div style="font-weight:700;margin-bottom:8px">腾讯控股，平台云，AI算力</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px"><div><b style="color:var(--purple)">D1 驱动</b> <span style="color:var(--purple);font-weight:700">92</span><br><span style="color:var(--muted);font-size:11px">AI算力（权重30%）</span></div><div><b style="color:var(--purple)">D2 质量</b> <span style="color:var(--purple);font-weight:700">85</span><br><span style="color:var(--muted);font-size:11px">Q95×M95×G55（权重25%）</span></div></div><div><b style="color:var(--purple)">D3 兑现</b> <span style="color:var(--purple);font-weight:700">0</span>（权重20%） · <b style="color:var(--purple)">D4 估值</b> <span style="color:var(--purple);font-weight:700">35</span>（权重15%） · <b style="color:var(--purple)">D5 认知</b> <span style="color:var(--purple);font-weight:700">70</span>（权重10%）</div><div style="margin-top:6px;color:var(--muted);font-size:11px">💡 护城河：大模型平台WeChat</div></div><div id="alpha_7" style="display:none;margin-top:12px;padding:14px 16px;background:#f7f9fc;border-radius:10px;border-left:3px solid var(--purple);font-size:13px"><div style="font-weight:700;margin-bottom:8px">寒武纪，算力芯片，AI算力</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px"><div><b style="color:var(--purple)">D1 驱动</b> <span style="color:var(--purple);font-weight:700">92</span><br><span style="color:var(--muted);font-size:11px">AI算力（权重30%）</span></div><div><b style="color:var(--purple)">D2 质量</b> <span style="color:var(--purple);font-weight:700">84</span><br><span style="color:var(--muted);font-size:11px">Q85×M80×G90（权重25%）</span></div></div><div><b style="color:var(--purple)">D3 兑现</b> <span style="color:var(--purple);font-weight:700">0</span>（权重20%） · <b style="color:var(--purple)">D4 估值</b> <span style="color:var(--purple);font-weight:700">35</span>（权重15%） · <b style="color:var(--purple)">D5 认知</b> <span style="color:var(--purple);font-weight:700">70</span>（权重10%）</div><div style="margin-top:6px;color:var(--muted);font-size:11px">💡 护城河：国产NPU稀缺标的</div></div><div id="alpha_8" style="display:none;margin-top:12px;padding:14px 16px;background:#f7f9fc;border-radius:10px;border-left:3px solid var(--purple);font-size:13px"><div style="font-weight:700;margin-bottom:8px">浪潮信息，服务器，AI算力</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px"><div><b style="color:var(--purple)">D1 驱动</b> <span style="color:var(--purple);font-weight:700">92</span><br><span style="color:var(--muted);font-size:11px">AI算力（权重30%）</span></div><div><b style="color:var(--purple)">D2 质量</b> <span style="color:var(--purple);font-weight:700">84</span><br><span style="color:var(--muted);font-size:11px">Q88×M80×G85（权重25%）</span></div></div><div><b style="color:var(--purple)">D3 兑现</b> <span style="color:var(--purple);font-weight:700">0</span>（权重20%） · <b style="color:var(--purple)">D4 估值</b> <span style="color:var(--purple);font-weight:700">35</span>（权重15%） · <b style="color:var(--purple)">D5 认知</b> <span style="color:var(--purple);font-weight:700">70</span>（权重10%）</div><div style="margin-top:6px;color:var(--muted);font-size:11px">💡 护城河：全球AI服务器第一</div></div><div id="alpha_9" style="display:none;margin-top:12px;padding:14px 16px;background:#f7f9fc;border-radius:10px;border-left:3px solid var(--purple);font-size:13px"><div style="font-weight:700;margin-bottom:8px">沪电股份，PCB，AI算力</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px"><div><b style="color:var(--purple)">D1 驱动</b> <span style="color:var(--purple);font-weight:700">92</span><br><span style="color:var(--muted);font-size:11px">AI算力（权重30%）</span></div><div><b style="color:var(--purple)">D2 质量</b> <span style="color:var(--purple);font-weight:700">82</span><br><span style="color:var(--muted);font-size:11px">Q85×M80×G82（权重25%）</span></div></div><div><b style="color:var(--purple)">D3 兑现</b> <span style="color:var(--purple);font-weight:700">0</span>（权重20%） · <b style="color:var(--purple)">D4 估值</b> <span style="color:var(--purple);font-weight:700">35</span>（权重15%） · <b style="color:var(--purple)">D5 认知</b> <span style="color:var(--purple);font-weight:700">70</span>（权重10%）</div><div style="margin-top:6px;color:var(--muted);font-size:11px">💡 护城河：AI PCB核心</div></div><div id="alpha_10" style="display:none;margin-top:12px;padding:14px 16px;background:#f7f9fc;border-radius:10px;border-left:3px solid var(--purple);font-size:13px"><div style="font-weight:700;margin-bottom:8px">天孚通信，光模块，AI算力</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px"><div><b style="color:var(--purple)">D1 驱动</b> <span style="color:var(--purple);font-weight:700">92</span><br><span style="color:var(--muted);font-size:11px">AI算力（权重30%）</span></div><div><b style="color:var(--purple)">D2 质量</b> <span style="color:var(--purple);font-weight:700">81</span><br><span style="color:var(--muted);font-size:11px">Q85×M80×G75（权重25%）</span></div></div><div><b style="color:var(--purple)">D3 兑现</b> <span style="color:var(--purple);font-weight:700">0</span>（权重20%） · <b style="color:var(--purple)">D4 估值</b> <span style="color:var(--purple);font-weight:700">35</span>（权重15%） · <b style="color:var(--purple)">D5 认知</b> <span style="color:var(--purple);font-weight:700">70</span>（权重10%）</div><div style="margin-top:6px;color:var(--muted);font-size:11px">💡 护城河：光器件配套核心</div></div><div id="alpha_11" style="display:none;margin-top:12px;padding:14px 16px;background:#f7f9fc;border-radius:10px;border-left:3px solid var(--purple);font-size:13px"><div style="font-weight:700;margin-bottom:8px">中科曙光，服务器，AI算力</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px"><div><b style="color:var(--purple)">D1 驱动</b> <span style="color:var(--purple);font-weight:700">92</span><br><span style="color:var(--muted);font-size:11px">AI算力（权重30%）</span></div><div><b style="color:var(--purple)">D2 质量</b> <span style="color:var(--purple);font-weight:700">81</span><br><span style="color:var(--muted);font-size:11px">Q85×M78×G80（权重25%）</span></div></div><div><b style="color:var(--purple)">D3 兑现</b> <span style="color:var(--purple);font-weight:700">0</span>（权重20%） · <b style="color:var(--purple)">D4 估值</b> <span style="color:var(--purple);font-weight:700">35</span>（权重15%） · <b style="color:var(--purple)">D5 认知</b> <span style="color:var(--purple);font-weight:700">70</span>（权重10%）</div><div style="margin-top:6px;color:var(--muted);font-size:11px">💡 护城河：国产+液冷</div></div><div id="alpha_12" style="display:none;margin-top:12px;padding:14px 16px;background:#f7f9fc;border-radius:10px;border-left:3px solid var(--purple);font-size:13px"><div style="font-weight:700;margin-bottom:8px">三花智控，机器人，物理AI</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px"><div><b style="color:var(--purple)">D1 驱动</b> <span style="color:var(--purple);font-weight:700">88</span><br><span style="color:var(--muted);font-size:11px">物理AI（权重30%）</span></div><div><b style="color:var(--purple)">D2 质量</b> <span style="color:var(--purple);font-weight:700">86</span><br><span style="color:var(--muted);font-size:11px">Q90×M85×G80（权重25%）</span></div></div><div><b style="color:var(--purple)">D3 兑现</b> <span style="color:var(--purple);font-weight:700">0</span>（权重20%） · <b style="color:var(--purple)">D4 估值</b> <span style="color:var(--purple);font-weight:700">35</span>（权重15%） · <b style="color:var(--purple)">D5 认知</b> <span style="color:var(--purple);font-weight:700">70</span>（权重10%）</div><div style="margin-top:6px;color:var(--muted);font-size:11px">💡 护城河：执行器龙头</div></div><div id="alpha_13" style="display:none;margin-top:12px;padding:14px 16px;background:#f7f9fc;border-radius:10px;border-left:3px solid var(--purple);font-size:13px"><div style="font-weight:700;margin-bottom:8px">科大讯飞，应用，AI算力</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px"><div><b style="color:var(--purple)">D1 驱动</b> <span style="color:var(--purple);font-weight:700">92</span><br><span style="color:var(--muted);font-size:11px">AI算力（权重30%）</span></div><div><b style="color:var(--purple)">D2 质量</b> <span style="color:var(--purple);font-weight:700">80</span><br><span style="color:var(--muted);font-size:11px">Q82×M80×G75（权重25%）</span></div></div><div><b style="color:var(--purple)">D3 兑现</b> <span style="color:var(--purple);font-weight:700">0</span>（权重20%） · <b style="color:var(--purple)">D4 估值</b> <span style="color:var(--purple);font-weight:700">35</span>（权重15%） · <b style="color:var(--purple)">D5 认知</b> <span style="color:var(--purple);font-weight:700">70</span>（权重10%）</div><div style="margin-top:6px;color:var(--muted);font-size:11px">💡 护城河：星火大模型</div></div><div id="alpha_14" style="display:none;margin-top:12px;padding:14px 16px;background:#f7f9fc;border-radius:10px;border-left:3px solid var(--purple);font-size:13px"><div style="font-weight:700;margin-bottom:8px">阿里巴巴，平台云，AI算力</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px"><div><b style="color:var(--purple)">D1 驱动</b> <span style="color:var(--purple);font-weight:700">92</span><br><span style="color:var(--muted);font-size:11px">AI算力（权重30%）</span></div><div><b style="color:var(--purple)">D2 质量</b> <span style="color:var(--purple);font-weight:700">79</span><br><span style="color:var(--muted);font-size:11px">Q90×M88×G50（权重25%）</span></div></div><div><b style="color:var(--purple)">D3 兑现</b> <span style="color:var(--purple);font-weight:700">0</span>（权重20%） · <b style="color:var(--purple)">D4 估值</b> <span style="color:var(--purple);font-weight:700">35</span>（权重15%） · <b style="color:var(--purple)">D5 认知</b> <span style="color:var(--purple);font-weight:700">70</span>（权重10%）</div><div style="margin-top:6px;color:var(--muted);font-size:11px">💡 护城河：AI云/电商</div></div><div id="alpha_15" style="display:none;margin-top:12px;padding:14px 16px;background:#f7f9fc;border-radius:10px;border-left:3px solid var(--purple);font-size:13px"><div style="font-weight:700;margin-bottom:8px">百度集团，平台云，AI算力</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px"><div><b style="color:var(--purple)">D1 驱动</b> <span style="color:var(--purple);font-weight:700">92</span><br><span style="color:var(--muted);font-size:11px">AI算力（权重30%）</span></div><div><b style="color:var(--purple)">D2 质量</b> <span style="color:var(--purple);font-weight:700">79</span><br><span style="color:var(--muted);font-size:11px">Q85×M82×G65（权重25%）</span></div></div><div><b style="color:var(--purple)">D3 兑现</b> <span style="color:var(--purple);font-weight:700">0</span>（权重20%） · <b style="color:var(--purple)">D4 估值</b> <span style="color:var(--purple);font-weight:700">35</span>（权重15%） · <b style="color:var(--purple)">D5 认知</b> <span style="color:var(--purple);font-weight:700">70</span>（权重10%）</div><div style="margin-top:6px;color:var(--muted);font-size:11px">💡 护城河：国内大模型领先</div></div>
+</div></div>
+</section>
+
+<footer><a href="archive.html" style="color:var(--muted);text-decoration:none">📚 历史归档</a> · Asset OS v7 · TickFlow · Alpha Engine · 2026-07-10 · 不构成投资建议</footer>
+</div>
+<script>
+var fc=echarts.init(document.getElementById('funnelChart'));
+fc.setOption({
+  tooltip:{trigger:'item'},
+  series:[{
+    type:'funnel',left:'10%',top:10,bottom:10,width:'80%',
+    min:0,max:3000,minSize:'20%',maxSize:'100%',
+    sort:'descending',gap:4,
+    label:{show:true,position:'inside',fontSize:13,fontWeight:600,color:'#fff'},
+    labelLine:{length:0},
+    itemStyle:{borderColor:'#e7ebf2',borderWidth:2},
+    data:[
+      {value:3000,name:'A股总数 (3000+)',itemStyle:{color:'#3a3a4e'}},
+      {value:42,name:'六大主线候选 (42)',itemStyle:{color:'#2a2a3e'}},
+      {value:18,name:'赛道卡位 (18)',itemStyle:{color:'#1a1a2e'}},
+      {value:14,name:'财务排雷 (14)',itemStyle:{color:'#0f3460'}},
+      {value:13,name:'估值分位 (13)',itemStyle:{color:'#7c5cfc'}},
+      {value:13,name:'最终入选 (13)',itemStyle:{color:'#5a3cfc'}}
+    ]
+  }]
+});
+window.addEventListener('resize',function(){fc.resize();});
+</script>
+</body></html>

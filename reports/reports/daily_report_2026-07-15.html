@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>持仓日报 · 2026-07-15 · Asset OS v7</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,700&family=IBM+Plex+Mono:wght@300;400;500&family=Noto+Serif+SC:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════
+   Asset OS v7 — Noire & Or 黑金奢华
+   "Only darkness. Only gold."
+   ═══════════════════════════════════════════════════════════ */
+:root{
+  --void:#050608;--night:#0a0b0e;--night-2:#0d0f14;--night-3:#14161d;--night-4:#1a1d27;
+  --gold:#C8A86B;--gold-light:#e8c77d;--gold-deep:#8a7642;--gold-bright:#f5d9a0;
+  --gold-dim:rgba(200,168,107,.12);--gold-glow:rgba(200,168,107,.05);--gold-line:rgba(200,168,107,.22);
+  --green:#5be0a0;--green-dim:rgba(91,224,160,.1);
+  --red:#e88484;--red-dim:rgba(232,132,132,.1);
+  --amber:#e8c77d;--amber-dim:rgba(232,199,125,.1);
+  --text:rgba(255,255,255,.9);--text-soft:rgba(255,255,255,.72);--text-dim:rgba(255,255,255,.42);--text-ghost:rgba(255,255,255,.1);
+  --line:rgba(255,255,255,.05);--line-strong:rgba(200,168,107,.1);
+  --serif:'Playfair Display','Noto Serif SC',Georgia,serif;
+  --sans:'Inter',-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;
+  --mono:'IBM Plex Mono',monospace;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  font-family:var(--sans);
+  background:
+    radial-gradient(ellipse 60% 40% at 15% 0%, rgba(200,168,107,.07) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 50% at 100% 100%, rgba(200,168,107,.05) 0%, transparent 60%),
+    var(--void);
+  color:var(--text);line-height:1.65;font-size:15px;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;min-height:100vh;
+}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:1;
+  background:radial-gradient(ellipse 80% 70% at 50% 50%, transparent 30%, rgba(0,0,0,.6) 100%)}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.025;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--text-ghost);border-radius:2px}
+.page{max-width:1080px;margin:0 auto;padding:40px 24px 80px;position:relative;z-index:2}
+::selection{background:rgba(200,168,107,.2);color:#fff}
+
+/* ═══════════════════════════════════════════ HERO ═══════════════════════════════════════════ */
+header.top{position:relative;background:linear-gradient(160deg,#0d0f14 0%,#08090c 100%);
+  border:1px solid var(--gold-line);border-radius:2px;padding:48px 48px 36px;overflow:hidden;
+  box-shadow:0 1px 0 rgba(255,255,255,.02) inset,0 30px 80px -20px rgba(200,168,107,.08),0 10px 40px -10px rgba(0,0,0,.8)}
+.hero-mark{position:absolute;top:-60px;right:30px;font-family:var(--serif);font-style:italic;
+  font-weight:700;font-size:300px;line-height:1;color:rgba(200,168,107,.04);pointer-events:none;user-select:none;letter-spacing:-.05em}
+header.top::before{content:'';position:absolute;top:-120px;right:-120px;width:360px;height:360px;
+  border-radius:50%;background:radial-gradient(circle, rgba(200,168,107,.12) 0%, transparent 60%);pointer-events:none}
+header.top::after{content:'';position:absolute;left:0;right:0;bottom:0;height:1px;
+  background:linear-gradient(90deg, transparent 0%, var(--gold) 20%, var(--gold) 80%, transparent 100%);opacity:.4}
+header.top h1{font-family:var(--serif);font-size:38px;font-weight:600;letter-spacing:-.015em;color:#fff;
+  position:relative;text-shadow:0 0 30px rgba(200,168,107,.15)}
+header.top h1 .gold{color:var(--gold);font-style:italic;margin:0 8px}
+header.top .sub{font-family:var(--mono);font-size:10.5px;letter-spacing:.35em;text-transform:uppercase;
+  color:var(--text-dim);margin-top:14px;position:relative}
+.hero-rule{display:flex;align-items:center;gap:14px;margin-top:24px;margin-bottom:20px;position:relative}
+.hero-rule .gold-line{flex:1;height:1px;background:linear-gradient(90deg, var(--gold) 0%, transparent 100%);opacity:.5}
+.hero-rule .label{font-family:var(--mono);font-size:9.5px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);font-weight:500}
+.badges{margin-top:8px;display:flex;gap:10px;flex-wrap:wrap;position:relative}
+.badge{background:rgba(200,168,107,.04);border:1px solid rgba(200,168,107,.18);padding:5px 14px;
+  border-radius:999px;font-size:12px;color:var(--text-soft);font-family:var(--mono);letter-spacing:.03em;transition:all .3s}
+.badge:hover{border-color:rgba(200,168,107,.4);color:var(--gold)}
+.badge.gold{background:linear-gradient(135deg,rgba(200,168,107,.12),rgba(200,168,107,.02));
+  border-color:rgba(200,168,107,.35);color:var(--gold);font-weight:500}
+.badge .gold{color:var(--gold)}
+
+/* ═══════════════════════════════════════════ SECTION HEADS ═══════════════════════════════════════════ */
+section{margin-top:48px}
+.sec-head{display:flex;align-items:center;gap:14px;cursor:pointer;margin-bottom:0;padding-bottom:14px;position:relative}
+.sec-head::after{content:'';position:absolute;left:0;right:0;bottom:0;height:1px;
+  background:linear-gradient(90deg, var(--gold) 0%, rgba(200,168,107,.2) 30%, transparent 70%);opacity:.5}
+.sec-num{font-family:var(--serif);font-style:italic;font-size:14px;font-weight:500;color:var(--gold);
+  letter-spacing:.05em;flex-shrink:0;min-width:30px}
+.sec-title{font-family:var(--serif);font-size:22px;font-weight:500;color:#fff;letter-spacing:-.01em;
+  flex:1;transition:color .3s}
+.sec-head:hover .sec-title{color:var(--gold)}
+.collapse-btn{font-family:var(--mono);font-size:10px;color:var(--gold);letter-spacing:.15em;
+  text-transform:uppercase;font-weight:400;transition:all .3s;flex-shrink:0}
+.collapse-btn::before{content:'—';margin-right:6px;color:var(--gold-deep)}
+.sec-head:hover .collapse-btn{color:var(--gold-light)}
+h2.sec{display:none}
+
+/* ═══════════════════════════════════════════ CARDS ═══════════════════════════════════════════ */
+.card{background:var(--night-2);border:1px solid rgba(200,168,107,.15);border-radius:2px;
+  padding:24px 26px;margin-bottom:16px;position:relative;
+  box-shadow:0 1px 0 rgba(255,255,255,.015) inset,0 1px 0 rgba(200,168,107,.03) inset,0 20px 60px -20px rgba(0,0,0,.6),0 8px 24px -8px rgba(200,168,107,.04)}
+.card::before{content:'';position:absolute;top:0;left:0;width:40px;height:1px;background:var(--gold);opacity:.6}
+h3.blk{font-family:var(--serif);font-size:16px;font-weight:500;margin:0 0 16px;color:var(--text);letter-spacing:-.005em}
+h3.blk::before{content:'';display:inline-block;width:18px;height:1px;background:var(--gold);vertical-align:middle;margin-right:10px;margin-bottom:4px;opacity:.7}
+
+/* ═══════════════════════════════════════════ TABLES ═══════════════════════════════════════════ */
+table{border-collapse:collapse;font-size:13px;width:fit-content}
+th,td{padding:10px 8px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+th{background:transparent;color:var(--gold);font-family:var(--mono);font-size:10px;font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;border-bottom:1px solid rgba(200,168,107,.2);padding-bottom:12px}
+.num-cell{text-align:right;font-variant-numeric:tabular-nums;font-feature-settings:'tnum';white-space:nowrap}
+tbody tr{transition:all .25s ease}
+tbody tr:hover{background:rgba(200,168,107,.03);box-shadow:inset 2px 0 0 var(--gold)}
+tbody tr:last-child td{border-bottom:none}
+.scroll{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;touch-action:pan-x pan-y}
+.scroll>table{min-width:680px}
+@media(max-width:700px){
+  .scroll>table{min-width:540px;font-size:12px}
+  th,td{padding:8px 6px}
+  .num-cell{min-width:52px}
+  .card{padding:14px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .card.scroll{padding-left:0;padding-right:0}
+  .card>table{min-width:520px}
+}
+
+/* ═══════════════════════════════════════════ STATUS ═══════════════════════════════════════════ */
+.ok{color:var(--green);font-weight:500}.dn{color:var(--red);font-weight:500}.amber{color:var(--gold-light);font-weight:500}
+
+/* ═══════════════════════════════════════════ METRIC CARDS ═══════════════════════════════════════════ */
+.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+@media(max-width:700px){.summary-grid{grid-template-columns:1fr}}
+.metric-card{background:linear-gradient(160deg,#0e1016 0%,#0a0b0e 100%);border:1px solid rgba(200,168,107,.2);
+  border-radius:2px;padding:18px 16px;text-align:center;position:relative;transition:all .3s}
+.metric-card:hover{border-color:rgba(200,168,107,.35)}
+.metric-card::before{content:'';position:absolute;top:0;left:20%;right:20%;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.5}
+.metric-card .val{font-family:var(--serif);font-size:26px;font-weight:600;letter-spacing:-.02em;color:var(--gold-light);
+  text-shadow:0 0 20px rgba(200,168,107,.25);line-height:1.1}
+.metric-card .val.dn{text-shadow:0 0 20px rgba(232,132,132,.2)}
+.metric-card .lbl{font-size:10px;color:var(--text-dim);margin-top:8px;font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase}
+.metric-card .val .unit{font-size:14px;color:var(--text-dim);margin-left:4px;font-weight:400}
+
+/* ═══════════════════════════════════════════ WORLD STATE ═══════════════════════════════════════════ */
+.ws-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:10px 0}
+@media(max-width:700px){.ws-grid{grid-template-columns:repeat(2,1fr)}}
+.ws-state{background:var(--night-3);border:1px solid var(--line);border-radius:2px;padding:12px 14px;text-align:center;font-size:12px;transition:all .3s}
+.ws-state.active{border-color:var(--gold);background:var(--gold-glow);box-shadow:0 0 20px rgba(200,168,107,.08),inset 0 0 12px rgba(200,168,107,.05)}
+.ws-state .label{font-family:var(--mono);font-weight:500;font-size:12px;margin-bottom:4px;letter-spacing:.06em;color:var(--gold)}
+.ws-state .desc{font-size:11px;color:var(--text-dim)}
+
+/* ═══════════════════════════════════════════ ACTION ITEMS ═══════════════════════════════════════════ */
+.action-item{display:flex;gap:14px;padding:12px 16px;border-radius:2px;margin-bottom:8px;font-size:13.5px;
+  align-items:flex-start;transition:all .3s;background:var(--night-3)}
+.action-icon{flex-shrink:0;width:34px;height:34px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+  font-size:14px;margin-top:2px;font-family:var(--mono);font-weight:500}
+.ai-add{border:1px solid rgba(91,224,160,.25);border-left:3px solid var(--green);color:var(--green)}
+.ai-sell{border:1px solid rgba(232,132,132,.25);border-left:3px solid var(--red);color:var(--red)}
+.ai-watch{border:1px solid rgba(232,199,125,.25);border-left:3px solid var(--gold);color:var(--gold)}
+.action-item .body{flex:1}.action-item .reason{font-size:12px;color:var(--text-dim);margin-top:4px;line-height:1.5}
+
+/* ═══════════════════════════════════════════ CALLOUTS ═══════════════════════════════════════════ */
+.note{background:rgba(91,224,160,.05);border:1px solid rgba(91,224,160,.15);border-left:3px solid var(--green);
+  color:var(--green);border-radius:2px;padding:12px 16px;font-size:13px;margin-top:14px;line-height:1.6}
+.alert{background:rgba(232,132,132,.05);border:1px solid rgba(232,132,132,.15);border-left:3px solid var(--red);
+  color:var(--red);border-radius:2px;padding:12px 16px;font-size:13px;margin-top:14px;line-height:1.6}
+.warn-bg{background:rgba(232,199,125,.05);border-left:3px solid var(--gold-light);padding:10px 14px;border-radius:2px;font-size:13px;margin:8px 0;color:var(--gold-light);line-height:1.6}
+.focus-bg{background:rgba(200,168,107,.06);border:1px solid rgba(200,168,107,.15);border-left:3px solid var(--gold);
+  padding:12px 16px;border-radius:2px;font-size:13px;margin:8px 0;color:var(--gold-light);line-height:1.6}
+.focus-bg b{color:var(--gold-light)}
+
+/* ═══════════════════════════════════════════ NEWS ═══════════════════════════════════════════ */
+.news{padding:4px 0}.news .item{padding:11px 0;border-bottom:1px solid var(--line)}
+.news .item:last-child{border-bottom:none}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:9px;vertical-align:middle;box-shadow:0 0 6px currentColor}
+.dR{background:var(--green);color:var(--green)}.dY{background:var(--gold);color:var(--gold)}.dK{background:var(--red);color:var(--red)}
+ol.risk{margin:0;padding-left:24px}ol.risk li{margin:8px 0;font-size:13.5px;color:var(--text-soft);line-height:1.6}
+ol.risk li::marker{color:var(--gold);font-family:var(--serif);font-size:14px}
+
+/* ═══════════════════════════════════════════ EV & HEAT ═══════════════════════════════════════════ */
+.ev-best{color:var(--green)}.ev-base{color:var(--gold-light)}.ev-worst{color:var(--red)}
+.ev-result{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--gold-light);text-shadow:0 0 12px rgba(200,168,107,.2)}
+.heat-stars-green{color:var(--green)}.heat-stars-amber{color:var(--gold)}.heat-stars-red{color:var(--red)}.heat-stars-blue{color:var(--gold-deep)}
+.lifecycle-stage{display:inline-block;padding:3px 10px;border-radius:2px;font-size:10.5px;font-weight:500;font-family:var(--mono);letter-spacing:.06em}
+.stage-peak{background:rgba(200,168,107,.08);color:var(--gold-light);border:1px solid rgba(200,168,107,.3)}
+.stage-growth{background:rgba(200,168,107,.04);color:var(--gold);border:1px solid rgba(200,168,107,.2)}
+.stage-birth{background:rgba(255,255,255,.03);color:var(--text-dim);border:1px solid var(--line)}
+.stage-decline{background:rgba(232,199,125,.04);color:var(--gold-deep);border:1px solid rgba(200,168,107,.12)}
+
+/* ═══════════════════════════════════════════ ALLOCATION BAR ═══════════════════════════════════════════ */
+.aa-bar{height:34px;border-radius:2px;background:var(--night-3);overflow:hidden;display:flex;margin:14px 0 10px;border:1px solid rgba(200,168,107,.12)}
+.aa-seg{height:100%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;
+  font-weight:500;font-family:var(--mono);letter-spacing:.06em;border-right:1px solid rgba(5,6,8,.6)}
+.aa-seg:last-child{border-right:none}
+.aa-legend{display:flex;flex-wrap:wrap;gap:14px;font-size:11.5px;color:var(--text-dim);font-family:var(--mono);letter-spacing:.04em}
+.aa-dot{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:middle;box-shadow:0 0 6px currentColor}
+
+/* ═══════════════════════════════════════════ FOOTER ═══════════════════════════════════════════ */
+footer{margin-top:64px;padding-top:28px;text-align:center;color:var(--text-dim);font-size:11px;
+  border-top:1px solid var(--line);font-family:var(--mono);letter-spacing:.18em;text-transform:uppercase;position:relative}
+footer::before{content:'◆';position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:var(--void);padding:0 14px;color:var(--gold);font-size:10px}
+footer a{color:var(--gold);text-decoration:none;border-bottom:1px solid transparent;transition:all .3s}
+footer a:hover{border-bottom-color:var(--gold)}
+footer .footer-line{margin-top:10px;font-size:10px;color:var(--text-ghost);letter-spacing:.3em}
+
+/* ═══════════════════════════════════════════ FUNNEL ═══════════════════════════════════════════ */
+.chart-container{width:100%;height:340px;touch-action:pan-y}
+.chart-container canvas{touch-action:pan-y!important}
+
+@media(max-width:600px){
+  header.top{padding:30px 20px 24px}header.top h1{font-size:25px}
+  .hero-mark{font-size:180px;top:-36px;right:6px}.sec-title{font-size:18px}
+  .page{padding:22px 13px 56px}.card{padding:18px}
+  header.top .sub{letter-spacing:.22em;font-size:9.5px}
+  .hero-rule{gap:10px;margin-top:18px;margin-bottom:16px}
+  section{margin-top:36px}
+  .summary-grid{gap:12px}
+  .metric-card{padding:16px 12px}
+  .metric-card .val{font-size:23px}
+  .metric-card .val .unit{font-size:12px}
+  .action-item{padding:11px 13px;gap:11px;font-size:13px}
+  .action-icon{width:30px;height:30px;font-size:13px}
+  .collapse-btn{font-size:9px;letter-spacing:.1em}
+  .collapse-btn::before{margin-right:3px}
+  footer{letter-spacing:.1em;font-size:10px}
+  footer .footer-line{letter-spacing:.15em;word-break:break-word}
+  .aa-legend{gap:10px;font-size:11px}
+  .ws-state .label{font-size:11px}
+}
+@media(max-width:400px){
+  header.top h1{font-size:22px}
+  .hero-mark{font-size:140px}
+  header.top .sub{letter-spacing:.14em;font-size:9px}
+  .metric-card .val{font-size:21px}
+  .sec-title{font-size:16px}
+  .sec-num{min-width:24px;font-size:13px}
+  .badge{padding:4px 11px;font-size:11px}
+  th,td{padding:7px 5px;font-size:11.5px}
+}
+</style>
+<script>
+function toggle(i){var e=document.getElementById(i),b=document.getElementById(i+'_b');if(e.style.display==='none'){e.style.display='';b.textContent='收起 ▲';}else{e.style.display='none';b.textContent='展开 ▼';}}
+function toggleAlpha(idx){var el=document.getElementById('alpha_'+idx);if(!el)return;if(el.style.display==='none'){el.style.display='';}else{el.style.display='none';}}
+</script>
+</head><body><div class="page">
+
+<header class="top">
+  <div class="hero-mark">A</div>
+  <h1>持仓日报 <span class="gold">·</span> 2026-07-15</h1>
+  <div class="sub">Asset OS · Private Portfolio Report</div>
+  <div class="hero-rule">
+    <span class="label">Confidential</span>
+    <span class="gold-line"></span>
+    <span class="label">Volume 2026-07-15</span>
+  </div>
+  <div class="badges">
+    <span class="badge gold"><span class="gold">●</span> 已投 43.4%</span>
+    <span class="badge">现金 56.6%</span>
+    <span class="badge">总盈亏 -3.93%</span>
+    <span class="badge">🟢 实时行情</span>
+  </div>
+</header>
+
+
+<div style="margin:14px 0;padding:8px 16px;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.42);font-size:12px;line-height:1.5">🕒 数据新鲜度：决策数据 2026-07-15 22:46（当日） · 行情库 2026-07-15（当日） · 报告刷新 22:59</div>
+
+<section>
+<div class="sec-head" onclick="toggle('s1')"><span class="sec-num">01</span><span class="sec-title">💼 持仓明细 · 按池分组</span><span id="s1_b" class="collapse-btn">收起 ▲</span></div>
+<div id="s1"><div class="card scroll"><table><thead><tr><th style="width:7%">代码</th><th style="width:9%">名称</th><th style="width:6%">池</th><th style="width:6%" class="num-cell">股数</th><th style="width:6%" class="num-cell">成本</th><th style="width:6%" class="num-cell">现价</th><th style="width:6%" class="num-cell">涨跌%</th><th style="width:7%" class="num-cell" title="当日主力净流入（亿元）· 绿正红负">主力净流入</th><th style="width:6%" class="num-cell" title="近5日涨跌幅% · 绿正红负">5日涨跌</th><th style="width:8%" class="num-cell" title="当前价在52周区间的百分位（含进度条）">52周位置</th><th style="width:6%" class="num-cell" title="前瞻市盈率 · ≤20绿 / 20-35中性 / >35红">PE(Fwd)</th><th style="width:7%" class="num-cell">市值</th><th style="width:7%" class="num-cell">盈亏%</th><th style="width:8%" class="num-cell">已投</th><th style="width:7%" class="num-cell">仓位%</th><th style="width:7%" class="num-cell">T1价</th><th style="width:7%" class="num-cell">T2价</th><th style="width:7%" class="num-cell" title="止盈目标 ≈ 现价×1.20">目标价</th><th style="width:8%" class="num-cell" title="根据当前价格与T1/T2/T3/止损线计算的操作建议">操作</th></tr></thead><tbody><tr><td colspan='18' style='font-weight:700;color:#C8A86B;background:#13181F;border-bottom:2px solid #C8A86B;padding:10px 12px'><span style='display:inline-block;width:140px'>核心 Core</span><span>目标 300,000</span><span style='margin-left:12px'>已投 176,968</span><span style='margin-left:8px;color:#C8A86B;font-weight:700'>59.0%</span><span style='margin-left:8px'>待投 +123,032</span><span style='margin-left:14px;font-size:14px;letter-spacing:2px;color:#C8A86B'>▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓</span></td></tr>
+<tr><td>601088</td><td><b>中国神华</b></td><td>Core</td><td class='num-cell'>2600</td><td class='num-cell'>41.64</td><td class='ok'>43.69</td><td class='num-cell ok'>+0.62%</td><td class='num-cell dn'>-1.33</td><td class='num-cell ok'>+5.89%</td><td class='num-cell' style='min-width:96px'><div style='display:flex;align-items:center;gap:6px'><span style='font-size:11px' class='amber'>57%</span><div style='position:relative;height:8px;width:64px;background:#0E1218;border-radius:4px;overflow:hidden'><div style='position:absolute;left:0;top:0;height:100%;width:57%;background:var(--gold);opacity:.85'></div></div></div></td><td class='num-cell '>22.2</td><td class='num-cell'>113,594</td><td class='num-cell ok'>+4.92%</td><td class='num-cell'>108,267</td><td class='num-cell' style='font-weight:700;color:var(--gold)'>36.1%</td><td class='num-cell'>—</td><td class='num-cell'>—</td><td class='num-cell' style='color:var(--gold-light)'>52.43</td><td class='num-cell'>—</td></tr>
+<tr><td>600406</td><td><b>国电南瑞</b></td><td>Core</td><td class='num-cell'>1800</td><td class='num-cell'>22.53</td><td class='ok'>22.16</td><td class='num-cell ok'>+0.77%</td><td class='num-cell ok'>+0.02</td><td class='num-cell dn'>-1.55%</td><td class='num-cell' style='min-width:96px'><div style='display:flex;align-items:center;gap:6px'><span style='font-size:11px' class='amber'>15%</span><div style='position:relative;height:8px;width:64px;background:#0E1218;border-radius:4px;overflow:hidden'><div style='position:absolute;left:0;top:0;height:100%;width:15%;background:var(--gold);opacity:.85'></div></div></div></td><td class='num-cell dn'>61.7</td><td class='num-cell'>39,888</td><td class='num-cell dn'>-1.62%</td><td class='num-cell'>40,547</td><td class='num-cell' style='font-weight:700;color:var(--gold)'>13.5%</td><td class='num-cell'>22</td><td class='num-cell'>20</td><td class='num-cell' style='color:var(--gold-light)'>26.59</td><td class='num-cell ' style='font-weight:700;font-size:13px'>● 持仓</td></tr>
+<tr><td>601899</td><td><b>紫金矿业</b></td><td>Core</td><td class='num-cell'>1000</td><td class='num-cell'>28.16</td><td class='dn'>28.83</td><td class='num-cell dn'>-0.79%</td><td class='num-cell ok'>+1.01</td><td class='num-cell ok'>+5.37%</td><td class='num-cell' style='min-width:96px'><div style='display:flex;align-items:center;gap:6px'><span style='font-size:11px' class='amber'>40%</span><div style='position:relative;height:8px;width:64px;background:#0E1218;border-radius:4px;overflow:hidden'><div style='position:absolute;left:0;top:0;height:100%;width:40%;background:var(--gold);opacity:.85'></div></div></div></td><td class='num-cell ok'>9.5</td><td class='num-cell'>28,830</td><td class='num-cell ok'>+2.40%</td><td class='num-cell'>28,155</td><td class='num-cell' style='font-weight:700;color:var(--gold)'>9.4%</td><td class='num-cell'>—</td><td class='num-cell'>—</td><td class='num-cell' style='color:var(--gold-light)'>34.60</td><td class='num-cell'>—</td></tr>
+<tr><td colspan='13' style='text-align:right;font-weight:700;color:#C8A86B;background:#13181F;border-top:2px solid #C8A86B;padding:8px 12px'>核心 Core 小计</td><td class='num-cell' style='font-weight:700;color:#C8A86B'>176,968</td><td class='num-cell' style='font-weight:700;color:var(--gold)'>59.0%</td><td class='num-cell' colspan='4' style='font-size:14px;letter-spacing:2px;color:#C8A86B;background:#13181F'>▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓</td></tr>
+<tr><td colspan='18' style='font-weight:700;color:#b8945b;background:#13181F;border-bottom:2px solid #b8945b;padding:10px 12px'><span style='display:inline-block;width:140px'>成长 Growth</span><span>目标 300,000</span><span style='margin-left:12px'>已投 106,736</span><span style='margin-left:8px;color:#b8945b;font-weight:700'>35.6%</span><span style='margin-left:8px'>待投 +193,264</span><span style='margin-left:14px;font-size:14px;letter-spacing:2px;color:#b8945b'>▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓</span></td></tr>
+<tr><td>688122</td><td><b>西部超导</b></td><td>Growth</td><td class='num-cell'>600</td><td class='num-cell'>57.41</td><td class='ok'>51.21</td><td class='num-cell ok'>+0.57%</td><td class='num-cell dn'>-0.13</td><td class='num-cell dn'>-3.89%</td><td class='num-cell' style='min-width:96px'><div style='display:flex;align-items:center;gap:6px'><span style='font-size:11px' class='ok'>3%</span><div style='position:relative;height:8px;width:64px;background:#0E1218;border-radius:4px;overflow:hidden'><div style='position:absolute;left:0;top:0;height:100%;width:3%;background:var(--green);opacity:.85'></div></div></div></td><td class='num-cell dn'>189.7</td><td class='num-cell'>30,726</td><td class='num-cell dn'>-10.80%</td><td class='num-cell'>34,445</td><td class='num-cell' style='font-weight:700;color:var(--gold)'>11.5%</td><td class='num-cell'>—</td><td class='num-cell'>—</td><td class='num-cell' style='color:var(--gold-light)'>61.45</td><td class='num-cell'>—</td></tr>
+<tr><td>600089</td><td><b>特变电工</b></td><td>Growth</td><td class='num-cell'>1300</td><td class='num-cell'>21.88</td><td class='dn'>19.12</td><td class='num-cell dn'>-0.93%</td><td class='num-cell dn'>-1.51</td><td class='num-cell dn'>-4.64%</td><td class='num-cell' style='min-width:96px'><div style='display:flex;align-items:center;gap:6px'><span style='font-size:11px' class='amber'>35%</span><div style='position:relative;height:8px;width:64px;background:#0E1218;border-radius:4px;overflow:hidden'><div style='position:absolute;left:0;top:0;height:100%;width:35%;background:var(--gold);opacity:.85'></div></div></div></td><td class='num-cell ok'>13.3</td><td class='num-cell'>24,856</td><td class='num-cell dn'>-12.61%</td><td class='num-cell'>28,444</td><td class='num-cell' style='font-weight:700;color:var(--gold)'>9.5%</td><td class='num-cell'>20</td><td class='num-cell'>18</td><td class='num-cell' style='color:var(--gold-light)'>22.94</td><td class='num-cell ok' style='font-weight:700;font-size:13px'>⬆️ buy t1</td></tr>
+<tr><td>600703</td><td><b>三安光电</b></td><td>Growth</td><td class='num-cell'>1500</td><td class='num-cell'>16.56</td><td class='dn'>14.25</td><td class='num-cell dn'>-4.81%</td><td class='num-cell dn'>-2.92</td><td class='num-cell dn'>-14.41%</td><td class='num-cell' style='min-width:96px'><div style='display:flex;align-items:center;gap:6px'><span style='font-size:11px' class='amber'>25%</span><div style='position:relative;height:8px;width:64px;background:#0E1218;border-radius:4px;overflow:hidden'><div style='position:absolute;left:0;top:0;height:100%;width:25%;background:var(--gold);opacity:.85'></div></div></div></td><td class='num-cell dn'>263.3</td><td class='num-cell'>21,375</td><td class='num-cell dn'>-13.93%</td><td class='num-cell'>24,835</td><td class='num-cell' style='font-weight:700;color:var(--gold)'>8.3%</td><td class='num-cell'>—</td><td class='num-cell'>—</td><td class='num-cell' style='color:var(--gold-light)'>17.10</td><td class='num-cell'>—</td></tr>
+<tr><td>300124</td><td><b>汇川技术</b></td><td>Growth</td><td class='num-cell'>300</td><td class='num-cell'>63.37</td><td class='ok'>61.04</td><td class='num-cell ok'>+1.31%</td><td class='num-cell ok'>+1.11</td><td class='num-cell dn'>-3.42%</td><td class='num-cell' style='min-width:96px'><div style='display:flex;align-items:center;gap:6px'><span style='font-size:11px' class='ok'>7%</span><div style='position:relative;height:8px;width:64px;background:#0E1218;border-radius:4px;overflow:hidden'><div style='position:absolute;left:0;top:0;height:100%;width:7%;background:var(--green);opacity:.85'></div></div></div></td><td class='num-cell dn'>40.8</td><td class='num-cell'>18,312</td><td class='num-cell dn'>-3.68%</td><td class='num-cell'>19,011</td><td class='num-cell' style='font-weight:700;color:var(--gold)'>6.3%</td><td class='num-cell'>64</td><td class='num-cell'>60</td><td class='num-cell' style='color:var(--gold-light)'>73.25</td><td class='num-cell ok' style='font-weight:700;font-size:13px'>⬆️ buy t1</td></tr>
+<tr><td colspan='13' style='text-align:right;font-weight:700;color:#b8945b;background:#13181F;border-top:2px solid #b8945b;padding:8px 12px'>成长 Growth 小计</td><td class='num-cell' style='font-weight:700;color:#b8945b'>106,736</td><td class='num-cell' style='font-weight:700;color:var(--gold)'>35.6%</td><td class='num-cell' colspan='4' style='font-size:14px;letter-spacing:2px;color:#b8945b;background:#13181F'>▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓</td></tr>
+<tr><td colspan='18' style='font-weight:700;color:#9c7e4a;background:#13181F;border-bottom:2px solid #9c7e4a;padding:10px 12px'><span style='display:inline-block;width:140px'>战术 Tactical</span><span>目标 100,000</span><span style='margin-left:12px'>已投 32,831</span><span style='margin-left:8px;color:#9c7e4a;font-weight:700'>32.8%</span><span style='margin-left:8px'>待投 +67,169</span><span style='margin-left:14px;font-size:14px;letter-spacing:2px;color:#9c7e4a'>▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓</span></td></tr>
+<tr><td>300229</td><td><b>拓尔思</b></td><td>Tactical</td><td class='num-cell'>1000</td><td class='num-cell'>15.48</td><td class='ok'>13.05</td><td class='num-cell ok'>+3.00%</td><td class='num-cell ok'>+0.18</td><td class='num-cell dn'>-0.76%</td><td class='num-cell' style='min-width:96px'><div style='display:flex;align-items:center;gap:6px'><span style='font-size:11px' class='ok'>4%</span><div style='position:relative;height:8px;width:64px;background:#0E1218;border-radius:4px;overflow:hidden'><div style='position:absolute;left:0;top:0;height:100%;width:4%;background:var(--green);opacity:.85'></div></div></div></td><td class='num-cell'>—</td><td class='num-cell'>13,050</td><td class='num-cell dn'>-15.72%</td><td class='num-cell'>15,485</td><td class='num-cell' style='font-weight:700;color:var(--gold)'>15.5%</td><td class='num-cell'>—</td><td class='num-cell'>—</td><td class='num-cell' style='color:var(--gold-light)'>15.66</td><td class='num-cell'>—</td></tr>
+<tr><td>601216</td><td><b>君正集团</b></td><td>Tactical</td><td class='num-cell'>3000</td><td class='num-cell'>5.78</td><td class='ok'>4.49</td><td class='num-cell ok'>+1.13%</td><td class='num-cell dn'>-0.26</td><td class='num-cell ok'>+2.98%</td><td class='num-cell' style='min-width:96px'><div style='display:flex;align-items:center;gap:6px'><span style='font-size:11px' class='amber'>20%</span><div style='position:relative;height:8px;width:64px;background:#0E1218;border-radius:4px;overflow:hidden'><div style='position:absolute;left:0;top:0;height:100%;width:20%;background:var(--gold);opacity:.85'></div></div></div></td><td class='num-cell ok'>13.2</td><td class='num-cell'>13,470</td><td class='num-cell dn'>-22.35%</td><td class='num-cell'>17,346</td><td class='num-cell' style='font-weight:700;color:var(--gold)'>17.3%</td><td class='num-cell'>6</td><td class='num-cell'>5</td><td class='num-cell' style='color:var(--gold-light)'>5.39</td><td class='num-cell ok' style='font-weight:700;font-size:13px'>⚡ buy t3</td></tr>
+<tr><td colspan='13' style='text-align:right;font-weight:700;color:#9c7e4a;background:#13181F;border-top:2px solid #9c7e4a;padding:8px 12px'>战术 Tactical 小计</td><td class='num-cell' style='font-weight:700;color:#9c7e4a'>32,831</td><td class='num-cell' style='font-weight:700;color:var(--gold)'>32.8%</td><td class='num-cell' colspan='4' style='font-size:14px;letter-spacing:2px;color:#9c7e4a;background:#13181F'>▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓</td></tr>
+<tr><td colspan='13' style='text-align:right;font-weight:800;font-size:14px;background:#1A2029;border-top:2px solid var(--gold);border-bottom:2px solid var(--gold);padding:10px 12px'>三桶总计 | 目标 700,000 | 待投 +383,465</td><td class='num-cell' style='font-weight:800;background:#1A2029;padding:10px 12px'>316,535</td><td class='num-cell' style='font-weight:800;color:var(--gold);background:#1A2029;padding:10px 12px'>45.2%</td><td class='num-cell' colspan='4' style='font-size:14px;letter-spacing:2px;color:var(--gold);background:#1A2029;padding:10px 12px'>▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓</td></tr>
+</tbody></table></div></div>
+</section>
+
+<section>
+<div class='card'><h3 class='blk' style='margin-top:0'>💰 持仓资金动向</h3><div style='display:flex;gap:22px;flex-wrap:wrap;margin:6px 0 12px'><div><span style='color:var(--muted);font-size:12px'>持仓当日主力净流入</span><br><b class='dn' style='font-size:19px'>-3.83 亿</b></div><div><span style='color:var(--muted);font-size:12px'>持仓近5日主力净流入</span><br><b class='dn' style='font-size:19px'>-10.74 亿</b></div></div><table><thead><tr><th>代码</th><th>名称</th><th class='num-cell'>当日净流入(亿)</th><th class='num-cell'>近5日(亿)</th><th class='num-cell'>52周位置</th></tr></thead><tbody><tr><td>300124</td><td><b>汇川技术</b></td><td class='num-cell ok' style='background:rgba(46,204,113,0.19)'>+1.11</td><td class='num-cell dn'>-3.27</td><td class='num-cell'>7%</td></tr>
+<tr><td>601899</td><td><b>紫金矿业</b></td><td class='num-cell ok' style='background:rgba(46,204,113,0.18)'>+1.01</td><td class='num-cell ok'>+20.21</td><td class='num-cell'>40%</td></tr>
+<tr><td>300229</td><td><b>拓尔思</b></td><td class='num-cell ok' style='background:rgba(46,204,113,0.13)'>+0.18</td><td class='num-cell dn'>-0.33</td><td class='num-cell'>4%</td></tr>
+<tr><td>600406</td><td><b>国电南瑞</b></td><td class='num-cell ok' style='background:rgba(46,204,113,0.12)'>+0.02</td><td class='num-cell dn'>-3.22</td><td class='num-cell'>15%</td></tr>
+<tr><td>688122</td><td><b>西部超导</b></td><td class='num-cell dn' style='background:rgba(231,76,60,0.13)'>-0.13</td><td class='num-cell dn'>-1.52</td><td class='num-cell'>3%</td></tr>
+<tr><td>601216</td><td><b>君正集团</b></td><td class='num-cell dn' style='background:rgba(231,76,60,0.14)'>-0.26</td><td class='num-cell dn'>-0.67</td><td class='num-cell'>20%</td></tr>
+<tr><td>601088</td><td><b>中国神华</b></td><td class='num-cell dn' style='background:rgba(231,76,60,0.20)'>-1.33</td><td class='num-cell ok'>+1.62</td><td class='num-cell'>57%</td></tr>
+<tr><td>600089</td><td><b>特变电工</b></td><td class='num-cell dn' style='background:rgba(231,76,60,0.21)'>-1.51</td><td class='num-cell dn'>-9.87</td><td class='num-cell'>35%</td></tr>
+<tr><td>600703</td><td><b>三安光电</b></td><td class='num-cell dn' style='background:rgba(231,76,60,0.30)'>-2.92</td><td class='num-cell dn'>-13.69</td><td class='num-cell'>25%</td></tr>
+</tbody></table></div>
+</section>
+
+<section>
+<div class="sec-head" onclick="toggle('s2')"><span class="sec-num">02</span><span class="sec-title">⚡ 今日速览 & 立即行动</span><span id="s2_b" class="collapse-btn">收起 ▲</span></div>
+<div id="s2">
+<div style='margin-bottom:20px'><h3 class='blk' style='font-size:15px;color:var(--green);margin-bottom:12px'>🔥 资金流先行信号（主力已进场）</h3><div class='action-item ai-add'><div class='action-icon' style='font-size:16px'>🤑</div><div class='body'><b>新易盛</b> (300502)<div style='font-size:12px;margin-top:4px'>现价 <b>556.00</b> · 主力5日净流入 <b style='color:var(--green)'>+53.0亿</b> · 吸引力 <b>55.1</b></div><div style='font-size:11px;color:var(--text-dim);margin-top:4px'>行业: 通信 · 52周位置: 88% ▓▓▓▓▓▓▓▓▓▓</div><div class='reason' style='margin-top:4px'>建议：现价接近T3可分批建仓</div></div></div>
+<div class='action-item ai-add'><div class='action-icon' style='font-size:16px'>🤑</div><div class='body'><b>天孚通信</b> (300394)<div style='font-size:12px;margin-top:4px'>现价 <b>259.40</b> · 主力5日净流入 <b style='color:var(--green)'>+25.5亿</b> · 吸引力 <b>46.5</b></div><div style='font-size:11px;color:var(--text-dim);margin-top:4px'>行业: 通信 · 52周位置: 63% ▓▓▓▓▓▓▓▓▓▓</div><div class='reason' style='margin-top:4px'>建议：现价接近T3可分批建仓</div></div></div>
+<div class='action-item ai-add'><div class='action-icon' style='font-size:16px'>🤑</div><div class='body'><b>沪电股份</b> (002463)<div style='font-size:12px;margin-top:4px'>现价 <b>137.23</b> · 主力5日净流入 <b style='color:var(--green)'>+19.8亿</b> · 吸引力 <b>52.6</b></div><div style='font-size:11px;color:var(--text-dim);margin-top:4px'>行业: 电子 · 52周位置: 81% ▓▓▓▓▓▓▓▓▓▓</div><div class='reason' style='margin-top:4px'>建议：现价接近T3可分批建仓</div></div></div>
+<div class='action-item ai-add'><div class='action-icon' style='font-size:16px'>🤑</div><div class='body'><b>比亚迪</b> (002594)<div style='font-size:12px;margin-top:4px'>现价 <b>91.76</b> · 主力5日净流入 <b style='color:var(--green)'>+16.1亿</b> · 吸引力 <b>59.3</b></div><div style='font-size:11px;color:var(--text-dim);margin-top:4px'>行业: 汽车 · 52周位置: 36% ▓▓▓▓▓▓▓▓▓▓</div><div class='reason' style='margin-top:4px'>建议：现价接近T3可分批建仓</div></div></div>
+<div class='action-item ai-add'><div class='action-icon' style='font-size:16px'>🤑</div><div class='body'><b>药明康德</b> (603259)<div style='font-size:12px;margin-top:4px'>现价 <b>131.50</b> · 主力5日净流入 <b style='color:var(--green)'>+16.1亿</b> · 吸引力 <b>62.5</b></div><div style='font-size:11px;color:var(--text-dim);margin-top:4px'>行业: 医药生物 · 52周位置: 94% ▓▓▓▓▓▓▓▓▓▓</div><div class='reason' style='margin-top:4px'>建议：现价接近T3可分批建仓</div></div></div>
+</div><div style='margin-bottom:20px'><h3 class='blk' style='font-size:15px;color:var(--amber);margin-bottom:12px'>💰 行业资金轮动（板块机会）</h3><div class='action-item'><div class='action-icon' style='font-size:16px'>📈</div><div class='body'><b>宇通客车</b> (600066)<div style='font-size:12px;margin-top:4px'>现价 <b>29.16</b> · 行业 <b>汽车</b> · 吸引力 <b>64.7</b></div><div style='font-size:11px;color:var(--text-dim);margin-top:4px'>主力5日净流入 <b>0.8亿</b> · 5日涨跌 <b>+1.4%</b></div><div class='reason' style='margin-top:4px'>建议：板块资金持续流入，关注板块内标的</div></div></div>
+<div class='action-item'><div class='action-icon' style='font-size:16px'>📈</div><div class='body'><b>爱尔眼科</b> (300015)<div style='font-size:12px;margin-top:4px'>现价 <b>8.88</b> · 行业 <b>医药生物</b> · 吸引力 <b>59.8</b></div><div style='font-size:11px;color:var(--text-dim);margin-top:4px'>主力5日净流入 <b>-0.5亿</b> · 5日涨跌 <b>+8.4%</b></div><div class='reason' style='margin-top:4px'>建议：板块资金持续流入，关注板块内标的</div></div></div>
+<div class='action-item'><div class='action-icon' style='font-size:16px'>📈</div><div class='body'><b>凯普生物</b> (300639)<div style='font-size:12px;margin-top:4px'>现价 <b>5.57</b> · 行业 <b>医药生物</b> · 吸引力 <b>56.1</b></div><div style='font-size:11px;color:var(--text-dim);margin-top:4px'>主力5日净流入 <b>0.1亿</b> · 5日涨跌 <b>+10.1%</b></div><div class='reason' style='margin-top:4px'>建议：板块资金持续流入，关注板块内标的</div></div></div>
+<div class='action-item'><div class='action-icon' style='font-size:16px'>📈</div><div class='body'><b>拓普集团</b> (601689)<div style='font-size:12px;margin-top:4px'>现价 <b>54.50</b> · 行业 <b>汽车</b> · 吸引力 <b>55.9</b></div><div style='font-size:11px;color:var(--text-dim);margin-top:4px'>主力5日净流入 <b>-3.7亿</b> · 5日涨跌 <b>-0.4%</b></div><div class='reason' style='margin-top:4px'>建议：板块资金持续流入，关注板块内标的</div></div></div>
+</div>
+<div class="summary-grid">
+  <div>
+    <div class="card"><h3 class="blk" style="margin-top:0">📊 关键指标</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div class="metric-card"><div class="val">56.6%</div><div class="lbl">手持现金</div></div>
+        <div class="metric-card"><div class="val dn">-3.93%</div><div class="lbl">总浮盈</div></div>
+        <div class="metric-card"><div class="val dn">219,731</div><div class="lbl">成长桶缺口</div></div>
+        <div class="metric-card"><div class="val" style="color:var(--gold-deep)">🧠 AI</div><div class="lbl">今日聚焦</div></div>
+      </div>
+    </div>
+    <div class="card"><h3 class="blk" style="margin-top:0">⚠️ Top 3 风险</h3><ol class="risk"><li><b>美联储官员称AI需求对通胀构成上行压力，利率高位维持更久，对汇川技术、国电南瑞等依赖制造业景气的高端制造标的构成估值压力。</b></li>
+<li><b>半导体产业链全线下跌，科创50跌超4%，存储个股德明利业绩暴增却一字跌停，显示板块内部严重分化，需警惕三安光电持仓风险。</b></li>
+<li><b>国际油价及资源品波动加剧，紫金矿业、神火股份等资源股受全球流动性紧缩预期压制，叠加通胀韧性，短期或继续承压。</b></li>
+</ol></div>
+  </div>
+  <div class="card"><h3 class="blk" style="margin-top:0">🎯 配置进度</h3><table><tr><th>桶</th><th>目标</th><th>已投</th><th>填充率</th><th>待投</th></tr><tr><td>核心 Core</td><td class='num-cell'>300,000</td><td class='num-cell'>176968</td><td>59.0%</td><td class='dn'>+123,032</td></tr>
+<tr><td>成长 Growth</td><td class='num-cell'>300,000</td><td class='num-cell'>106736</td><td>35.6%</td><td class='dn'>+193,264</td></tr>
+<tr><td>战术 Tactical</td><td class='num-cell'>100,000</td><td class='num-cell'>32831</td><td>32.8%</td><td class='dn'>+67,169</td></tr>
+</table></div>
+</div>
+<div class="card" style="font-size:14px;color:var(--text-dim)">候场区 51 只 · <span class="ok">31 涨</span> · <span class="dn">20 跌</span> · <span class="ok">↑ 强势</span></div>
+</div>
+</section>
+
+<section>
+<div class="sec-head" onclick="toggle('s3')"><span class="sec-num">03</span><span class="sec-title">🎯 Driver 配置 · 按能力模块</span><span id="s3_b" class="collapse-btn">展开 ▼</span></div>
+<div id="s3" style="display:none"><div class="card scroll"><table><thead><tr><th>能力模块</th><th>Driver</th><th>持有</th><th>持仓额</th><th>仓位%</th><th>状态</th></tr></thead><tbody><tr><td><b>传统能源/红利</b></td><td style='font-size:12px;color:var(--text-dim)'>传统能源/红利</td><td style='font-size:12px'>中国神华</td><td class='num-cell'>113,594</td><td class='num-cell'>37.4%</td><td><span class="dn">超配</span> <span style='font-size:11px;color:var(--text-dim)'>目标10%</span></td></tr>
+<tr><td><b>Energy</b></td><td style='font-size:12px;color:var(--text-dim)'>高端制造/电网, 资源/通胀对冲, 化工周期</td><td style='font-size:12px'>国电南瑞, 紫金矿业, 君正集团</td><td class='num-cell'>82,188</td><td class='num-cell'>27.0%</td><td><span class="dn">超配</span> <span style='font-size:11px;color:var(--text-dim)'>目标15%</span></td></tr>
+<tr><td><b>高端制造/军工</b></td><td style='font-size:12px;color:var(--text-dim)'>高端制造/军工</td><td style='font-size:12px'>西部超导</td><td class='num-cell'>30,726</td><td class='num-cell'>10.1%</td><td><span class="amber">均衡</span> <span style='font-size:11px;color:var(--text-dim)'>目标10%</span></td></tr>
+<tr><td><b>高端制造/电力出海</b></td><td style='font-size:12px;color:var(--text-dim)'>高端制造/电力出海</td><td style='font-size:12px'>特变电工</td><td class='num-cell'>24,856</td><td class='num-cell'>8.2%</td><td><span class="amber">均衡</span> <span style='font-size:11px;color:var(--text-dim)'>目标10%</span></td></tr>
+<tr><td><b>AI Compute</b></td><td style='font-size:12px;color:var(--text-dim)'>半导体国产替代, AI算力</td><td style='font-size:12px'>三安光电, 拓尔思</td><td class='num-cell'>34,425</td><td class='num-cell'>11.3%</td><td><span class="amber">均衡</span> <span style='font-size:11px;color:var(--text-dim)'>目标15%</span></td></tr>
+<tr><td><b>Manipulation/Motion</b></td><td style='font-size:12px;color:var(--text-dim)'>物理AI</td><td style='font-size:12px'>汇川技术</td><td class='num-cell'>18,312</td><td class='num-cell'>6.0%</td><td><span class="ok">低配</span> <span style='font-size:11px;color:var(--text-dim)'>目标15%</span></td></tr>
+</tbody></table></div></div>
+</section>
+
+<section>
+<div class="sec-head" onclick="toggle('s17')"><span class="sec-num">04</span><span class="sec-title">⚡ 需要立即行动 · T1/T2/T3 触发</span><span id="s17_b" class="collapse-btn">展开 ▼</span></div>
+<div id="s17" style="display:none"><div class="card scroll"><table><thead><tr><th style="width:5%">P</th><th style="width:8%">代码</th><th style="width:10%">名称</th><th style="width:8%">Driver</th><th style="width:10%">赛道</th><th style="width:7%" class="num-cell">现价</th><th style="width:7%" class="num-cell">涨跌%</th><th style="width:6%" class="num-cell">T1</th><th style="width:6%" class="num-cell">T2</th><th style="width:6%" class="num-cell">T3</th><th style="width:8%">触发</th><th style="width:6%" class="num-cell">止盈T1</th><th style="width:6%" class="num-cell">止盈T2</th><th style="width:6%" class="num-cell">止损</th><th>备注</th></tr></thead><tbody><tr><td><b class=''>P1</b></td><td>000933</td><td><b>神火股份</b></td><td>—</td><td>—</td><td class='num-cell'>25.51</td><td class='num-cell ok'>+3.36%</td><td class='num-cell'>26</td><td class='num-cell'>23</td><td class='num-cell'>20</td><td class='ok'>低估·买入</td><td class='num-cell'>31</td><td class='num-cell'>36</td><td class='num-cell'>23</td><td style='font-size:12px'>VPE合理价≈37.26（driver=coal_copper，缺口-0.461，置信度高）；当前价25.51；结论【低</td></tr>
+<tr><td><b class=''>P1</b></td><td>601318</td><td><b>中国平安</b></td><td>—</td><td>Digital Finance</td><td class='num-cell'>50.95</td><td class='num-cell ok'>+2.72%</td><td class='num-cell'>51</td><td class='num-cell'>46</td><td class='num-cell'>41</td><td class='ok'>低估·买入</td><td class='num-cell'>61</td><td class='num-cell'>71</td><td class='num-cell'>47</td><td style='font-size:12px'>VPE合理价≈74.96（driver=bank，缺口-0.471，置信度中）；当前价50.95；结论【低估】</td></tr>
+<tr><td><b class=''>P1</b></td><td>000807</td><td><b>云铝股份</b></td><td>—</td><td>—</td><td class='num-cell'>26.10</td><td class='num-cell ok'>+4.48%</td><td class='num-cell'>26</td><td class='num-cell'>23</td><td class='num-cell'>21</td><td class='ok'>低估·买入</td><td class='num-cell'>31</td><td class='num-cell'>37</td><td class='num-cell'>24</td><td style='font-size:12px'>VPE合理价≈37.54（driver=coal_copper，缺口-0.438，置信度高）；当前价26.1；结论【低估</td></tr>
+<tr><td><b class=''>P1</b></td><td>000651</td><td><b>格力电器</b></td><td>—</td><td>Energy</td><td class='num-cell'>39.83</td><td class='num-cell ok'>+1.66%</td><td class='num-cell'>40</td><td class='num-cell'>36</td><td class='num-cell'>32</td><td class='ok'>低估·买入</td><td class='num-cell'>48</td><td class='num-cell'>56</td><td class='num-cell'>37</td><td style='font-size:12px'>VPE合理价≈48.61（driver=consumer，缺口-11.602，置信度高）；当前价39.83；结论【低估】</td></tr>
+<tr><td><b class='ok'>P0</b></td><td>603444</td><td><b>吉比特</b></td><td>—</td><td>—</td><td class='num-cell'>366.44</td><td class='num-cell ok'>+7.87%</td><td class='num-cell'>366</td><td class='num-cell'>330</td><td class='num-cell'>293</td><td class='ok'>低估·买入</td><td class='num-cell'>440</td><td class='num-cell'>513</td><td class='num-cell'>337</td><td style='font-size:12px'>VPE合理价≈562.89（driver=consumer，缺口-30.678，置信度高）；当前价366.44；结论【低</td></tr>
+<tr><td><b class=''>P1</b></td><td>600887</td><td><b>伊利股份</b></td><td>—</td><td>品牌</td><td class='num-cell'>25.93</td><td class='num-cell ok'>+2.57%</td><td class='num-cell'>26</td><td class='num-cell'>23</td><td class='num-cell'>21</td><td class='ok'>低估·买入</td><td class='num-cell'>31</td><td class='num-cell'>36</td><td class='num-cell'>24</td><td style='font-size:12px'>VPE合理价≈37.13（driver=consumer，缺口-15.342，置信度高）；当前价25.93；结论【低估】</td></tr>
+<tr><td><b class='amber'>P2</b></td><td>600036</td><td><b>招商银行</b></td><td>—</td><td>Digital Finance</td><td class='num-cell'>37.76</td><td class='num-cell ok'>+1.56%</td><td class='num-cell'>38</td><td class='num-cell'>34</td><td class='num-cell'>30</td><td class='dn'>高估·BUY_WATCH</td><td class='num-cell'>45</td><td class='num-cell'>53</td><td class='num-cell'>35</td><td style='font-size:12px'>VPE合理价≈21.67（driver=bank，缺口0.426，置信度高）；当前价37.76；结论【高估】</td></tr>
+<tr><td><b class=''>P1</b></td><td>000975</td><td><b>山金国际</b></td><td>—</td><td>—</td><td class='num-cell'>19.34</td><td class='num-cell dn'>-2.81%</td><td class='num-cell'>19</td><td class='num-cell'>17</td><td class='num-cell'>15</td><td class='ok'>低估·买入</td><td class='num-cell'>23</td><td class='num-cell'>27</td><td class='num-cell'>18</td><td style='font-size:12px'>VPE合理价≈26.49（driver=precious_metal，缺口-0.371，置信度中）；当前价19.34；结</td></tr>
+<tr><td><b class=''>P1</b></td><td>601216</td><td><b>君正集团</b></td><td>—</td><td>化工周期</td><td class='num-cell'>4.49</td><td class='num-cell ok'>+1.13%</td><td class='num-cell'>4</td><td class='num-cell'>4</td><td class='num-cell'>4</td><td class='ok'>低估·加仓</td><td class='num-cell'>5</td><td class='num-cell'>6</td><td class='num-cell'>4</td><td style='font-size:12px'>VPE合理价≈6.13（driver=utility，缺口-0.366，置信度中）；当前价4.49；结论【低估】</td></tr>
+<tr><td><b class='amber'>P2</b></td><td>600066</td><td><b>宇通客车</b></td><td>电控</td><td>Autonomous Systems</td><td class='num-cell'>29.16</td><td class='num-cell ok'>+1.78%</td><td class='num-cell'>29</td><td class='num-cell'>26</td><td class='num-cell'>23</td><td class='dn'>高估·BUY_WATCH</td><td class='num-cell'>35</td><td class='num-cell'>41</td><td class='num-cell'>27</td><td style='font-size:12px'>VPE合理价≈17.91（driver=ev_control，缺口0.232，置信度中）；当前价29.16；结论【高估】</td></tr>
+<tr><td><b class=''>P1</b></td><td>600089</td><td><b>特变电工</b></td><td>—</td><td>高端制造/电力出海</td><td class='num-cell'>19.12</td><td class='num-cell dn'>-0.93%</td><td class='num-cell'>19</td><td class='num-cell'>17</td><td class='num-cell'>15</td><td class='ok'>低估·加仓</td><td class='num-cell'>23</td><td class='num-cell'>27</td><td class='num-cell'>18</td><td style='font-size:12px'>VPE合理价≈44.85（driver=utility，缺口-1.346，置信度中）；当前价19.12；结论【低估】</td></tr>
+<tr><td><b class=''>P1</b></td><td>601899</td><td><b>紫金矿业</b></td><td>—</td><td>Energy</td><td class='num-cell'>28.83</td><td class='num-cell dn'>-0.79%</td><td class='num-cell'>29</td><td class='num-cell'>26</td><td class='num-cell'>23</td><td class='ok'>低估·加仓</td><td class='num-cell'>35</td><td class='num-cell'>40</td><td class='num-cell'>27</td><td style='font-size:12px'>VPE合理价≈34.79（driver=coal_copper，缺口-4.568，置信度高）；当前价28.83；结论【低</td></tr>
+<tr><td><b class='amber'>P2</b></td><td>601168</td><td><b>西部矿业</b></td><td>—</td><td>—</td><td class='num-cell'>33.18</td><td class='num-cell ok'>+0.03%</td><td class='num-cell'>33</td><td class='num-cell'>30</td><td class='num-cell'>27</td><td class='dn'>高估·BUY_WATCH</td><td class='num-cell'>40</td><td class='num-cell'>46</td><td class='num-cell'>31</td><td style='font-size:12px'>VPE合理价≈27.84（driver=coal_copper，缺口0.161，置信度高）；当前价33.18；结论【高估</td></tr>
+<tr><td><b class='amber'>P2</b></td><td>603993</td><td><b>洛阳钼业</b></td><td>—</td><td>—</td><td class='num-cell'>17.91</td><td class='num-cell dn'>-1.65%</td><td class='num-cell'>18</td><td class='num-cell'>16</td><td class='num-cell'>14</td><td class='amber'>合理·BUY_WATCH</td><td class='num-cell'>21</td><td class='num-cell'>25</td><td class='num-cell'>16</td><td style='font-size:12px'>VPE合理价≈16.94（driver=coal_copper，缺口0.054，置信度高）；当前价17.91；结论【合理</td></tr>
+<tr><td><b class='amber'>P2</b></td><td>603259</td><td><b>药明康德</b></td><td>—</td><td>Healthcare</td><td class='num-cell'>131.50</td><td class='num-cell ok'>+3.13%</td><td class='num-cell'>132</td><td class='num-cell'>118</td><td class='num-cell'>105</td><td class='amber'>合理·BUY_WATCH</td><td class='num-cell'>158</td><td class='num-cell'>184</td><td class='num-cell'>121</td><td style='font-size:12px'>VPE合理价≈166.33（driver=healthcare，缺口0.062，置信度中）；当前价131.5；结论【合理</td></tr>
+<tr><td><b class='amber'>P2</b></td><td>601088</td><td><b>中国神华</b></td><td>—</td><td>传统能源/红利</td><td class='num-cell'>43.69</td><td class='num-cell ok'>+0.62%</td><td class='num-cell'>44</td><td class='num-cell'>39</td><td class='num-cell'>35</td><td class='dn'>高估·BUY_WATCH</td><td class='num-cell'>52</td><td class='num-cell'>61</td><td class='num-cell'>40</td><td style='font-size:12px'>VPE合理价≈33.33（driver=utility，缺口0.237，置信度中）；当前价43.69；结论【高估】</td></tr>
+<tr><td><b class=''>P1</b></td><td>600519</td><td><b>贵州茅台</b></td><td>—</td><td>品牌</td><td class='num-cell'>1251.06</td><td class='num-cell ok'>+2.98%</td><td class='num-cell'>1251</td><td class='num-cell'>1126</td><td class='num-cell'>1001</td><td class='ok'>低估·买入</td><td class='num-cell'>1501</td><td class='num-cell'>1751</td><td class='num-cell'>1151</td><td style='font-size:12px'>VPE合理价≈1323.17（driver=consumer，缺口-11.566，置信度高）；当前价1251.06；结论</td></tr>
+<tr><td><b class='ok'>P0</b></td><td>601138</td><td><b>工业富联</b></td><td>AI算力</td><td>AI Infrastructure</td><td class='num-cell'>63.62</td><td class='num-cell dn'>-3.02%</td><td class='num-cell'>64</td><td class='num-cell'>57</td><td class='num-cell'>51</td><td class='ok'>低估·买入</td><td class='num-cell'>76</td><td class='num-cell'>89</td><td class='num-cell'>59</td><td style='font-size:12px'>VPE合理价≈191.04（driver=ai_compute，缺口-2.003，置信度高）；当前价63.62；结论【低</td></tr>
+<tr><td><b class='amber'>P2</b></td><td>600406</td><td><b>国电南瑞</b></td><td>—</td><td>高端制造/电网</td><td class='num-cell'>22.16</td><td class='num-cell ok'>+0.77%</td><td class='num-cell'>22</td><td class='num-cell'>20</td><td class='num-cell'>18</td><td class='dn'>高估·加仓</td><td class='num-cell'>27</td><td class='num-cell'>31</td><td class='num-cell'>20</td><td style='font-size:12px'>VPE合理价≈33.49（driver=utility，缺口0.274，置信度高）；当前价22.16；结论【高估】</td></tr>
+<tr><td><b class='amber'>P2</b></td><td>300015</td><td><b>爱尔眼科</b></td><td>—</td><td>Healthcare</td><td class='num-cell'>8.88</td><td class='num-cell ok'>+5.71%</td><td class='num-cell'>9</td><td class='num-cell'>8</td><td class='num-cell'>7</td><td class='dn'>高估·BUY_WATCH</td><td class='num-cell'>11</td><td class='num-cell'>12</td><td class='num-cell'>8</td><td style='font-size:12px'>VPE合理价≈5.58（driver=healthcare，缺口0.371，置信度中）；当前价8.88；结论【高估】</td></tr>
+<tr><td><b class='amber'>P2</b></td><td>002594</td><td><b>比亚迪</b></td><td>电控</td><td>Autonomous Systems</td><td class='num-cell'>91.76</td><td class='num-cell ok'>+1.75%</td><td class='num-cell'>92</td><td class='num-cell'>83</td><td class='num-cell'>73</td><td class='amber'>合理·BUY_WATCH</td><td class='num-cell'>110</td><td class='num-cell'>128</td><td class='num-cell'>84</td><td style='font-size:12px'>VPE合理价≈90.87（driver=ev_control，缺口-0.013，置信度中）；当前价91.76；结论【合理</td></tr>
+<tr><td><b class='amber'>P2</b></td><td>300274</td><td><b>阳光电源</b></td><td>—</td><td>Energy</td><td class='num-cell'>108.95</td><td class='num-cell ok'>+0.61%</td><td class='num-cell'>109</td><td class='num-cell'>98</td><td class='num-cell'>87</td><td class='dn'>高估·BUY_WATCH</td><td class='num-cell'>131</td><td class='num-cell'>153</td><td class='num-cell'>100</td><td style='font-size:12px'>VPE合理价≈110.50（driver=utility，缺口0.509，置信度中）；当前价108.95；结论【高估】</td></tr>
+<tr><td><b class='amber'>P2</b></td><td>002475</td><td><b>立讯精密</b></td><td>AI算力</td><td>Perception</td><td class='num-cell'>60.47</td><td class='num-cell dn'>-1.95%</td><td class='num-cell'>60</td><td class='num-cell'>54</td><td class='num-cell'>48</td><td class='amber'>合理·BUY_WATCH</td><td class='num-cell'>73</td><td class='num-cell'>85</td><td class='num-cell'>56</td><td style='font-size:12px'>VPE合理价≈51.73（driver=ai_compute，缺口0.145，置信度高）；当前价60.47；结论【合理】</td></tr>
+<tr><td><b class='amber'>P2</b></td><td>300639</td><td><b>凯普生物</b></td><td>—</td><td>AI Software</td><td class='num-cell'>5.57</td><td class='num-cell ok'>+3.34%</td><td class='num-cell'>6</td><td class='num-cell'>5</td><td class='num-cell'>4</td><td class='amber'>未知·BUY_WATCH</td><td class='num-cell'>7</td><td class='num-cell'>8</td><td class='num-cell'>5</td><td style='font-size:12px'>（FAIR_PE=25.0，缺口 None）；当前价5.57；PEG=N/A；结论【未知】</td></tr>
+<tr><td><b class='amber'>P2</b></td><td>601689</td><td><b>拓普集团</b></td><td>机器人</td><td>Manipulation</td><td class='num-cell'>54.50</td><td class='num-cell ok'>+0.26%</td><td class='num-cell'>54</td><td class='num-cell'>49</td><td class='num-cell'>44</td><td class='dn'>高估·BUY_WATCH</td><td class='num-cell'>65</td><td class='num-cell'>76</td><td class='num-cell'>50</td><td style='font-size:12px'>VPE合理价≈25.32（driver=robot，缺口0.415，置信度中）；当前价54.5；结论【高估】</td></tr>
+<tr><td><b class='amber'>P2</b></td><td>600797</td><td><b>浙大网新</b></td><td>AI软件</td><td>AI Software</td><td class='num-cell'>6.31</td><td class='num-cell ok'>+1.77%</td><td class='num-cell'>6</td><td class='num-cell'>6</td><td class='num-cell'>5</td><td class='amber'>合理·BUY_WATCH</td><td class='num-cell'>8</td><td class='num-cell'>9</td><td class='num-cell'>6</td><td style='font-size:12px'>VPE合理价≈5.40（driver=ai_software，缺口0.144，置信度高）；当前价6.31；结论【合理】</td></tr>
+<tr><td><b class=''>P1</b></td><td>300124</td><td><b>汇川技术</b></td><td>工业自动化</td><td>Motion</td><td class='num-cell'>61.04</td><td class='num-cell ok'>+1.31%</td><td class='num-cell'>61</td><td class='num-cell'>55</td><td class='num-cell'>49</td><td class='dn'>高估·加仓</td><td class='num-cell'>73</td><td class='num-cell'>85</td><td class='num-cell'>56</td><td style='font-size:12px'>VPE合理价≈29.12（driver=robot，缺口0.406，置信度中）；当前价61.04；结论【高估】</td></tr>
+<tr><td><b class='ok'>P0</b></td><td>300502</td><td><b>新易盛</b></td><td>AI算力</td><td>AI Infrastructure</td><td class='num-cell'>556.00</td><td class='num-cell dn'>-2.25%</td><td class='num-cell'>556</td><td class='num-cell'>500</td><td class='num-cell'>445</td><td class='ok'>低估·买入</td><td class='num-cell'>667</td><td class='num-cell'>778</td><td class='num-cell'>512</td><td style='font-size:12px'>VPE合理价≈1490.04（driver=ai_compute，缺口-1.680，置信度高）；当前价556.0；结论【</td></tr>
+<tr><td><b class='amber'>P2</b></td><td>600588</td><td><b>用友网络</b></td><td>AI软件</td><td>AI Software</td><td class='num-cell'>9.31</td><td class='num-cell ok'>+1.20%</td><td class='num-cell'>9</td><td class='num-cell'>8</td><td class='num-cell'>7</td><td class='dn'>高估·BUY_WATCH</td><td class='num-cell'>11</td><td class='num-cell'>13</td><td class='num-cell'>9</td><td style='font-size:12px'>VPE合理价≈3.42（driver=ai_software，缺口0.633，置信度高）；当前价9.31；结论【高估】</td></tr>
+<tr><td><b class=''>P1</b></td><td>600703</td><td><b>三安光电</b></td><td>AI算力</td><td>半导体国产替代</td><td class='num-cell'>14.25</td><td class='num-cell dn'>-4.81%</td><td class='num-cell'>14</td><td class='num-cell'>13</td><td class='num-cell'>11</td><td class='dn'>高估·加仓</td><td class='num-cell'>17</td><td class='num-cell'>20</td><td class='num-cell'>13</td><td style='font-size:12px'>VPE合理价≈4.66（driver=ai_compute，缺口0.795，置信度低）；当前价14.25；结论【高估】</td></tr>
+<tr><td><b class='amber'>P2</b></td><td>300229</td><td><b>拓尔思</b></td><td>AI算力</td><td>AI算力</td><td class='num-cell'>13.05</td><td class='num-cell ok'>+3.00%</td><td class='num-cell'>13</td><td class='num-cell'>12</td><td class='num-cell'>10</td><td class='dn'>高估·加仓</td><td class='num-cell'>16</td><td class='num-cell'>18</td><td class='num-cell'>12</td><td style='font-size:12px'>VPE合理价≈0.60（driver=ai_compute，缺口0.954，置信度中）；当前价13.05；结论【高估】</td></tr>
+<tr><td><b class='amber'>P2</b></td><td>688568</td><td><b>中科星图</b></td><td>AI软件</td><td>AI Software</td><td class='num-cell'>34.31</td><td class='num-cell dn'>-1.07%</td><td class='num-cell'>34</td><td class='num-cell'>31</td><td class='num-cell'>27</td><td class='dn'>高估·BUY_WATCH</td><td class='num-cell'>41</td><td class='num-cell'>48</td><td class='num-cell'>32</td><td style='font-size:12px'>VPE合理价≈2.01（driver=ai_software，缺口0.942，置信度高）；当前价34.31；结论【高估】</td></tr>
+<tr><td><b class='amber'>P2</b></td><td>002050</td><td><b>三花智控</b></td><td>电控</td><td>Manipulation</td><td class='num-cell'>41.50</td><td class='num-cell dn'>-0.38%</td><td class='num-cell'>42</td><td class='num-cell'>37</td><td class='num-cell'>33</td><td class='dn'>高估·BUY_WATCH</td><td class='num-cell'>50</td><td class='num-cell'>58</td><td class='num-cell'>38</td><td style='font-size:12px'>VPE合理价≈6.33（driver=ev_control，缺口0.790，置信度中）；当前价41.5；结论【高估】</td></tr>
+<tr><td><b class='amber'>P2</b></td><td>002463</td><td><b>沪电股份</b></td><td>AI算力</td><td>AI Infrastructure</td><td class='num-cell'>137.23</td><td class='num-cell ok'>+0.07%</td><td class='num-cell'>137</td><td class='num-cell'>124</td><td class='num-cell'>110</td><td class='amber'>合理·BUY_WATCH</td><td class='num-cell'>165</td><td class='num-cell'>192</td><td class='num-cell'>126</td><td style='font-size:12px'>VPE合理价≈155.02（driver=ai_compute，缺口0.075，置信度高）；当前价137.23；结论【合</td></tr>
+<tr><td><b class='amber'>P2</b></td><td>688122</td><td><b>西部超导</b></td><td>工业自动化</td><td>高端制造/军工</td><td class='num-cell'>51.21</td><td class='num-cell ok'>+0.57%</td><td class='num-cell'>51</td><td class='num-cell'>46</td><td class='num-cell'>41</td><td class='amber'>合理·加仓</td><td class='num-cell'>61</td><td class='num-cell'>72</td><td class='num-cell'>47</td><td style='font-size:12px'>VPE合理价≈111.60（driver=industrial_auto，缺口0.035，置信度低）；当前价51.21；</td></tr>
+<tr><td><b class='amber'>P2</b></td><td>603662</td><td><b>柯力传感</b></td><td>机器人</td><td>Perception</td><td class='num-cell'>58.41</td><td class='num-cell dn'>-0.41%</td><td class='num-cell'>58</td><td class='num-cell'>53</td><td class='num-cell'>47</td><td class='dn'>高估·BUY_WATCH</td><td class='num-cell'>70</td><td class='num-cell'>82</td><td class='num-cell'>54</td><td style='font-size:12px'>VPE合理价≈14.64（driver=robot，缺口0.676，置信度中）；当前价58.41；结论【高估】</td></tr>
+<tr><td><b class='ok'>P0</b></td><td>300308</td><td><b>中际旭创</b></td><td>AI算力</td><td>AI Infrastructure</td><td class='num-cell'>1169.31</td><td class='num-cell dn'>-1.24%</td><td class='num-cell'>1169</td><td class='num-cell'>1052</td><td class='num-cell'>935</td><td class='ok'>低估·买入</td><td class='num-cell'>1403</td><td class='num-cell'>1637</td><td class='num-cell'>1076</td><td style='font-size:12px'>VPE合理价≈1604.34（driver=ai_compute，缺口-0.372，置信度高）；当前价1169.31；结</td></tr>
+<tr><td><b class='amber'>P2</b></td><td>300433</td><td><b>蓝思科技</b></td><td>AI算力</td><td>Perception</td><td class='num-cell'>38.81</td><td class='num-cell dn'>-3.75%</td><td class='num-cell'>39</td><td class='num-cell'>35</td><td class='num-cell'>31</td><td class='dn'>高估·BUY_WATCH</td><td class='num-cell'>47</td><td class='num-cell'>54</td><td class='num-cell'>36</td><td style='font-size:12px'>VPE合理价≈22.76（driver=ai_compute，缺口0.414，置信度低）；当前价38.81；结论【高估】</td></tr>
+<tr><td><b class=''>P1</b></td><td>002920</td><td><b>德赛西威</b></td><td>—</td><td>—</td><td class='num-cell'>82.92</td><td class='num-cell ok'>+2.62%</td><td class='num-cell'>83</td><td class='num-cell'>75</td><td class='num-cell'>66</td><td class='amber'>低估·BUY_WATCH</td><td class='num-cell'>100</td><td class='num-cell'>116</td><td class='num-cell'>76</td><td style='font-size:12px'>VPE合理价≈97.74（driver=None，缺口-0.179，置信度高）；当前价82.92；结论【低估】</td></tr>
+<tr><td><b class=''>P1</b></td><td>300394</td><td><b>天孚通信</b></td><td>AI算力</td><td>AI Infrastructure</td><td class='num-cell'>259.40</td><td class='num-cell dn'>-5.16%</td><td class='num-cell'>259</td><td class='num-cell'>233</td><td class='num-cell'>208</td><td class='dn'>高估·BUY_WATCH</td><td class='num-cell'>311</td><td class='num-cell'>363</td><td class='num-cell'>239</td><td style='font-size:12px'>VPE合理价≈93.68（driver=ai_compute，缺口0.686，置信度高）；当前价259.4；结论【高估】</td></tr>
+<tr><td><b class='amber'>P2</b></td><td>002219</td><td><b>新里程</b></td><td>—</td><td>Healthcare</td><td class='num-cell'>2.02</td><td class='num-cell ok'>+1.00%</td><td class='num-cell'>2</td><td class='num-cell'>2</td><td class='num-cell'>2</td><td class='dn'>高估·BUY_WATCH</td><td class='num-cell'>2</td><td class='num-cell'>3</td><td class='num-cell'>2</td><td style='font-size:12px'>VPE合理价≈0.59（driver=healthcare，缺口0.707，置信度低）；当前价2.02；结论【高估】</td></tr>
+<tr><td><b class='amber'>P2</b></td><td>688017</td><td><b>绿的谐波</b></td><td>机器人</td><td>Manipulation</td><td class='num-cell'>386.08</td><td class='num-cell dn'>-0.20%</td><td class='num-cell'>386</td><td class='num-cell'>347</td><td class='num-cell'>309</td><td class='dn'>高估·BUY_WATCH</td><td class='num-cell'>463</td><td class='num-cell'>541</td><td class='num-cell'>355</td><td style='font-size:12px'>VPE合理价≈17.80（driver=robot，缺口0.800，置信度低）；当前价386.08；结论【高估】</td></tr>
+<tr><td><b class=''>P1</b></td><td>688041</td><td><b>海光信息</b></td><td>AI算力</td><td>AI Compute</td><td class='num-cell'>324.11</td><td class='num-cell dn'>-4.91%</td><td class='num-cell'>324</td><td class='num-cell'>292</td><td class='num-cell'>259</td><td class='dn'>高估·BUY_WATCH</td><td class='num-cell'>389</td><td class='num-cell'>454</td><td class='num-cell'>298</td><td style='font-size:12px'>VPE合理价≈29.56（driver=ai_compute，缺口0.909，置信度低）；当前价324.11；结论【高估</td></tr>
+<tr><td><b class='amber'>P2</b></td><td>688111</td><td><b>金山办公</b></td><td>—</td><td>—</td><td class='num-cell'>236.71</td><td class='num-cell ok'>+6.32%</td><td class='num-cell'>237</td><td class='num-cell'>213</td><td class='num-cell'>189</td><td class='dn'>高估·BUY_WATCH</td><td class='num-cell'>284</td><td class='num-cell'>331</td><td class='num-cell'>218</td><td style='font-size:12px'>VPE合理价≈195.50（driver=None，缺口0.174，置信度高）；当前价236.71；结论【高估】</td></tr>
+<tr><td><b class='amber'>P2</b></td><td>688320</td><td><b>禾川科技</b></td><td>—</td><td>—</td><td class='num-cell'>31.67</td><td class='num-cell dn'>-1.12%</td><td class='num-cell'>32</td><td class='num-cell'>28</td><td class='num-cell'>25</td><td class='amber'>未知·BUY_WATCH</td><td class='num-cell'>38</td><td class='num-cell'>44</td><td class='num-cell'>29</td><td style='font-size:12px'>（FAIR_PE=25.0，缺口 None）；当前价31.67；PEG=N/A；结论【未知】</td></tr>
+<tr><td><b class='amber'>P2</b></td><td>688698</td><td><b>伟创电气</b></td><td>—</td><td>—</td><td class='num-cell'>50.58</td><td class='num-cell dn'>-2.36%</td><td class='num-cell'>51</td><td class='num-cell'>46</td><td class='num-cell'>40</td><td class='dn'>高估·BUY_WATCH</td><td class='num-cell'>61</td><td class='num-cell'>71</td><td class='num-cell'>47</td><td style='font-size:12px'>VPE合理价≈29.72（driver=None，缺口0.412，置信度高）；当前价50.58；结论【高估】</td></tr>
+<tr><td><b class='amber'>P2</b></td><td>002230</td><td><b>科大讯飞</b></td><td>—</td><td>—</td><td class='num-cell'>41.35</td><td class='num-cell ok'>+0.41%</td><td class='num-cell'>41</td><td class='num-cell'>37</td><td class='num-cell'>33</td><td class='dn'>高估·BUY_WATCH</td><td class='num-cell'>50</td><td class='num-cell'>58</td><td class='num-cell'>38</td><td style='font-size:12px'>VPE合理价≈8.98（driver=None，缺口0.783，置信度高）；当前价41.35；结论【高估】</td></tr>
+<tr><td><b class='amber'>P2</b></td><td>688777</td><td><b>中控技术</b></td><td>—</td><td>—</td><td class='num-cell'>95.76</td><td class='num-cell dn'>-2.52%</td><td class='num-cell'>96</td><td class='num-cell'>86</td><td class='num-cell'>77</td><td class='dn'>高估·BUY_WATCH</td><td class='num-cell'>115</td><td class='num-cell'>134</td><td class='num-cell'>88</td><td style='font-size:12px'>VPE合理价≈12.52（driver=None，缺口0.869，置信度高）；当前价95.76；结论【高估】</td></tr>
+<tr><td><b class='amber'>P2</b></td><td>002747</td><td><b>埃斯顿</b></td><td>—</td><td>—</td><td class='num-cell'>40.90</td><td class='num-cell ok'>+6.51%</td><td class='num-cell'>41</td><td class='num-cell'>37</td><td class='num-cell'>33</td><td class='dn'>高估·BUY_WATCH</td><td class='num-cell'>49</td><td class='num-cell'>57</td><td class='num-cell'>38</td><td style='font-size:12px'>VPE合理价≈3.36（driver=None，缺口0.918，置信度高）；当前价40.9；结论【高估】</td></tr>
+<tr><td><b class='amber'>P2</b></td><td>603728</td><td><b>鸣志电器</b></td><td>—</td><td>—</td><td class='num-cell'>54.61</td><td class='num-cell dn'>-1.96%</td><td class='num-cell'>55</td><td class='num-cell'>49</td><td class='num-cell'>44</td><td class='dn'>高估·BUY_WATCH</td><td class='num-cell'>66</td><td class='num-cell'>76</td><td class='num-cell'>50</td><td style='font-size:12px'>VPE合理价≈4.04（driver=None，缺口0.926，置信度高）；当前价54.61；结论【高估】</td></tr>
+<tr><td><b class='amber'>P2</b></td><td>688322</td><td><b>奥比中光</b></td><td>—</td><td>—</td><td class='num-cell'>113.96</td><td class='num-cell ok'>+2.19%</td><td class='num-cell'>114</td><td class='num-cell'>103</td><td class='num-cell'>91</td><td class='dn'>高估·BUY_WATCH</td><td class='num-cell'>137</td><td class='num-cell'>160</td><td class='num-cell'>105</td><td style='font-size:12px'>VPE合理价≈8.15（driver=None，缺口0.928，置信度高）；当前价113.96；结论【高估】</td></tr>
+</tbody></table></div></div>
+</section>
+
+<section>
+<div class="sec-head" onclick="toggle('s5')"><span class="sec-num">05</span><span class="sec-title">📰 新闻速览</span><span id="s5_b" class="collapse-btn">展开 ▼</span></div>
+<div id="s5" style="display:none"><div class="card" style="margin-top:20px;background:linear-gradient(145deg, rgba(200,168,107,.06), rgba(200,168,107,.02));border:1px solid rgba(200,168,107,.15);border-radius:12px;padding:24px;"><div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;"><span style="font-size:24px;">🤖</span><h3 class="blk" style="margin:0;font-size:18px;color:var(--gold);font-family:var(--serif);">AI 投资顾问 · 今日分析</h3><span class="badge green" style="margin-left:auto;">情绪: 80/100</span></div><div style="margin-bottom:16px;"><div style="font-size:13px;color:var(--gold);font-weight:600;margin-bottom:6px;">📋 市场总结</div><div style="font-size:14px;color:var(--text-soft);line-height:1.7;">今日市场表现强劲，工业富联、立讯精密、工业富联、比亚迪等股价大涨，半导体概念股受益于AI需求增长，中国神华、中际旭创等传统能源股也表现良好。</div></div><div style="margin-bottom:16px;"><div style="font-size:13px;color:var(--gold);font-weight:600;margin-bottom:6px;">🌍 全球环境</div><div style="font-size:14px;color:var(--text-soft);line-height:1.7;">全球投资环境分析：美联储利率保持有利位置，通胀已达峰值，AI需求推升通胀。全球经济保持稳定，主要市场动态良好。</div></div><div style="margin-bottom:16px;"><div style="font-size:13px;color:var(--gold);font-weight:600;margin-bottom:6px;">🇨🇳 中国环境</div><div style="font-size:14px;color:var(--text-soft);line-height:1.7;">中国投资环境分析：中国经济保持稳定，社融、信贷增长，政府及企业债券融资构成主要支撑。政策支持AI发展，AI需求增长带动半导体概念股上涨。</div></div><div style="margin-bottom:16px;"><div style="font-size:13px;color:var(--gold);font-weight:600;margin-bottom:6px;">⚠️ 风险警示</div><div style="font-size:14px;color:var(--text-soft);line-height:1.7;">风险警示：半导体概念股大幅调整，存储、GPU等热点退潮。市场资金高低切换，存储板块预期已充分定价，市场担忧景气见顶。</div></div><div style="margin-bottom:16px;"><div style="font-size:13px;color:var(--gold);font-weight:600;margin-bottom:6px;">💡 机会聚焦</div><div style="font-size:14px;color:var(--text-soft);line-height:1.7;">机会聚焦：神火股份、中国平安、云铝股份、格力电器、吉比特等股表现良好，吸引力较高。</div></div><div style="margin-bottom:16px;"><div style="font-size:13px;color:var(--gold);font-weight:600;margin-bottom:6px;">🎯 持仓建议</div><div style="font-size:14px;color:var(--text-soft);line-height:1.7;">针对当前持仓的具体建议：维持中国神华、中电南瑞、西部超导、紫金矿业、特变电工、汇川技术、拓尔思、君正集团的核心持仓。考虑增持神火股份、中国平安、云铝股份、格力电器。减持三安光电、特变电工。</div></div><div style="font-size:11px;color:var(--text-dim);margin-top:12px;padding-top:12px;border-top:1px solid rgba(200,168,107,.1);">AI 生成内容仅供参考，不构成投资建议。投资有风险，入市需谨慎。</div></div><div class="card"><h3 class="blk" style="margin-top:0">🌍 国际 · AI & 科技</h3><div class="news">
+<div class='item'><span class='dot dK'></span><b>美联储“三把手”：利率处于有利位置，有理由相信通胀已达峰值</b>：威廉姆斯表示AI需求推升通胀，当前利率足以推动通胀回落，暗示高利率将维持更久。</div>
+</div></div>
+<div class="card"><h3 class="blk" style="margin-top:0">🇨🇳 国内 · AI & 机器人</h3><div class="news">
+<div class='item'><span class='dot dR'></span><b>中国6月新增社融3.36万亿元，新增人民币贷款1.61万亿元，M2同比增长8%</b>：社融、信贷保持增长，政府及企业债券融资构成主要支撑，流动性环境整体平稳。</div>
+<div class='item'><span class='dot dR'></span><b>7款手机AI集体获批！苹果智能牵手阿里千问，努比亚豆包也在列</b>：苹果Apple智能等7款手机端侧AI完成备案，AI终端应用落地提速利好相关产业链。</div>
+<div class='item'><span class='dot dK'></span><b>科创50跌超4%，半导体产业链全线下挫，创新药、白酒逆势拉升</b>：半导体概念股大幅调整拖累科创板，市场资金高低切换，存储、GPU等热点退潮。</div>
+<div class='item'><span class='dot dK'></span><b>净利预增50倍却一字跌停，德明利的存储叙事走到拐点了吗</b>：德明利中报预增近50倍但开盘跌停，显示存储板块预期已充分定价，市场担忧景气见顶。</div>
+</div></div>
+<div class="card"><h3 class="blk" style="margin-top:0">🤖 物理AI/机器人 · 关键事件</h3><div class="news">
+<div class='item'><span class='dot dR'></span><b>小米开源具身生成大模型U0，要给机器人批量“造数据”</b>：小米发布380亿参数具身生成模型，用于机器人训练数据扩增，加速物理AI技术突破。</div>
+</div></div>
+<div class="card"><h3 class="blk" style="margin-top:0">📊 新闻影响解读 · 对持仓/建仓标的</h3><div class="news">
+<div class='item'><span class='dot dR'></span><b>工业富联/立讯精密</b> · <span class='amber'>利好</span> · 7款手机AI集体获批！苹果智能牵手阿里千问，努比亚豆包也在列<div class='reason' style='font-size:12px;color:var(--text-dim);margin-top:3px'>手机端侧AI备案加速落地，苹果等主流品牌AI功能推进利好消费电子代工及零部件供应链需求。</div></div>
+<div class='item'><span class='dot dR'></span><b>新易盛/中际旭创/天孚通信</b> · <span class='amber'>利好</span> · 7.14光通信行业更新<div class='reason' style='font-size:12px;color:var(--text-dim);margin-top:3px'>光模块出货量修复超预期，AI算力需求拉动高速光模块景气度，行业龙头业绩预期向好。</div></div>
+<div class='item'><span class='dot dR'></span><b>工业富联</b> · <span class='amber'>利好</span> · 25中报以来的关于人工智能的用词变化看业务的边际改善<div class='reason' style='font-size:12px;color:var(--text-dim);margin-top:3px'>文中提到的NV Vendor Code和液冷设备业务边际改善，反映AI供应链订单落地加速，利好工业富联。</div></div>
+<div class='item'><span class='dot dR'></span><b>比亚迪</b> · <span class='amber'>利好</span> · 系统性阐述比亚迪的估值体系<div class='reason' style='font-size:12px;color:var(--text-dim);margin-top:3px'>市场对比亚迪估值逻辑重新梳理，叠加新能源整车龙头地位，提振长期投资信心。</div></div>
+<div class='item'><span class='dot dR'></span><b>吉比特</b> · <span class='amber'>利好</span> · 10倍生产力和打折的支付能力，AI最大的矛盾如何破局？<div class='reason' style='font-size:12px;color:var(--text-dim);margin-top:3px'>AI应用下一站游戏方向讨论，游戏行业作为AI落地的数据富集场景，利好游戏公司内容创新。</div></div>
+<div class='item'><span class='dot dR'></span><b>中国神华</b> · <span class='amber'>利好</span> · 千亿资产并表，中国神华上半年扣非净利最高预增15.6%_新浪财经_新浪网<div class='reason' style='font-size:12px;color:var(--text-dim);margin-top:3px'>公司业绩超预期增长，并表带来资产规模扩张，煤炭龙头盈利稳定性增强。</div></div>
+</div><div style='font-size:11px;color:var(--text-dim);margin-top:8px'>由 LLM 结合当日新闻与持仓/建仓候选生成，仅供参考，不构成投资建议。</div></div>
+<div class="card"><h3 class="blk" style="margin-top:0">🌐 全球情报 · Daily Intel</h3><div class="news"><div class='item'><span class='dot dK'></span><b>Netflix账单一年多涨29%，华盛顿应介入</b> <span style='color:var(--text-dim);font-size:11px'>[市场观察]</span>：Netflix涨价引发消费者不满，同时成为监管目标。</div>
+<div class='item'><span class='dot dR'></span><b>华尔街“主题计”发出明确信号：人工智能牛市回归</b> <span style='color:var(--text-dim);font-size:11px'>[市场观察]</span>：瑞银认为AI股领导力回归，财报季将验证投资者是否过于悲观。</div>
+<div class='item'><span class='dot dY'></span><b>美国批发价格近一年来首次下降，但通胀依然过高</b> <span style='color:var(--text-dim);font-size:11px'>[市场观察]</span>：6月批发价格因汽油降价而下跌，但通胀放缓持续性存疑。</div>
+<div class='item'><span class='dot dR'></span><b>贝莱德利润飙升，管理资产规模创15万亿美元纪录</b> <span style='color:var(--text-dim);font-size:11px'>[市场观察]</span>：贝莱德股价上涨，将季度股票回购提高至5.5亿美元。</div>
+<div class='item'><span class='dot dK'></span><b>中国DeepSeek引发广泛AI抛售，美股重挫</b> <span style='color:var(--text-dim);font-size:11px'>[华尔街日报市场]</span>：纳斯达克领跌，AI基础设施制造商大幅下跌，英伟达跌幅显著。</div>
+<div class='item'><span class='dot dK'></span><b>纽约商品交易所黄金白银结算价走低</b> <span style='color:var(--text-dim);font-size:11px'>[华尔街日报市场]</span>：黄金结算价下跌1.4%，白银下跌2.5%。</div>
+<div class='item'><span class='dot dR'></span><b>DeepSeek不会拖垮美国AI巨头</b> <span style='color:var(--text-dim);font-size:11px'>[华尔街日报市场]</span>：对英伟达、博通等科技巨头股票的恐慌性抛售被夸大。</div>
+</div><h3 class="blk" style="margin-top:10px">₿ 加密动态 · BTC / XRP</h3><div class="news"><div class='item'><span class='dot dY'></span><b>[BTC]</b> 比特币8月新目标价8万美元：关注这些价格水平：分析师给出8万美元目标价，需关注关键价位突破情况。</div>
+<div class='item'><span class='dot dY'></span><b>[BTC]</b> 日本通过加密货币改革法案，将数字资产纳入金融监管：日本立法将数字资产纳入金融规则，加强监管框架。</div>
+<div class='item'><span class='dot dY'></span><b>[BTC]</b> 韩国将数字资产纳入新的国家资产管理系统：韩国启动新系统，将数字资产纳入国有资产管理范围。</div>
+<div class='item'><span class='dot dY'></span><b>[—]</b> 捷克共和国要求互联网服务提供商屏蔽Polymarket：捷克因赌博黑名单封禁Polymarket，加强加密平台监管。</div>
+<div class='item'><span class='dot dY'></span><b>[—]</b> 凯西·伍德的ARK基金逆市买入22万股Circle股票：尽管市场抛售，ARK基金继续加仓Circle。</div>
+<div class='item'><span class='dot dY'></span><b>[—]</b> 加密市场因CPI数据降温而上涨：Circle表现不佳，Pump.fun首次大规模解锁后上涨，Robinhood链出现首次大轮动。</div>
+<div class='item'><span class='dot dY'></span><b>[—]</b> 英国欺诈审查呼吁对法官进行加密货币洗钱和AI诈骗培训：政府报告称法官未准备好应对加密洗钱和AI欺诈案件激增。</div>
+</div><h3 class="blk" style="margin-top:10px">🤖 AI 产业雷达</h3><div class="news"><div class='item'><span class='dot dY'></span><b>最优自适应做市：永续合约市场高收益流动性提供的理论框架</b>：提出永续合约市场做市商最优策略的理论框架。</div>
+<div class='item'><span class='dot dY'></span><b>非平稳环境下情境强化学习综述</b>：非平稳环境下情境强化学习研究综述。</div>
+<div class='item'><span class='dot dR'></span><b>本体增强蒸馏与情境审计主权企业语言模型</b>：提出数据驻留规则下金融机构租户自有语言模型的构建方法。</div>
+<div class='item'><span class='dot dR'></span><b>GRID：企业级SQL生成的语法约束解码</b>：利用语法规则约束大模型生成企业级SQL，提升输出可靠性。</div>
+<div class='item'><span class='dot dY'></span><b>智能温室强化学习控制的校准优先奖励组件审计</b>：提出温室强化学习控制中的奖励组件审计方法。</div>
+<div class='item'><span class='dot dY'></span><b>Jiga（YC W21）招聘顶尖人才重塑制造业</b>：YC孵化企业Jiga招聘人才以改善制造业。</div>
+<div class='item'><span class='dot dY'></span><b>展示：我的模型在10届世界杯中成功预测冠军</b>：作者模型在10届世界杯中每次均正确选出冠军。</div>
+<div class='item'><span class='dot dY'></span><b>社会影响：Claude在不同模型和语言中的价值观</b>：Anthropic研究Claude价值观在不同模型和语言中的表现。</div>
+</div><div style="font-size:11px;color:var(--text-dim);margin-top:8px">全球 / 加密 / AI 情报由 Daily Intel 采集层 + LLM 生成，仅供参考，不构成投资建议。</div></div>
+</div>
+</section>
+
+<section>
+<div class="sec-head" onclick="toggle('s6')"><span class="sec-num">06</span><span class="sec-title">🔎 持仓逻辑裁决 & 加减仓信号</span><span id="s6_b" class="collapse-btn">展开 ▼</span></div>
+<div id="s6" style="display:none">
+<div class="card scroll"><table><thead><tr><th>代码</th><th>名称</th><th>状态</th><th>操作指示</th><th>盈亏%</th><th>赛道</th></tr></thead><tbody><tr><td>601088</td><td><b>中国神华</b></td><td class='ok'>Green</td><td style='font-size:12px'>XD除权后成本调整; 赔率4.0最高</td><td class='ok'>+4.92%</td><td>传统能源/红利</td></tr>
+<tr><td>600406</td><td><b>国电南瑞</b></td><td class='ok'>Green</td><td style='font-size:12px'>T1 22.0 已加; 待T2 20.0</td><td class='dn'>-1.62%</td><td>高端制造/电网</td></tr>
+<tr><td>688122</td><td><b>西部超导</b></td><td class='ok'>Green</td><td style='font-size:12px'>确认军品订单后再加</td><td class='dn'>-10.80%</td><td>高端制造/军工</td></tr>
+<tr><td>601899</td><td><b>紫金矿业</b></td><td class='ok'>Green</td><td style='font-size:12px'>观望</td><td class='ok'>+2.40%</td><td>资源/通胀对冲</td></tr>
+<tr><td>600089</td><td><b>特变电工</b></td><td class='ok'>Green</td><td style='font-size:12px'>T1 20.0 已加; 待T2 18.0</td><td class='dn'>-12.61%</td><td>高端制造/电力出海</td></tr>
+<tr><td>600703</td><td><b>三安光电</b></td><td class='ok'>Green</td><td style='font-size:12px'>等拐点; 不追高不加仓</td><td class='dn'>-13.93%</td><td>半导体国产替代</td></tr>
+<tr><td>300124</td><td><b>汇川技术</b></td><td class='ok'>Green</td><td style='font-size:12px'>加仓至300股; 机器人控制器龙头</td><td class='dn'>-3.68%</td><td>物理AI</td></tr>
+<tr><td>300229</td><td><b>拓尔思</b></td><td class='ok'>Green</td><td style='font-size:12px'>等语料变现信号</td><td class='dn'>-15.72%</td><td>AI算力</td></tr>
+<tr><td>601216</td><td><b>君正集团</b></td><td class='ok'>Green</td><td style='font-size:12px'>加仓摊低成本至5.782; 分批减</td><td class='dn'>-22.35%</td><td>化工周期</td></tr>
+</tbody></table></div>
+<div style="font-size:12px;color:var(--text-dim);padding:10px 0;margin-top:8px;line-height:1.8">📖 投资哲学：know why you invest in, then point out the potential<br>🟢 逻辑完整（特变/神华/南瑞/紫金）→ 跌是机会，可加<br>🟡 方向对但还没被验证（三安/拓尔思）→ 小仓位埋伏等拐点，不加仓不追高<br>🔴 逻辑完全未兑现（君正）→ 等反弹减仓</div>
+</div>
+</section>
+
+<section>
+<div class="sec-head" onclick="toggle('s7')"><span class="sec-num">07</span><span class="sec-title">🔎 财务排雷</span><span id="s7_b" class="collapse-btn">展开 ▼</span></div>
+<div id="s7" style="display:none"><div class="card"><table><thead><tr><th>门槛</th><th>状态</th><th>备注</th></tr></thead><tbody><tr><td>日均成交≥3亿</td><td>✅ 多数达标</td><td>神华/南瑞/紫金/特变等均达标</td></tr><tr><td>ROE≥8%（连2年）</td><td class="dn">⚠️ 三安(亏损)</td><td>三安亏损是过渡期，方向对→小仓埋伏，非止损</td></tr><tr><td>现金流/净利≥70%</td><td class="amber">🟡 待核实</td><td>三安/拓尔思/君正待核实</td></tr><tr><td>负债率≤60%</td><td class="amber">🟡 待核</td><td>特变/君正待核（重资产可放宽70%）</td></tr></tbody></table></div></div>
+</section>
+
+<section>
+<div class="sec-head" onclick="toggle('s8')"><span class="sec-num">08</span><span class="sec-title">🔗 相关性对冲 · 组合风控</span><span id="s8_b" class="collapse-btn">展开 ▼</span></div>
+<div id="s8" style="display:none"><div class="card scroll"><table><thead><tr><th>系统</th><th>成员</th><th>当前仓位</th><th>上限</th><th>状态</th></tr></thead><tbody></tbody></table></div></div>
+</section>
+
+<section>
+<div class="sec-head" onclick="toggle('s9')"><span class="sec-num">09</span><span class="sec-title">🌍 跨资产配置</span><span id="s9_b" class="collapse-btn">展开 ▼</span></div>
+<div id="s9" style="display:none">
+<div class="card">
+<h3 class="blk" style="margin-top:0">资金分配：资产类别占比</h3>
+<div class="aa-bar">
+  <div class="aa-seg" style="width:45%;background:linear-gradient(180deg,#e8c77d,#8a7642)">A股 45%</div>
+  <div class="aa-seg" style="width:20%;background:linear-gradient(180deg,#C8A86B,#6e5a33)">港股 20%</div>
+  <div class="aa-seg" style="width:15%;background:linear-gradient(180deg,#a08852,#5e4c28)">海外ETF 15%</div>
+  <div class="aa-seg" style="width:10%;background:linear-gradient(180deg,#7a6635,#3f3318)">黄金 10%</div>
+  <div class="aa-seg" style="width:10%;background:linear-gradient(180deg,#4a4030,#1e1a12)">现金 10%</div>
+</div>
+<div class="aa-legend">
+  <span><span class="aa-dot" style="background:linear-gradient(180deg,#e8c77d,#8a7642)"></span>A股（45%）</span>
+  <span><span class="aa-dot" style="background:linear-gradient(180deg,#C8A86B,#6e5a33)"></span>港股（20%）</span>
+  <span><span class="aa-dot" style="background:linear-gradient(180deg,#a08852,#5e4c28)"></span>海外ETF（15%）</span>
+  <span><span class="aa-dot" style="background:linear-gradient(180deg,#7a6635,#3f3318)"></span>黄金（10%）</span>
+  <span><span class="aa-dot" style="background:linear-gradient(180deg,#4a4030,#1e1a12)"></span>现金（10%）</span>
+</div>
+<table style="margin-top:16px"><thead><tr><th>资产</th><th>目标%</th><th>目标额</th><th>当前</th><th>差额</th></tr></thead><tbody><tr><td><b>A股</b></td><td class='num-cell'>45%</td><td class='num-cell'>315,000</td><td class='num-cell'>304,101</td><td class='dn'>缺10,899</td></tr>
+<tr><td><b>港股</b></td><td class='num-cell'>20%</td><td class='num-cell'>140,000</td><td class='num-cell'>—（未跟踪）</td><td class=''>—</td></tr>
+<tr><td><b>海外ETF</b></td><td class='num-cell'>15%</td><td class='num-cell'>105,000</td><td class='num-cell'>—（未跟踪）</td><td class=''>—</td></tr>
+<tr><td><b>黄金</b></td><td class='num-cell'>10%</td><td class='num-cell'>70,000</td><td class='num-cell'>—（未跟踪）</td><td class=''>—</td></tr>
+<tr><td><b>现金</b></td><td class='num-cell'>10%</td><td class='num-cell'>70,000</td><td class='num-cell'>—（未跟踪）</td><td class=''>—</td></tr>
+</tbody></table>
+</div>
+</div>
+</section>
+
+<section>
+<div class="sec-head" onclick="toggle('s11')"><span class="sec-num">10</span><span class="sec-title">🧠 AI 赛道深度聚焦</span><span id="s11_b" class="collapse-btn">展开 ▼</span></div>
+<div id="s11" style="display:none">
+<div class="card"><h3 class="blk" style="margin-top:0">🔗 AI 算力产业链</h3><table><thead><tr><th>环节</th><th>功能</th><th>代表</th><th>状态</th></tr></thead><tbody><tr><td>上游·芯片</td><td>GPU/NPU</td><td>海光信息</td><td class="dn">P3 PE186x</td></tr><tr><td>上游·光器件</td><td>光模块</td><td>中际旭创/新易盛/天孚</td><td class="amber">P2 偏贵</td></tr><tr><td>中游·PCB/代工</td><td>服务器</td><td>沪电/立讯精密</td><td class="amber">观察池</td></tr><tr><td>下游·语料</td><td>数据</td><td>拓尔思</td><td class="ok">持仓·埋伏</td></tr></tbody></table></div>
+<div class="card"><h3 class="blk" style="margin-top:0">🤖 物理AI/机器人产业链</h3><table><thead><tr><th>环节</th><th>功能</th><th>代表</th><th>状态</th></tr></thead><tbody><tr><td>执行器</td><td>机器人关节</td><td>拓普/三花</td><td class="ok">P1 接近T1</td></tr><tr><td>控制器</td><td>工控</td><td>汇川技术</td><td class="ok">P0 接近T1</td></tr><tr><td>传感器</td><td>力觉</td><td>柯力传感</td><td class="amber">P2 概念期</td></tr></tbody></table></div>
+<div class="card"><h3 class="blk" style="margin-top:0">📈 Driver 兑现度跟踪（0-10）</h3><table><thead><tr><th>标的</th><th>赛道</th><th>兑现度</th><th>说明</th></tr></thead><tbody><tr><td>中际旭创</td><td>AI光模块</td><td><b style="color:var(--gold-light)">8</b></td><td>1.6T光模块确定性龙头，北美云CapEx放量</td></tr><tr><td>立讯精密</td><td>AI代工/消费电子</td><td><b class="amber">5</b></td><td>果链+GB200代工，兑现期订单→量产</td></tr><tr><td>拓普集团</td><td>物理AI/执行器</td><td><b class="amber">4</b></td><td>特斯拉产业链+机器人执行器，订单期</td></tr><tr><td>三花智控</td><td>物理AI/热管理</td><td><b class="amber">4</b></td><td>热管理全球龙头→机器人执行器延伸</td></tr><tr><td>汇川技术</td><td>物理AI/控制器</td><td><b style="color:var(--gold-light)">8</b></td><td>工控+机器人控制器龙头，兑现期</td></tr><tr><td>柯力传感</td><td>物理AI/传感器</td><td><b class="dn">3</b></td><td>六维力传感器，概念早期（0-3禁建仓）</td></tr></tbody></table>
+<div class="note">📖 <b>兑现度规则</b>：0-3 概念期禁建仓 | 4-6 订单期仅 T1 半仓 | 7-8 兑现期正常建 | 9-10 引擎期加满。环比降≥2分触发 Yellow 复核。</div></div>
+</div>
+</section>
+
+<section>
+<div class="sec-head" onclick="toggle('s18')"><span class="sec-num">11</span><span class="sec-title">🧭 决策引擎 · 今日候选</span><span id="s18_b" class="collapse-btn">展开 ▼</span></div>
+<div id="s18" style="display:none"><div class="card scroll"><div class="focus-bg"><b>决策协议 v1</b>：8 步推理 · 情境决定决策 · 指令由持仓/暴露/目标仓位/风控上限确定性推论。点击行展开裁决理由。</div><table style="margin-top:14px"><thead><tr><th>#</th><th>代码</th><th>名称</th><th>指令</th><th>评级</th><th>置信</th><th>主线</th><th>估值</th><th>目标仓</th><th class="num-cell" title="性价比40%+成长35%+催化剂25%">吸引力</th><th>来源</th></tr></thead><tbody><tr onclick="toggleAlpha(1)" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='rgba(200,168,107,.06)'" onmouseout="this.style.background=''"><td class='ok'>1</td><td>603444</td><td><b>吉比特</b></td><td class='ok'><b>买入</b></td><td style="color:var(--purple)">★★★★★</td><td>78%</td><td>—</td><td>低估</td><td>8.0%</td><td class='num-cell amber'><b>65.4</b></td><td style="color:var(--muted);font-size:12px">全市场</td></tr><tr id="alpha_1" style="display:none"><td colspan="11" style="padding:0"><div style="margin-top:8px;padding:14px 16px;background:#13181F;border-radius:10px;border-left:3px solid var(--purple);font-size:13px"><div style="font-weight:700;margin-bottom:8px">吉比特 · 买入 · 评级5 · 置信78%</div><div style="display:grid;gap:6px"><div><b style="color:var(--purple)">组合契合</b> 组合当前未持有；目标仓位 8.0%；目标档位 成长；事件驱动暴露见下方主线明细</div><div><b style="color:var(--purple)">Driver契合</b> 最强主线 消费★5（共 1 个匹配）；公司定位: </div><div><b style="color:var(--purple)">估值</b> Driver=consumer → [pe + roe] ｜ 缺口-43.3% ｜ 置信72.0(高)</div><div><b style="color:var(--purple)">风险</b> 当前暴露 0.0% 在单票上限 20.0% 内，未触发硬约束</div><div><b style="color:var(--gold-light)">新闻源</b> composite(local_rag+local_news_impact+xueqiu_attention+eastmoney_attention+cls_telegraph)</div><div><b style="color:var(--green)">人气</b> </div></div><div style="margin-top:8px;color:var(--muted);font-size:12px">建仓计划：成长 · 首建3.0% · 目标仓位8.0% · 止损-8.0% · 加仓：-10%加5.0%</div><div style="margin-top:6px;color:var(--gold-light);font-size:12px">买入阶梯：T1 366 · T2 330 · T3 293 ｜ 🎯 目标股价：止盈T1 440 · 止盈T2 513 · 止损 337</div></div></td></tr><tr onclick="toggleAlpha(2)" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='rgba(200,168,107,.06)'" onmouseout="this.style.background=''"><td class='ok'>2</td><td>300308</td><td><b>中际旭创</b></td><td class='ok'><b>买入</b></td><td style="color:var(--purple)">★★★★★</td><td>78%</td><td>AI算力</td><td>低估</td><td>6.0%</td><td class='num-cell amber'><b>50.8</b></td><td style="color:var(--muted);font-size:12px">自选池</td></tr><tr id="alpha_2" style="display:none"><td colspan="11" style="padding:0"><div style="margin-top:8px;padding:14px 16px;background:#13181F;border-radius:10px;border-left:3px solid var(--purple);font-size:13px"><div style="font-weight:700;margin-bottom:8px">中际旭创 · 买入 · 评级5 · 置信78%</div><div style="display:grid;gap:6px"><div><b style="color:var(--purple)">组合契合</b> 组合当前未持有；目标仓位 6.0%；目标档位 战术；事件驱动暴露见下方主线明细</div><div><b style="color:var(--purple)">Driver契合</b> 最强主线 AI算力★5（共 1 个匹配）；公司定位: </div><div><b style="color:var(--purple)">估值</b> Driver=ai_compute → [peg + ps] ｜ 缺口-32.2% ｜ 置信72.5(高)</div><div><b style="color:var(--purple)">风险</b> 当前暴露 0.0% 在单票上限 20.0% 内，未触发硬约束</div><div><b style="color:var(--gold-light)">新闻源</b> composite(local_rag+local_news_impact+xueqiu_attention+eastmoney_attention+cls_telegraph)</div><div><b style="color:var(--green)">人气</b> </div></div><div style="margin-top:8px;color:var(--muted);font-size:12px">建仓计划：战术 · 首建3.0% · 目标仓位6.0% · 止损-8.0% · 加仓：-10%加5.0%</div><div style="margin-top:6px;color:var(--gold-light);font-size:12px">买入阶梯：T1 1169 · T2 1052 · T3 935 ｜ 🎯 目标股价：止盈T1 1403 · 止盈T2 1637 · 止损 1076</div></div></td></tr><tr onclick="toggleAlpha(3)" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='rgba(200,168,107,.06)'" onmouseout="this.style.background=''"><td class='ok'>3</td><td>000933</td><td><b>神火股份</b></td><td class='ok'><b>买入</b></td><td style="color:var(--purple)">★★★★☆</td><td>78%</td><td>—</td><td>低估</td><td>8.0%</td><td class='num-cell amber'><b>66.9</b></td><td style="color:var(--muted);font-size:12px">全市场</td></tr><tr id="alpha_3" style="display:none"><td colspan="11" style="padding:0"><div style="margin-top:8px;padding:14px 16px;background:#13181F;border-radius:10px;border-left:3px solid var(--purple);font-size:13px"><div style="font-weight:700;margin-bottom:8px">神火股份 · 买入 · 评级4 · 置信78%</div><div style="display:grid;gap:6px"><div><b style="color:var(--purple)">组合契合</b> 组合当前未持有；目标仓位 8.0%；目标档位 成长；事件驱动暴露见下方主线明细</div><div><b style="color:var(--purple)">Driver契合</b> 最强主线 周期资源★3（共 1 个匹配）；公司定位: </div><div><b style="color:var(--purple)">估值</b> Driver=coal_copper → [pe] ｜ 缺口-66.9% ｜ 置信80.0(高)</div><div><b style="color:var(--purple)">风险</b> 当前暴露 0.0% 在单票上限 20.0% 内，未触发硬约束</div><div><b style="color:var(--gold-light)">新闻源</b> composite(local_rag+local_news_impact+xueqiu_attention+eastmoney_attention+cls_telegraph)</div><div><b style="color:var(--green)">人气</b> </div></div><div style="margin-top:8px;color:var(--muted);font-size:12px">建仓计划：成长 · 首建3.0% · 目标仓位8.0% · 止损-8.0% · 加仓：-10%加5.0%</div><div style="margin-top:6px;color:var(--gold-light);font-size:12px">买入阶梯：T1 26 · T2 23 · T3 20 ｜ 🎯 目标股价：止盈T1 31 · 止盈T2 36 · 止损 23</div></div></td></tr><tr onclick="toggleAlpha(4)" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='rgba(200,168,107,.06)'" onmouseout="this.style.background=''"><td class='amber'>4</td><td>601318</td><td><b>中国平安</b></td><td class='ok'><b>买入</b></td><td style="color:var(--purple)">★★★★☆</td><td>78%</td><td>—</td><td>低估</td><td>8.0%</td><td class='num-cell amber'><b>66.8</b></td><td style="color:var(--muted);font-size:12px">自选池</td></tr><tr id="alpha_4" style="display:none"><td colspan="11" style="padding:0"><div style="margin-top:8px;padding:14px 16px;background:#13181F;border-radius:10px;border-left:3px solid var(--purple);font-size:13px"><div style="font-weight:700;margin-bottom:8px">中国平安 · 买入 · 评级4 · 置信78%</div><div style="display:grid;gap:6px"><div><b style="color:var(--purple)">组合契合</b> 组合当前未持有；目标仓位 8.0%；目标档位 成长；事件驱动暴露见下方主线明细</div><div><b style="color:var(--purple)">Driver契合</b> 最强主线 金融★4（共 1 个匹配）；公司定位: </div><div><b style="color:var(--purple)">估值</b> Driver=bank → [pb] ｜ 缺口-50.3% ｜ 置信52.5(中)</div><div><b style="color:var(--purple)">风险</b> 当前暴露 0.0% 在单票上限 20.0% 内，未触发硬约束</div><div><b style="color:var(--gold-light)">新闻源</b> composite(local_rag+local_news_impact+xueqiu_attention+eastmoney_attention+cls_telegraph)</div><div><b style="color:var(--green)">人气</b> </div></div><div style="margin-top:8px;color:var(--muted);font-size:12px">建仓计划：成长 · 首建3.0% · 目标仓位8.0% · 止损-8.0% · 加仓：-10%加5.0%</div><div style="margin-top:6px;color:var(--gold-light);font-size:12px">买入阶梯：T1 51 · T2 46 · T3 41 ｜ 🎯 目标股价：止盈T1 61 · 止盈T2 71 · 止损 47</div></div></td></tr><tr onclick="toggleAlpha(5)" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='rgba(200,168,107,.06)'" onmouseout="this.style.background=''"><td class='amber'>5</td><td>000807</td><td><b>云铝股份</b></td><td class='ok'><b>买入</b></td><td style="color:var(--purple)">★★★★☆</td><td>78%</td><td>—</td><td>低估</td><td>8.0%</td><td class='num-cell amber'><b>66.6</b></td><td style="color:var(--muted);font-size:12px">全市场</td></tr><tr id="alpha_5" style="display:none"><td colspan="11" style="padding:0"><div style="margin-top:8px;padding:14px 16px;background:#13181F;border-radius:10px;border-left:3px solid var(--purple);font-size:13px"><div style="font-weight:700;margin-bottom:8px">云铝股份 · 买入 · 评级4 · 置信78%</div><div style="display:grid;gap:6px"><div><b style="color:var(--purple)">组合契合</b> 组合当前未持有；目标仓位 8.0%；目标档位 成长；事件驱动暴露见下方主线明细</div><div><b style="color:var(--purple)">Driver契合</b> 最强主线 周期资源★3（共 1 个匹配）；公司定位: </div><div><b style="color:var(--purple)">估值</b> Driver=coal_copper → [pe] ｜ 缺口-57.6% ｜ 置信80.0(高)</div><div><b style="color:var(--purple)">风险</b> 当前暴露 0.0% 在单票上限 20.0% 内，未触发硬约束</div><div><b style="color:var(--gold-light)">新闻源</b> composite(local_rag+local_news_impact+xueqiu_attention+eastmoney_attention+cls_telegraph)</div><div><b style="color:var(--green)">人气</b> </div></div><div style="margin-top:8px;color:var(--muted);font-size:12px">建仓计划：成长 · 首建3.0% · 目标仓位8.0% · 止损-8.0% · 加仓：-10%加5.0%</div><div style="margin-top:6px;color:var(--gold-light);font-size:12px">买入阶梯：T1 26 · T2 23 · T3 21 ｜ 🎯 目标股价：止盈T1 31 · 止盈T2 37 · 止损 24</div></div></td></tr><tr onclick="toggleAlpha(6)" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='rgba(200,168,107,.06)'" onmouseout="this.style.background=''"><td class='amber'>6</td><td>000651</td><td><b>格力电器</b></td><td class='ok'><b>买入</b></td><td style="color:var(--purple)">★★★★☆</td><td>78%</td><td>—</td><td>低估</td><td>8.0%</td><td class='num-cell amber'><b>66.2</b></td><td style="color:var(--muted);font-size:12px">自选池</td></tr><tr id="alpha_6" style="display:none"><td colspan="11" style="padding:0"><div style="margin-top:8px;padding:14px 16px;background:#13181F;border-radius:10px;border-left:3px solid var(--purple);font-size:13px"><div style="font-weight:700;margin-bottom:8px">格力电器 · 买入 · 评级4 · 置信78%</div><div style="display:grid;gap:6px"><div><b style="color:var(--purple)">组合契合</b> 组合当前未持有；目标仓位 8.0%；目标档位 成长；事件驱动暴露见下方主线明细</div><div><b style="color:var(--purple)">Driver契合</b> 最强主线 消费★4（共 2 个匹配）；公司定位: </div><div><b style="color:var(--purple)">估值</b> Driver=consumer → [pe + roe] ｜ 缺口-20.8% ｜ 置信73.5(高)</div><div><b style="color:var(--purple)">风险</b> 当前暴露 0.0% 在单票上限 20.0% 内，未触发硬约束</div><div><b style="color:var(--gold-light)">新闻源</b> composite(local_rag+local_news_impact+xueqiu_attention+eastmoney_attention+cls_telegraph)</div><div><b style="color:var(--green)">人气</b> </div></div><div style="margin-top:8px;color:var(--muted);font-size:12px">建仓计划：成长 · 首建3.0% · 目标仓位8.0% · 止损-8.0% · 加仓：-10%加5.0%</div><div style="margin-top:6px;color:var(--gold-light);font-size:12px">买入阶梯：T1 40 · T2 36 · T3 32 ｜ 🎯 目标股价：止盈T1 48 · 止盈T2 56 · 止损 37</div></div></td></tr><tr onclick="toggleAlpha(7)" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='rgba(200,168,107,.06)'" onmouseout="this.style.background=''"><td class='amber'>7</td><td>600887</td><td><b>伊利股份</b></td><td class='ok'><b>买入</b></td><td style="color:var(--purple)">★★★★☆</td><td>78%</td><td>—</td><td>低估</td><td>8.0%</td><td class='num-cell amber'><b>65.1</b></td><td style="color:var(--muted);font-size:12px">自选池</td></tr><tr id="alpha_7" style="display:none"><td colspan="11" style="padding:0"><div style="margin-top:8px;padding:14px 16px;background:#13181F;border-radius:10px;border-left:3px solid var(--purple);font-size:13px"><div style="font-weight:700;margin-bottom:8px">伊利股份 · 买入 · 评级4 · 置信78%</div><div style="display:grid;gap:6px"><div><b style="color:var(--purple)">组合契合</b> 组合当前未持有；目标仓位 8.0%；目标档位 成长；事件驱动暴露见下方主线明细</div><div><b style="color:var(--purple)">Driver契合</b> 最强主线 消费★4（共 1 个匹配）；公司定位: </div><div><b style="color:var(--purple)">估值</b> Driver=consumer → [pe + roe] ｜ 缺口-39.0% ｜ 置信73.5(高)</div><div><b style="color:var(--purple)">风险</b> 当前暴露 0.0% 在单票上限 20.0% 内，未触发硬约束</div><div><b style="color:var(--gold-light)">新闻源</b> composite(local_rag+local_news_impact+xueqiu_attention+eastmoney_attention+cls_telegraph)</div><div><b style="color:var(--green)">人气</b> </div></div><div style="margin-top:8px;color:var(--muted);font-size:12px">建仓计划：成长 · 首建3.0% · 目标仓位8.0% · 止损-8.0% · 加仓：-10%加5.0%</div><div style="margin-top:6px;color:var(--gold-light);font-size:12px">买入阶梯：T1 26 · T2 23 · T3 21 ｜ 🎯 目标股价：止盈T1 31 · 止盈T2 36 · 止损 24</div></div></td></tr><tr onclick="toggleAlpha(8)" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='rgba(200,168,107,.06)'" onmouseout="this.style.background=''"><td class='amber'>8</td><td>000975</td><td><b>山金国际</b></td><td class='ok'><b>买入</b></td><td style="color:var(--purple)">★★★★☆</td><td>78%</td><td>—</td><td>低估</td><td>8.0%</td><td class='num-cell amber'><b>64.9</b></td><td style="color:var(--muted);font-size:12px">全市场</td></tr><tr id="alpha_8" style="display:none"><td colspan="11" style="padding:0"><div style="margin-top:8px;padding:14px 16px;background:#13181F;border-radius:10px;border-left:3px solid var(--purple);font-size:13px"><div style="font-weight:700;margin-bottom:8px">山金国际 · 买入 · 评级4 · 置信78%</div><div style="display:grid;gap:6px"><div><b style="color:var(--purple)">组合契合</b> 组合当前未持有；目标仓位 8.0%；目标档位 成长；事件驱动暴露见下方主线明细</div><div><b style="color:var(--purple)">Driver契合</b> 最强主线 贵金属★3（共 1 个匹配）；公司定位: </div><div><b style="color:var(--purple)">估值</b> Driver=precious_metal → [pe + hist_percentile] ｜ 缺口-44.6% ｜ 置信66.0(中)</div><div><b style="color:var(--purple)">风险</b> 当前暴露 0.0% 在单票上限 20.0% 内，未触发硬约束</div><div><b style="color:var(--gold-light)">新闻源</b> composite(local_rag+local_news_impact+xueqiu_attention+eastmoney_attention+cls_telegraph)</div><div><b style="color:var(--green)">人气</b> </div></div><div style="margin-top:8px;color:var(--muted);font-size:12px">建仓计划：成长 · 首建3.0% · 目标仓位8.0% · 止损-8.0% · 加仓：-10%加5.0%</div><div style="margin-top:6px;color:var(--gold-light);font-size:12px">买入阶梯：T1 19 · T2 17 · T3 15 ｜ 🎯 目标股价：止盈T1 23 · 止盈T2 27 · 止损 18</div></div></td></tr></tbody></table></div></div>
+</section>
+
+<footer>
+  <a href="archive.html">📚 历史归档</a> · Asset OS v7 · TickFlow · 决策引擎 · 2026-07-15
+  <div class="footer-line">不构成投资建议 · For Personal Use Only</div>
+</footer>
+</div>
+
+</body></html>
