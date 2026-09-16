@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>资本部署看板 · 2026-09-04</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:#0a0b0e;color:#e0e0e0;line-height:1.6;padding:20px;max-width:960px;margin:0 auto}
+h1{font-size:22px;color:#c8a86b;margin-bottom:4px}
+.subtitle{font-size:12px;color:#666;margin-bottom:20px}
+.summary{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:24px}
+.summary .item{text-align:center;padding:12px 8px;border-radius:8px;border:1px solid rgba(255,255,255,.06)}
+.summary .count{font-size:24px;font-weight:700}
+.summary .label{font-size:11px;color:#888;margin-top:2px}
+h2{font-size:16px;color:#c8a86b;margin:24px 0 12px;border-bottom:1px solid rgba(200,168,107,.15);padding-bottom:6px}
+.card{background:#15171c;border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:16px;margin-bottom:14px}
+.card-hd{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.code{font-family:monospace;font-size:13px;color:#888}
+.name{font-size:15px;font-weight:600;flex:1}
+.verdict{font-size:12px;padding:3px 10px;border-radius:12px;font-weight:600}
+.reason-code{font-size:11px;padding:2px 8px;border-radius:8px;border:1px solid rgba(255,255,255,.08);margin-right:4px}
+.card-body{font-size:13px}
+.section{margin-bottom:10px}
+.section-label{font-size:11px;color:#666;margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
+ul{padding-left:18px;font-size:12px}
+li{margin-bottom:2px}
+.footer{margin-top:32px;padding-top:16px;border-top:1px solid rgba(255,255,255,.06);font-size:11px;color:#555}
+</style>
+</head>
+<body>
+<h1>📋 资本部署看板</h1>
+<p class="subtitle">CDG v1.0 Shadow · 2026-09-04T10:43:16 · 仅供参考，Charles 拍板</p>
+
+<div class="summary">
+  <div class="item" style="border-color:#2ecc7140"><div class="count" style="color:#2ecc71">0</div><div class="label">🟢 ADD</div></div>
+  <div class="item" style="border-color:#f39c1240"><div class="count" style="color:#f39c12">1</div><div class="label">🟠 SMALL_ADD</div></div>
+  <div class="item" style="border-color:#e8c77d40"><div class="count" style="color:#e8c77d">8</div><div class="label">🟡 WAIT_FOR_PRICE</div></div>
+  <div class="item"><div class="count" style="color:#888">68</div><div class="label">⚪ HOLD</div></div>
+  <div class="item" style="border-color:#e74c3c40"><div class="count" style="color:#e74c3c">0</div><div class="label">🔴 BLOCK</div></div>
+</div>
+
+<div style="margin-bottom:20px;padding:12px;border-radius:8px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04)">
+  <div style="font-size:12px;color:#666;margin-bottom:6px">HOLD 细分</div>
+  <div><span style="font-size:11px;color:#888;margin-right:12px">多维不足: <b style="color:#aaa">57</b></span><span style="font-size:11px;color:#888;margin-right:12px">估值偏高: <b style="color:#aaa">9</b></span><span style="font-size:11px;color:#888;margin-right:12px">基本面弱: <b style="color:#aaa">2</b></span></div>
+  <div style="font-size:12px;color:#666;margin:8px 0 6px">WAIT_FOR_PRICE 细分</div>
+  <div><span style="font-size:11px;color:#888;margin-right:12px">时序多维弱: <b style="color:#aaa">8</b></span></div>
+</div>
+
+<h2>持仓 · 资本授权单（7 只）</h2>
+
+<div class="card" style="border-color:#f39c1240">
+  <div class="card-hd">
+    <span class="code">000807</span>
+    <span class="name">云铝股份</span>
+    <span class="reason-code" style="color:#f39c1280">机会部分</span>
+    <span class="verdict" style="color:#f39c12;background:rgba(243,156,18,.12)">🟠 小幅加仓</span>
+  </div>
+
+  <div class="card-body">
+    <!-- 生命周期 -->
+    <div class="section">
+      <div class="section-label">部署进度</div>
+      <div style="margin:4px 0"><span style="color:#2ecc71">●WATCH</span> → <span style="color:#e8c77d;font-weight:600">●PROBE</span> → <span style="color:#555">○BUILD</span> → <span style="color:#555">○CORE</span> <span style="color:#888;font-size:11px">(40%)</span></div>
+    </div>
+
+    <!-- Hard Gate -->
+    <div class="section">
+      <div class="section-label">Hard Gate（否决权）</div>
+      <div style="font-size:12px;font-family:monospace"><span style="color:#2ecc71">thesis=PASS</span> <span style="color:#2ecc71">kill_condition=PASS</span> <span style="color:#2ecc71">data_integrity=PASS</span> <span style="color:#2ecc71">risk_limit=PASS</span></div>
+    </div>
+
+    <!-- Opportunity Score -->
+    <div class="section">
+      <div class="section-label">机会评分 <b style="color:#e8c77d">62.5</b>/100
+        <span style="color:#888;font-size:11px">（周期资源型）</span></div>
+      <div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">商品价格</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:69%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">13.7</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">基本面</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:35%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">7.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">估值</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:80%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">16.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">催化剂</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:55%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">8.2</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">组合适配</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:100%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">10.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">储量覆盖</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:50%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">7.5</span></div>
+    </div>
+
+    <!-- Timing Score -->
+    <div class="section">
+      <div class="section-label">时序评分 <b style="color:#5da9e8">40.1</b>/100</div>
+      <div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">趋势</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:80%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">24.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">资金流</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:40%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">10.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">宏观</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:20%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">4.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">时序优势</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:9%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">2.1</span></div>
+    </div>
+
+    <!-- Deployment -->
+    <div class="section">
+      <div class="section-label">部署建议</div>
+      <div style="font-size:13px">
+        建议新增 <b style="color:#f39c12">3.2%</b>
+        · 价格区间 <b>DEEP_VALUE</b>
+        · 目标 8.0%
+        · 置信 56%
+      </div>
+    </div>
+
+    <!-- Explanations -->
+    <div class="section">
+      <div class="section-label">为什么可以加</div>
+      <ul><li>Thesis: PASS — logic_state=intact</li><li>风险预算: 充足 — allowed_add=17.3%</li><li>机会评分: 62.5/100 — MARGINAL</li></ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">为什么不能加满</div>
+      <ul><li style="color:#e8c77d">资金流尚未确认</li><li style="color:#e8c77d">宏观环境不支持</li><li style="color:#e8c77d">机会评分未达 QUALIFIED（62.5/100）</li></ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Kill Condition</div>
+      <div style="font-size:12px;color:#e74c3c">原始投资逻辑破坏 → 立即停止所有新增资本</div>
+    </div>
+  </div>
+</div>
+
+<div class="card" style="border-color:#e8c77d40">
+  <div class="card-hd">
+    <span class="code">002475</span>
+    <span class="name">立讯精密</span>
+    <span class="reason-code" style="color:#e8c77d80">时序多维弱</span>
+    <span class="verdict" style="color:#e8c77d;background:rgba(232,199,125,.10)">🟡 等待更优价格</span>
+  </div>
+
+  <div class="card-body">
+    <!-- 生命周期 -->
+    <div class="section">
+      <div class="section-label">部署进度</div>
+      <div style="margin:4px 0"><span style="color:#2ecc71">●WATCH</span> → <span style="color:#e8c77d;font-weight:600">●PROBE</span> → <span style="color:#555">○BUILD</span> → <span style="color:#555">○CORE</span> <span style="color:#888;font-size:11px">(40%)</span></div>
+    </div>
+
+    <!-- Hard Gate -->
+    <div class="section">
+      <div class="section-label">Hard Gate（否决权）</div>
+      <div style="font-size:12px;font-family:monospace"><span style="color:#2ecc71">thesis=PASS</span> <span style="color:#2ecc71">kill_condition=PASS</span> <span style="color:#2ecc71">data_integrity=PASS</span> <span style="color:#2ecc71">risk_limit=PASS</span></div>
+    </div>
+
+    <!-- Opportunity Score -->
+    <div class="section">
+      <div class="section-label">机会评分 <b style="color:#e8c77d">61.2</b>/100
+        <span style="color:#888;font-size:11px">（盈利增长型）</span></div>
+      <div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">基本面</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:30%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">7.5</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">估值</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:80%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">16.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">催化剂</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:55%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">8.2</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">护城河</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:50%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">7.5</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">增长质量</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:80%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">12.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">组合适配</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:100%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">10.0</span></div>
+    </div>
+
+    <!-- Timing Score -->
+    <div class="section">
+      <div class="section-label">时序评分 <b style="color:#5da9e8">30.8</b>/100</div>
+      <div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">趋势</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:50%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">15.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">资金流</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:40%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">10.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">宏观</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:20%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">4.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">时序优势</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:7%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">1.8</span></div>
+    </div>
+
+    <!-- Deployment -->
+    <div class="section">
+      <div class="section-label">部署建议</div>
+      <div style="font-size:13px">
+        建议新增 <b style="color:#e8c77d">2.1%</b>
+        · 价格区间 <b>DEEP_VALUE</b>
+        · 目标 6.4%
+        · 置信 52%
+      </div>
+    </div>
+
+    <!-- Explanations -->
+    <div class="section">
+      <div class="section-label">为什么可以加</div>
+      <ul><li>Thesis: PASS — logic_state=intact</li><li>风险预算: 充足 — allowed_add=16.9%</li><li>机会评分: 61.2/100 — MARGINAL</li></ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">为什么不能加满</div>
+      <ul><li style="color:#e8c77d">资金流尚未确认</li><li style="color:#e8c77d">宏观环境不支持</li><li style="color:#e8c77d">机会评分未达 QUALIFIED（61.2/100）</li></ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">下一授权条件</div>
+      <ul><li style="color:#5da9e8">趋势确认（ma5 回升或 RSI > 50）</li><li style="color:#5da9e8">资金流连续改善</li></ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Kill Condition</div>
+      <div style="font-size:12px;color:#e74c3c">原始投资逻辑破坏 → 立即停止所有新增资本</div>
+    </div>
+  </div>
+</div>
+
+<div class="card" style="border-color:#e8c77d40">
+  <div class="card-hd">
+    <span class="code">300773</span>
+    <span class="name">拉卡拉</span>
+    <span class="reason-code" style="color:#e8c77d80">时序多维弱</span>
+    <span class="verdict" style="color:#e8c77d;background:rgba(232,199,125,.10)">🟡 等待更优价格</span>
+  </div>
+
+  <div class="card-body">
+    <!-- 生命周期 -->
+    <div class="section">
+      <div class="section-label">部署进度</div>
+      <div style="margin:4px 0"><span style="color:#2ecc71">●WATCH</span> → <span style="color:#e8c77d;font-weight:600">●PROBE</span> → <span style="color:#555">○BUILD</span> → <span style="color:#555">○CORE</span> <span style="color:#888;font-size:11px">(40%)</span></div>
+    </div>
+
+    <!-- Hard Gate -->
+    <div class="section">
+      <div class="section-label">Hard Gate（否决权）</div>
+      <div style="font-size:12px;font-family:monospace"><span style="color:#2ecc71">thesis=PASS</span> <span style="color:#2ecc71">kill_condition=PASS</span> <span style="color:#2ecc71">data_integrity=PASS</span> <span style="color:#2ecc71">risk_limit=PASS</span></div>
+    </div>
+
+    <!-- Opportunity Score -->
+    <div class="section">
+      <div class="section-label">机会评分 <b style="color:#e8c77d">57.5</b>/100
+        <span style="color:#888;font-size:11px">（周期资源型）</span></div>
+      <div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">商品价格</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:69%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">13.7</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">基本面</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:60%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">12.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">估值</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:30%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">6.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">催化剂</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:55%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">8.2</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">组合适配</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:100%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">10.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">储量覆盖</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:50%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">7.5</span></div>
+    </div>
+
+    <!-- Timing Score -->
+    <div class="section">
+      <div class="section-label">时序评分 <b style="color:#5da9e8">29.0</b>/100</div>
+      <div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">趋势</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:50%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">15.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">资金流</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:40%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">10.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">宏观</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:20%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">4.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">时序优势</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:0%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">0.0</span></div>
+    </div>
+
+    <!-- Deployment -->
+    <div class="section">
+      <div class="section-label">部署建议</div>
+      <div style="font-size:13px">
+        建议新增 <b style="color:#e8c77d">1.4%</b>
+        · 价格区间 <b>FAIR</b>
+        · 目标 4.8%
+        · 置信 49%
+      </div>
+    </div>
+
+    <!-- Explanations -->
+    <div class="section">
+      <div class="section-label">为什么可以加</div>
+      <ul><li>Thesis: PASS — logic_state=unknown</li><li>风险预算: 充足 — allowed_add=19.6%</li><li>机会评分: 57.5/100 — MARGINAL</li></ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">为什么不能加满</div>
+      <ul><li style="color:#e8c77d">资金流尚未确认</li><li style="color:#e8c77d">宏观环境不支持</li><li style="color:#e8c77d">机会评分未达 QUALIFIED（57.5/100）</li></ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">下一授权条件</div>
+      <ul><li style="color:#5da9e8">趋势确认（ma5 回升或 RSI > 50）</li><li style="color:#5da9e8">资金流连续改善</li></ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Kill Condition</div>
+      <div style="font-size:12px;color:#e74c3c">原始投资逻辑破坏 → 立即停止所有新增资本</div>
+    </div>
+  </div>
+</div>
+
+<div class="card" style="border-color:#88840">
+  <div class="card-hd">
+    <span class="code">600276</span>
+    <span class="name">恒瑞医药</span>
+    <span class="reason-code" style="color:#88880">多维不足</span>
+    <span class="verdict" style="color:#888;background:rgba(136,136,136,.08)">⚪ 不追加</span>
+  </div>
+
+  <div class="card-body">
+    <!-- 生命周期 -->
+    <div class="section">
+      <div class="section-label">部署进度</div>
+      <div style="margin:4px 0"><span style="color:#555">○WATCH</span> → <span style="color:#555">○PROBE</span> → <span style="color:#555">○BUILD</span> → <span style="color:#555">○CORE</span> → <span style="color:#e74c3c;font-weight:600">●TRIM</span> <span style="color:#888;font-size:11px">(40%)</span></div>
+    </div>
+
+    <!-- Hard Gate -->
+    <div class="section">
+      <div class="section-label">Hard Gate（否决权）</div>
+      <div style="font-size:12px;font-family:monospace"><span style="color:#2ecc71">thesis=PASS</span> <span style="color:#2ecc71">kill_condition=PASS</span> <span style="color:#2ecc71">data_integrity=PASS</span> <span style="color:#2ecc71">risk_limit=PASS</span></div>
+    </div>
+
+    <!-- Opportunity Score -->
+    <div class="section">
+      <div class="section-label">机会评分 <b style="color:#e8c77d">46.4</b>/100
+        <span style="color:#888;font-size:11px">（盈利增长型）</span></div>
+      <div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">基本面</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:30%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">7.5</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">估值</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:0%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">0.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">催化剂</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:62%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">9.4</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">护城河</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:50%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">7.5</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">增长质量</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:80%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">12.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">组合适配</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:100%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">10.0</span></div>
+    </div>
+
+    <!-- Timing Score -->
+    <div class="section">
+      <div class="section-label">时序评分 <b style="color:#5da9e8">20.0</b>/100</div>
+      <div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">趋势</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:20%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">6.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">资金流</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:40%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">10.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">宏观</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:20%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">4.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">时序优势</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:0%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">0.0</span></div>
+    </div>
+
+    <!-- Deployment -->
+    <div class="section">
+      <div class="section-label">部署建议</div>
+      <div style="font-size:13px">
+        建议新增 <b style="color:#888">0.0%</b>
+        · 价格区间 <b>RICH</b>
+        · 目标 0.7%
+        · 置信 38%
+      </div>
+    </div>
+
+    <!-- Explanations -->
+    <div class="section">
+      <div class="section-label">为什么可以加</div>
+      <ul><li>Thesis: PASS — logic_state=realized</li><li>风险预算: 充足 — allowed_add=19.3%</li></ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">为什么不能加满</div>
+      <ul><li style="color:#e8c77d">短期趋势偏弱</li><li style="color:#e8c77d">资金流尚未确认</li><li style="color:#e8c77d">宏观环境不支持</li><li style="color:#e8c77d">机会评分未达 QUALIFIED（46.4/100）</li></ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">下一授权条件</div>
+      <ul><li style="color:#5da9e8">趋势确认（ma5 回升或 RSI > 50）</li><li style="color:#5da9e8">资金流连续改善</li><li style="color:#5da9e8">估值回落至合理区间</li></ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Kill Condition</div>
+      <div style="font-size:12px;color:#e74c3c">原始投资逻辑破坏 → 立即停止所有新增资本</div>
+    </div>
+  </div>
+</div>
+
+<div class="card" style="border-color:#88840">
+  <div class="card-hd">
+    <span class="code">600406</span>
+    <span class="name">国电南瑞</span>
+    <span class="reason-code" style="color:#88880">多维不足</span>
+    <span class="verdict" style="color:#888;background:rgba(136,136,136,.08)">⚪ 不追加</span>
+  </div>
+
+  <div class="card-body">
+    <!-- 生命周期 -->
+    <div class="section">
+      <div class="section-label">部署进度</div>
+      <div style="margin:4px 0"><span style="color:#555">○WATCH</span> → <span style="color:#555">○PROBE</span> → <span style="color:#555">○BUILD</span> → <span style="color:#555">○CORE</span> → <span style="color:#e74c3c;font-weight:600">●TRIM</span> <span style="color:#888;font-size:11px">(40%)</span></div>
+    </div>
+
+    <!-- Hard Gate -->
+    <div class="section">
+      <div class="section-label">Hard Gate（否决权）</div>
+      <div style="font-size:12px;font-family:monospace"><span style="color:#2ecc71">thesis=PASS</span> <span style="color:#2ecc71">kill_condition=PASS</span> <span style="color:#2ecc71">data_integrity=PASS</span> <span style="color:#2ecc71">risk_limit=PASS</span></div>
+    </div>
+
+    <!-- Opportunity Score -->
+    <div class="section">
+      <div class="section-label">机会评分 <b style="color:#e8c77d">36.8</b>/100
+        <span style="color:#888;font-size:11px">（盈利增长型）</span></div>
+      <div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">基本面</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:20%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">5.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">估值</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:0%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">0.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">催化剂</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:55%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">8.2</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">护城河</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:50%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">7.5</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">增长质量</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:40%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">6.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">组合适配</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:100%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">10.0</span></div>
+    </div>
+
+    <!-- Timing Score -->
+    <div class="section">
+      <div class="section-label">时序评分 <b style="color:#5da9e8">29.0</b>/100</div>
+      <div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">趋势</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:50%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">15.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">资金流</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:40%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">10.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">宏观</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:20%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">4.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">时序优势</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:0%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">0.0</span></div>
+    </div>
+
+    <!-- Deployment -->
+    <div class="section">
+      <div class="section-label">部署建议</div>
+      <div style="font-size:13px">
+        建议新增 <b style="color:#888">0.0%</b>
+        · 价格区间 <b>RICH</b>
+        · 目标 2.6%
+        · 置信 34%
+      </div>
+    </div>
+
+    <!-- Explanations -->
+    <div class="section">
+      <div class="section-label">为什么可以加</div>
+      <ul><li>Thesis: PASS — logic_state=realized</li><li>风险预算: 充足 — allowed_add=17.4%</li></ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">为什么不能加满</div>
+      <ul><li style="color:#e8c77d">资金流尚未确认</li><li style="color:#e8c77d">宏观环境不支持</li><li style="color:#e8c77d">机会评分未达 QUALIFIED（36.8/100）</li></ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">下一授权条件</div>
+      <ul><li style="color:#5da9e8">趋势确认（ma5 回升或 RSI > 50）</li><li style="color:#5da9e8">资金流连续改善</li><li style="color:#5da9e8">估值回落至合理区间</li></ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Kill Condition</div>
+      <div style="font-size:12px;color:#e74c3c">原始投资逻辑破坏 → 立即停止所有新增资本</div>
+    </div>
+  </div>
+</div>
+
+<div class="card" style="border-color:#e8c77d40">
+  <div class="card-hd">
+    <span class="code">601899</span>
+    <span class="name">紫金矿业</span>
+    <span class="reason-code" style="color:#e8c77d80">时序多维弱</span>
+    <span class="verdict" style="color:#e8c77d;background:rgba(232,199,125,.10)">🟡 等待更优价格</span>
+  </div>
+
+  <div class="card-body">
+    <!-- 生命周期 -->
+    <div class="section">
+      <div class="section-label">部署进度</div>
+      <div style="margin:4px 0"><span style="color:#555">○WATCH</span> → <span style="color:#555">○PROBE</span> → <span style="color:#555">○BUILD</span> → <span style="color:#555">○CORE</span> → <span style="color:#e74c3c;font-weight:600">●TRIM</span> <span style="color:#888;font-size:11px">(40%)</span></div>
+    </div>
+
+    <!-- Hard Gate -->
+    <div class="section">
+      <div class="section-label">Hard Gate（否决权）</div>
+      <div style="font-size:12px;font-family:monospace"><span style="color:#2ecc71">thesis=PASS</span> <span style="color:#2ecc71">kill_condition=PASS</span> <span style="color:#2ecc71">data_integrity=PASS</span> <span style="color:#2ecc71">risk_limit=PASS</span></div>
+    </div>
+
+    <!-- Opportunity Score -->
+    <div class="section">
+      <div class="section-label">机会评分 <b style="color:#e8c77d">53.1</b>/100
+        <span style="color:#888;font-size:11px">（盈利增长型）</span></div>
+      <div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">基本面</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:60%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">15.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">估值</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:0%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">0.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">催化剂</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:57%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">8.6</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">护城河</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:50%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">7.5</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">增长质量</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:80%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">12.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">组合适配</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:100%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">10.0</span></div>
+    </div>
+
+    <!-- Timing Score -->
+    <div class="section">
+      <div class="section-label">时序评分 <b style="color:#5da9e8">29.0</b>/100</div>
+      <div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">趋势</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:50%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">15.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">资金流</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:40%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">10.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">宏观</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:20%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">4.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">时序优势</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:0%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">0.0</span></div>
+    </div>
+
+    <!-- Deployment -->
+    <div class="section">
+      <div class="section-label">部署建议</div>
+      <div style="font-size:13px">
+        建议新增 <b style="color:#e8c77d">0.0%</b>
+        · 价格区间 <b>RICH</b>
+        · 目标 2.4%
+        · 置信 46%
+      </div>
+    </div>
+
+    <!-- Explanations -->
+    <div class="section">
+      <div class="section-label">为什么可以加</div>
+      <ul><li>Thesis: PASS — logic_state=realized</li><li>风险预算: 充足 — allowed_add=17.6%</li><li>机会评分: 53.1/100 — MARGINAL</li></ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">为什么不能加满</div>
+      <ul><li style="color:#e8c77d">资金流尚未确认</li><li style="color:#e8c77d">宏观环境不支持</li><li style="color:#e8c77d">机会评分未达 QUALIFIED（53.1/100）</li></ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">下一授权条件</div>
+      <ul><li style="color:#5da9e8">趋势确认（ma5 回升或 RSI > 50）</li><li style="color:#5da9e8">资金流连续改善</li><li style="color:#5da9e8">估值回落至合理区间</li></ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Kill Condition</div>
+      <div style="font-size:12px;color:#e74c3c">原始投资逻辑破坏 → 立即停止所有新增资本</div>
+    </div>
+  </div>
+</div>
+
+<div class="card" style="border-color:#88840">
+  <div class="card-hd">
+    <span class="code">688122</span>
+    <span class="name">西部超导</span>
+    <span class="reason-code" style="color:#88880">多维不足</span>
+    <span class="verdict" style="color:#888;background:rgba(136,136,136,.08)">⚪ 不追加</span>
+  </div>
+
+  <div class="card-body">
+    <!-- 生命周期 -->
+    <div class="section">
+      <div class="section-label">部署进度</div>
+      <div style="margin:4px 0"><span style="color:#555">○WATCH</span> → <span style="color:#555">○PROBE</span> → <span style="color:#555">○BUILD</span> → <span style="color:#555">○CORE</span> → <span style="color:#e74c3c;font-weight:600">●TRIM</span> <span style="color:#888;font-size:11px">(40%)</span></div>
+    </div>
+
+    <!-- Hard Gate -->
+    <div class="section">
+      <div class="section-label">Hard Gate（否决权）</div>
+      <div style="font-size:12px;font-family:monospace"><span style="color:#2ecc71">thesis=PASS</span> <span style="color:#2ecc71">kill_condition=PASS</span> <span style="color:#2ecc71">data_integrity=PASS</span> <span style="color:#2ecc71">risk_limit=PASS</span></div>
+    </div>
+
+    <!-- Opportunity Score -->
+    <div class="section">
+      <div class="section-label">机会评分 <b style="color:#e8c77d">49.0</b>/100
+        <span style="color:#888;font-size:11px">（长周期前沿型）</span></div>
+      <div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">技术里程碑</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:55%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">11.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">基本面</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:10%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">1.5</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">估值</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:30%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">4.5</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">催化剂</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:55%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">11.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">专利/IP</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:40%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">6.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">组合适配</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:100%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">15.0</span></div>
+    </div>
+
+    <!-- Timing Score -->
+    <div class="section">
+      <div class="section-label">时序评分 <b style="color:#5da9e8">29.0</b>/100</div>
+      <div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">趋势</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:50%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">15.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">资金流</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:40%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">10.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">宏观</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:20%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">4.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">时序优势</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:0%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">0.0</span></div>
+    </div>
+
+    <!-- Deployment -->
+    <div class="section">
+      <div class="section-label">部署建议</div>
+      <div style="font-size:13px">
+        建议新增 <b style="color:#888">0.0%</b>
+        · 价格区间 <b>FAIR</b>
+        · 目标 3.2%
+        · 置信 43%
+      </div>
+    </div>
+
+    <!-- Explanations -->
+    <div class="section">
+      <div class="section-label">为什么可以加</div>
+      <ul><li>Thesis: PASS — logic_state=under_review</li><li>风险预算: 充足 — allowed_add=16.4%</li></ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">为什么不能加满</div>
+      <ul><li style="color:#e8c77d">资金流尚未确认</li><li style="color:#e8c77d">宏观环境不支持</li><li style="color:#e8c77d">机会评分未达 QUALIFIED（49.0/100）</li></ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">下一授权条件</div>
+      <ul><li style="color:#5da9e8">趋势确认（ma5 回升或 RSI > 50）</li><li style="color:#5da9e8">资金流连续改善</li></ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Kill Condition</div>
+      <div style="font-size:12px;color:#e74c3c">原始投资逻辑破坏 → 立即停止所有新增资本</div>
+    </div>
+  </div>
+</div>
+
+
+<h2>候选 · 有加仓资格（5 只）</h2>
+
+<div class="card" style="border-color:#e8c77d40">
+  <div class="card-hd">
+    <span class="code">000651</span>
+    <span class="name">格力电器</span>
+    <span class="reason-code" style="color:#e8c77d80">时序多维弱</span>
+    <span class="verdict" style="color:#e8c77d;background:rgba(232,199,125,.10)">🟡 等待更优价格</span>
+  </div>
+
+  <div class="card-body">
+    <!-- 生命周期 -->
+    <div class="section">
+      <div class="section-label">部署进度</div>
+      <div style="margin:4px 0"><span style="color:#e8c77d;font-weight:600">●WATCH</span> → <span style="color:#555">○PROBE</span> → <span style="color:#555">○BUILD</span> → <span style="color:#555">○CORE</span> <span style="color:#888;font-size:11px">(0%)</span></div>
+    </div>
+
+    <!-- Hard Gate -->
+    <div class="section">
+      <div class="section-label">Hard Gate（否决权）</div>
+      <div style="font-size:12px;font-family:monospace"><span style="color:#2ecc71">thesis=PASS</span> <span style="color:#2ecc71">kill_condition=PASS</span> <span style="color:#2ecc71">data_integrity=PASS</span> <span style="color:#2ecc71">risk_limit=PASS</span></div>
+    </div>
+
+    <!-- Opportunity Score -->
+    <div class="section">
+      <div class="section-label">机会评分 <b style="color:#e8c77d">50.8</b>/100
+        <span style="color:#888;font-size:11px">（盈利增长型）</span></div>
+      <div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">基本面</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:20%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">5.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">估值</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:100%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">20.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">催化剂</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:55%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">8.2</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">护城河</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:50%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">7.5</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">增长质量</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:40%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">6.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">组合适配</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:40%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">4.0</span></div>
+    </div>
+
+    <!-- Timing Score -->
+    <div class="section">
+      <div class="section-label">时序评分 <b style="color:#5da9e8">33.3</b>/100</div>
+      <div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">趋势</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:50%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">15.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">资金流</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:40%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">10.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">宏观</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:20%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">4.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">时序优势</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:17%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">4.3</span></div>
+    </div>
+
+    <!-- Deployment -->
+    <div class="section">
+      <div class="section-label">部署建议</div>
+      <div style="font-size:13px">
+        建议新增 <b style="color:#e8c77d">3.4%</b>
+        · 价格区间 <b>DEEP_VALUE</b>
+        · 目标 9.6%
+        · 置信 46%
+      </div>
+    </div>
+
+    <!-- Explanations -->
+    <div class="section">
+      <div class="section-label">为什么可以加</div>
+      <ul><li>Thesis: PASS — logic_state=improving</li><li>风险预算: 充足 — allowed_add=3.0%</li><li>机会评分: 50.8/100 — MARGINAL</li></ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">为什么不能加满</div>
+      <ul><li style="color:#e8c77d">资金流尚未确认</li><li style="color:#e8c77d">宏观环境不支持</li><li style="color:#e8c77d">机会评分未达 QUALIFIED（50.8/100）</li></ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">下一授权条件</div>
+      <ul><li style="color:#5da9e8">趋势确认（ma5 回升或 RSI > 50）</li><li style="color:#5da9e8">资金流连续改善</li></ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Kill Condition</div>
+      <div style="font-size:12px;color:#e74c3c">原始投资逻辑破坏 → 立即停止所有新增资本</div>
+    </div>
+  </div>
+</div>
+
+<div class="card" style="border-color:#e8c77d40">
+  <div class="card-hd">
+    <span class="code">002472</span>
+    <span class="name">双环传动</span>
+    <span class="reason-code" style="color:#e8c77d80">时序多维弱</span>
+    <span class="verdict" style="color:#e8c77d;background:rgba(232,199,125,.10)">🟡 等待更优价格</span>
+  </div>
+
+  <div class="card-body">
+    <!-- 生命周期 -->
+    <div class="section">
+      <div class="section-label">部署进度</div>
+      <div style="margin:4px 0"><span style="color:#e8c77d;font-weight:600">●WATCH</span> → <span style="color:#555">○PROBE</span> → <span style="color:#555">○BUILD</span> → <span style="color:#555">○CORE</span> <span style="color:#888;font-size:11px">(0%)</span></div>
+    </div>
+
+    <!-- Hard Gate -->
+    <div class="section">
+      <div class="section-label">Hard Gate（否决权）</div>
+      <div style="font-size:12px;font-family:monospace"><span style="color:#2ecc71">thesis=PASS</span> <span style="color:#2ecc71">kill_condition=PASS</span> <span style="color:#2ecc71">data_integrity=PASS</span> <span style="color:#2ecc71">risk_limit=PASS</span></div>
+    </div>
+
+    <!-- Opportunity Score -->
+    <div class="section">
+      <div class="section-label">机会评分 <b style="color:#e8c77d">55.2</b>/100
+        <span style="color:#888;font-size:11px">（盈利增长型）</span></div>
+      <div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">基本面</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:30%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">7.5</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">估值</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:80%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">16.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">催化剂</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:55%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">8.2</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">护城河</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:50%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">7.5</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">增长质量</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:80%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">12.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">组合适配</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:40%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">4.0</span></div>
+    </div>
+
+    <!-- Timing Score -->
+    <div class="section">
+      <div class="section-label">时序评分 <b style="color:#5da9e8">30.9</b>/100</div>
+      <div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">趋势</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:50%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">15.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">资金流</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:40%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">10.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">宏观</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:20%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">4.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">时序优势</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:8%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">1.9</span></div>
+    </div>
+
+    <!-- Deployment -->
+    <div class="section">
+      <div class="section-label">部署建议</div>
+      <div style="font-size:13px">
+        建议新增 <b style="color:#e8c77d">2.1%</b>
+        · 价格区间 <b>DEEP_VALUE</b>
+        · 目标 6.4%
+        · 置信 48%
+      </div>
+    </div>
+
+    <!-- Explanations -->
+    <div class="section">
+      <div class="section-label">为什么可以加</div>
+      <ul><li>Thesis: PASS — logic_state=improving</li><li>风险预算: 充足 — allowed_add=3.0%</li><li>机会评分: 55.2/100 — MARGINAL</li></ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">为什么不能加满</div>
+      <ul><li style="color:#e8c77d">资金流尚未确认</li><li style="color:#e8c77d">宏观环境不支持</li><li style="color:#e8c77d">机会评分未达 QUALIFIED（55.2/100）</li></ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">下一授权条件</div>
+      <ul><li style="color:#5da9e8">趋势确认（ma5 回升或 RSI > 50）</li><li style="color:#5da9e8">资金流连续改善</li></ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Kill Condition</div>
+      <div style="font-size:12px;color:#e74c3c">原始投资逻辑破坏 → 立即停止所有新增资本</div>
+    </div>
+  </div>
+</div>
+
+<div class="card" style="border-color:#e8c77d40">
+  <div class="card-hd">
+    <span class="code">002594</span>
+    <span class="name">比亚迪</span>
+    <span class="reason-code" style="color:#e8c77d80">时序多维弱</span>
+    <span class="verdict" style="color:#e8c77d;background:rgba(232,199,125,.10)">🟡 等待更优价格</span>
+  </div>
+
+  <div class="card-body">
+    <!-- 生命周期 -->
+    <div class="section">
+      <div class="section-label">部署进度</div>
+      <div style="margin:4px 0"><span style="color:#e8c77d;font-weight:600">●WATCH</span> → <span style="color:#555">○PROBE</span> → <span style="color:#555">○BUILD</span> → <span style="color:#555">○CORE</span> <span style="color:#888;font-size:11px">(0%)</span></div>
+    </div>
+
+    <!-- Hard Gate -->
+    <div class="section">
+      <div class="section-label">Hard Gate（否决权）</div>
+      <div style="font-size:12px;font-family:monospace"><span style="color:#2ecc71">thesis=PASS</span> <span style="color:#2ecc71">kill_condition=PASS</span> <span style="color:#2ecc71">data_integrity=PASS</span> <span style="color:#2ecc71">risk_limit=PASS</span></div>
+    </div>
+
+    <!-- Opportunity Score -->
+    <div class="section">
+      <div class="section-label">机会评分 <b style="color:#e8c77d">59.2</b>/100
+        <span style="color:#888;font-size:11px">（盈利增长型）</span></div>
+      <div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">基本面</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:30%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">7.5</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">估值</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:100%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">20.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">催化剂</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:55%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">8.2</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">护城河</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:50%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">7.5</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">增长质量</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:80%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">12.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">组合适配</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:40%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">4.0</span></div>
+    </div>
+
+    <!-- Timing Score -->
+    <div class="section">
+      <div class="section-label">时序评分 <b style="color:#5da9e8">32.1</b>/100</div>
+      <div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">趋势</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:50%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">15.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">资金流</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:40%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">10.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">宏观</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:20%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">4.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">时序优势</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:12%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">3.1</span></div>
+    </div>
+
+    <!-- Deployment -->
+    <div class="section">
+      <div class="section-label">部署建议</div>
+      <div style="font-size:13px">
+        建议新增 <b style="color:#e8c77d">2.7%</b>
+        · 价格区间 <b>DEEP_VALUE</b>
+        · 目标 7.7%
+        · 置信 51%
+      </div>
+    </div>
+
+    <!-- Explanations -->
+    <div class="section">
+      <div class="section-label">为什么可以加</div>
+      <ul><li>Thesis: PASS — logic_state=improving</li><li>风险预算: 充足 — allowed_add=3.0%</li><li>机会评分: 59.2/100 — MARGINAL</li></ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">为什么不能加满</div>
+      <ul><li style="color:#e8c77d">资金流尚未确认</li><li style="color:#e8c77d">宏观环境不支持</li><li style="color:#e8c77d">机会评分未达 QUALIFIED（59.2/100）</li></ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">下一授权条件</div>
+      <ul><li style="color:#5da9e8">趋势确认（ma5 回升或 RSI > 50）</li><li style="color:#5da9e8">资金流连续改善</li></ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Kill Condition</div>
+      <div style="font-size:12px;color:#e74c3c">原始投资逻辑破坏 → 立即停止所有新增资本</div>
+    </div>
+  </div>
+</div>
+
+<div class="card" style="border-color:#e8c77d40">
+  <div class="card-hd">
+    <span class="code">601138</span>
+    <span class="name">工业富联</span>
+    <span class="reason-code" style="color:#e8c77d80">时序多维弱</span>
+    <span class="verdict" style="color:#e8c77d;background:rgba(232,199,125,.10)">🟡 等待更优价格</span>
+  </div>
+
+  <div class="card-body">
+    <!-- 生命周期 -->
+    <div class="section">
+      <div class="section-label">部署进度</div>
+      <div style="margin:4px 0"><span style="color:#e8c77d;font-weight:600">●WATCH</span> → <span style="color:#555">○PROBE</span> → <span style="color:#555">○BUILD</span> → <span style="color:#555">○CORE</span> <span style="color:#888;font-size:11px">(0%)</span></div>
+    </div>
+
+    <!-- Hard Gate -->
+    <div class="section">
+      <div class="section-label">Hard Gate（否决权）</div>
+      <div style="font-size:12px;font-family:monospace"><span style="color:#2ecc71">thesis=PASS</span> <span style="color:#2ecc71">kill_condition=PASS</span> <span style="color:#2ecc71">data_integrity=PASS</span> <span style="color:#2ecc71">risk_limit=PASS</span></div>
+    </div>
+
+    <!-- Opportunity Score -->
+    <div class="section">
+      <div class="section-label">机会评分 <b style="color:#e8c77d">53.4</b>/100
+        <span style="color:#888;font-size:11px">（产业趋势型）</span></div>
+      <div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">需求周期</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:62%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">12.5</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">基本面</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:30%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">6.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">估值</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:80%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">12.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">催化剂</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:62%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">9.4</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">竞争壁垒</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:50%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">7.5</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">组合适配</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:40%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">6.0</span></div>
+    </div>
+
+    <!-- Timing Score -->
+    <div class="section">
+      <div class="section-label">时序评分 <b style="color:#5da9e8">30.4</b>/100</div>
+      <div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">趋势</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:50%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">15.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">资金流</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:40%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">10.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">宏观</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:20%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">4.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">时序优势</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:6%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">1.4</span></div>
+    </div>
+
+    <!-- Deployment -->
+    <div class="section">
+      <div class="section-label">部署建议</div>
+      <div style="font-size:13px">
+        建议新增 <b style="color:#e8c77d">2.0%</b>
+        · 价格区间 <b>VALUE</b>
+        · 目标 6.4%
+        · 置信 47%
+      </div>
+    </div>
+
+    <!-- Explanations -->
+    <div class="section">
+      <div class="section-label">为什么可以加</div>
+      <ul><li>Thesis: PASS — logic_state=improving</li><li>风险预算: 充足 — allowed_add=3.0%</li><li>机会评分: 53.4/100 — MARGINAL</li></ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">为什么不能加满</div>
+      <ul><li style="color:#e8c77d">资金流尚未确认</li><li style="color:#e8c77d">宏观环境不支持</li><li style="color:#e8c77d">机会评分未达 QUALIFIED（53.4/100）</li></ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">下一授权条件</div>
+      <ul><li style="color:#5da9e8">趋势确认（ma5 回升或 RSI > 50）</li><li style="color:#5da9e8">资金流连续改善</li></ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Kill Condition</div>
+      <div style="font-size:12px;color:#e74c3c">原始投资逻辑破坏 → 立即停止所有新增资本</div>
+    </div>
+  </div>
+</div>
+
+<div class="card" style="border-color:#e8c77d40">
+  <div class="card-hd">
+    <span class="code">688256</span>
+    <span class="name">寒武纪</span>
+    <span class="reason-code" style="color:#e8c77d80">时序多维弱</span>
+    <span class="verdict" style="color:#e8c77d;background:rgba(232,199,125,.10)">🟡 等待更优价格</span>
+  </div>
+
+  <div class="card-body">
+    <!-- 生命周期 -->
+    <div class="section">
+      <div class="section-label">部署进度</div>
+      <div style="margin:4px 0"><span style="color:#e8c77d;font-weight:600">●WATCH</span> → <span style="color:#555">○PROBE</span> → <span style="color:#555">○BUILD</span> → <span style="color:#555">○CORE</span> <span style="color:#888;font-size:11px">(0%)</span></div>
+    </div>
+
+    <!-- Hard Gate -->
+    <div class="section">
+      <div class="section-label">Hard Gate（否决权）</div>
+      <div style="font-size:12px;font-family:monospace"><span style="color:#2ecc71">thesis=PASS</span> <span style="color:#2ecc71">kill_condition=PASS</span> <span style="color:#2ecc71">data_integrity=PASS</span> <span style="color:#2ecc71">risk_limit=PASS</span></div>
+    </div>
+
+    <!-- Opportunity Score -->
+    <div class="section">
+      <div class="section-label">机会评分 <b style="color:#e8c77d">54.0</b>/100
+        <span style="color:#888;font-size:11px">（盈利增长型）</span></div>
+      <div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">基本面</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:60%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">15.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">估值</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:30%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">6.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">催化剂</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:63%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">9.4</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">护城河</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:50%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">7.5</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">增长质量</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:80%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">12.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">组合适配</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style=">width:40%;height:100%;background:linear-gradient(90deg,#c8a86b,#e8c77d);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#e8c77d">4.0</span></div>
+    </div>
+
+    <!-- Timing Score -->
+    <div class="section">
+      <div class="section-label">时序评分 <b style="color:#5da9e8">29.0</b>/100</div>
+      <div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">趋势</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:50%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">15.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">资金流</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:40%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">10.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">宏观</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:20%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">4.0</span></div><div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="min-width:80px;font-size:11px;color:#888">时序优势</span><div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:0%;height:100%;background:linear-gradient(90deg,#5da9e8,#3a7bd5);border-radius:3px"></div></div><span style="min-width:35px;font-size:11px;text-align:right;color:#5da9e8">0.0</span></div>
+    </div>
+
+    <!-- Deployment -->
+    <div class="section">
+      <div class="section-label">部署建议</div>
+      <div style="font-size:13px">
+        建议新增 <b style="color:#e8c77d">0.7%</b>
+        · 价格区间 <b>FAIR</b>
+        · 目标 2.4%
+        · 置信 46%
+      </div>
+    </div>
+
+    <!-- Explanations -->
+    <div class="section">
+      <div class="section-label">为什么可以加</div>
+      <ul><li>Thesis: PASS — logic_state=intact</li><li>风险预算: 充足 — allowed_add=3.0%</li><li>机会评分: 54.0/100 — MARGINAL</li></ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">为什么不能加满</div>
+      <ul><li style="color:#e8c77d">资金流尚未确认</li><li style="color:#e8c77d">宏观环境不支持</li><li style="color:#e8c77d">机会评分未达 QUALIFIED（54.0/100）</li></ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">下一授权条件</div>
+      <ul><li style="color:#5da9e8">趋势确认（ma5 回升或 RSI > 50）</li><li style="color:#5da9e8">资金流连续改善</li></ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Kill Condition</div>
+      <div style="font-size:12px;color:#e74c3c">原始投资逻辑破坏 → 立即停止所有新增资本</div>
+    </div>
+  </div>
+</div>
+
+
+<div class="footer">
+  CDG v1.0 Shadow · 仅供参考，不构成&构成投资建议<br>
+  logic_state 权威源: decision_feed（discipline_monitor 直接输出）<br>
+  Trend/Flow 不做 Hard Gate · Score 不直接映射仓位 · WAIT_FOR_PRICE ≠ HOLD
+</div>
+</body>
+</html>

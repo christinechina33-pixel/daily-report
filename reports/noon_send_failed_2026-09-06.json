@@ -1,0 +1,12 @@
+{
+  "date": "2026-09-06",
+  "failed_at": "2026-09-06T12:03:00+08:00",
+  "channel": "agent-mail",
+  "recipients": ["clearlight33@sina.cn"],
+  "failure_type": "tool_unregistered_in_automation_session",
+  "detail": "ToolSearch 与 DeferExecuteTool 均无法解析 mcp__agent-mail__SendMessage / agent_mail_send_mail / agent_mail_send_email 等命名；本 automation 会话仅暴露 agent_mail_upload_attachment 与 agent_mail_download_attachment 两个工具，send 工具未注册。",
+  "known_issue": "与 2026-09-02 环境级故障同一根因：agent-mail 连接器在普通会话可调通（返回 queued:true），但 automation 上下文未挂载 send 工具。非临时故障，重试必败。",
+  "link_status": "已发布成功 https://c91c8dc32fa34e65959aff5006498ff1.app.workbuddy.link",
+  "remediation": "需 Charles 排查：agent-mail 连接器为何对 automation 不暴露 send 工具，或改配可用发件通道（netease-mail 凭证）。",
+  "sent_mark_written": false
+}

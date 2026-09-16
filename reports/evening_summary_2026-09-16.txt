@@ -1,0 +1,11 @@
+【收盘总结】2026-09-16
+市场：🔴 盈利恶化 + 流动性收缩，defend；降权模式
+持仓：6只，总资产 ¥721,060，仓位 17.1%，现金 ¥597,900
+今日动作：无（EXECUTE 0 / WATCH 5 / HOLD 6 / DRAFT 3） · 今天什么都不做
+Q5预算：⚠️ 超限，权益 ¥121,346 > 授权 ¥71,925（超 ¥49,421），新增暴露一律 BLOCK
+🔗 完整报告：https://evening-close-0916.app.workbuddy.host/
+
+📅 全天三报导航（稳定链接，点击查看完整报告）
+  早报：https://693471ad5f9c4ee8867a9a7fcf380c11.app.workbuddy.link
+  午报：https://noon-comment.app.workbuddy.host/
+  晚报：https://6eadee85ab584d5a9823da21d1c60e3b.app.workbuddy.link

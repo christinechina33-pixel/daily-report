@@ -1,0 +1,11 @@
+{
+  "date": "2026-09-07",
+  "sent_at": "2026-09-07T13:05:02+08:00",
+  "channel": "serverchan",
+  "method": "automation+manual_recovery",
+  "recipient": "Charles_WeChat_subscription",
+  "sendkey_prefix": "SCT413478",
+  "pushid": "54878059",
+  "shareLink": "https://c91c8dc32fa34e65959aff5006498ff1.app.workbuddy.link",
+  "note": "agent-mail 双日 FAIL-CLOSED，Charles 拍板改 Server酱；本次为自动化补发，pushid 54878059 SUCCESS"
+}

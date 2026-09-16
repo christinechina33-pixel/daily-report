@@ -1,0 +1,10 @@
+{
+  "date": "2026-09-11",
+  "sent_at": "2026-09-11T12:10:43+08:00",
+  "channel": "serverchan",
+  "pushid": "55658544",
+  "shareLink": "https://noon-comment-0911.app.workbuddy.link/",
+  "recipient": "Charles_WeChat_subscription",
+  "method": "automation",
+  "note": "sandbox state reset → previous stable link c91c8dc32fa34e65959aff5006498ff1 not in candidates; created new app to preserve link integrity (non-destructive)"
+}

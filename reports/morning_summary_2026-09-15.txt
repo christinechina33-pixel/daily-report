@@ -1,0 +1,11 @@
+【每日投资早报】2026-09-15
+市场：🔴 盈利恶化 + 流动性收缩，defend；降权模式
+持仓：6只，总资产 ¥721,469，仓位 17.1%，现金 ¥597,900
+今日动作：无（EXECUTE 0 / WATCH 4 / HOLD 7 / DRAFT 0） · 今天什么都不做
+Q5预算：⚠️ 超限，权益 ¥123,569 > 授权 ¥72,147（超 ¥51,422），新增暴露一律 BLOCK
+🔗 完整报告：https://invest-brief-20260915.app.workbuddy.host/
+
+📅 全天三报导航（稳定链接，点击查看完整报告）
+  早报：https://693471ad5f9c4ee8867a9a7fcf380c11.app.workbuddy.link
+  午报：https://c91c8dc32fa34e65959aff5006498ff1.app.workbuddy.link
+  晚报：https://6eadee85ab584d5a9823da21d1c60e3b.app.workbuddy.link

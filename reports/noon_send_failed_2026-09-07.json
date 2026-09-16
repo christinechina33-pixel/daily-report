@@ -1,0 +1,20 @@
+{
+  "date": "2026-09-07",
+  "failed_at": "2026-09-07T12:07:17+08:00",
+  "channel": "agent-mail",
+  "reason": "automation 会话未挂载 SendMessage/send_mail 工具",
+  "tried": [
+    "mcp__agent-mail__SendMessage",
+    "agent_mail_send_mail",
+    "agent_mail_send_email",
+    "agent_mail_send"
+  ],
+  "available": [
+    "agent_mail_upload_attachment",
+    "agent_mail_download_attachment"
+  ],
+  "action": "未写 sent-mark，下次运行重试",
+  "summary_report": "reports/noon_summary_2026-09-07.txt",
+  "html_report": "reports/noon_2026-09-07.html",
+  "shareLink": "https://c91c8dc32fa34e65959aff5006498ff1.app.workbuddy.link"
+}

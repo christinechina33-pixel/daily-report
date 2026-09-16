@@ -1,0 +1,12 @@
+{
+  "date": "2026-09-12",
+  "sent_at": "2026-09-12T17:13:31+08:00",
+  "channel": "serverchan",
+  "recipient": "Charles_WeChat_subscription",
+  "method": "automation",
+  "pushid": "55863665",
+  "shareLink": "https://evening-close-0912.app.workbuddy.host/",
+  "appId": "wbapp_oU0hsCvOmf2MPvjZh0og94",
+  "sandboxId": "ddb0c35b9cd3421e92931d91e5027174",
+  "note": "新 sandbox（旧 evening-close 域名绑定已被平台回收，本次创建新 app evening-close-0912）"
+}
