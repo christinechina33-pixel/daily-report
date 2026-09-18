@@ -1,0 +1,11 @@
+{
+  "date": "2026-09-17",
+  "sent_at": "2026-09-17T17:17:03+08:00",
+  "channel": "serverchan",
+  "recipient": "Charles_WeChat_subscription",
+  "method": "automation",
+  "pushid": "56816237",
+  "shareLink": "https://evening-close-0917.app.workbuddy.host/",
+  "sandboxId": "23f3095c79f54efca90342d4b9ac69da",
+  "notes": "第8日 createNewApp；published_links.json 晚报 fallback 常量仍未同步（连续第8日漂移）"
+}

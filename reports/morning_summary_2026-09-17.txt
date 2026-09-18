@@ -1,0 +1,26 @@
+【每日投资早报】2026-09-17
+市场：🟡 盈利扩散 + 估值偏高，偏向持有；降权模式
+持仓：6只，总资产 ¥719,145，仓位 16.9%，现金 ¥597,900
+今日动作：无（EXECUTE 0 / WATCH 13 / HOLD 6 / DRAFT 5） · 今天什么都不做
+Q5预算：⚠️ 超限，权益 ¥121,245 > 授权 ¥71,914（超 ¥49,330），新增暴露一律 BLOCK
+📋 当前 regime=🟡 盈利扩散 + 估值偏高（中性），系统不允许新增仓位。组合净值 ¥719,145，仓位 16.9%，现金充裕。恒瑞医药、西部超导、云铝股份 建议减仓，需你拍板是否执行。紫金矿业、西部超导、云铝股份 Thesis 弱化，建议重新审视持仓逻辑。
+⚠️ 持仓注意（6 项）：
+  · 紫金矿业（601899）BLOCKED：Thesis WEAKENING: KPI pe 低于预期: actual=12.03 < expected=13.5-5%
+  · 西部超导（688122）REDUCE：Thesis WEAKENING: KPI growth 低于预期: actual=-8.06 < expected=10.0-5%
+  · 云铝股份（000807）REDUCE：Thesis WEAKENING: KPI pe 低于预期: actual=8.41 < expected=8.96-5%
+  · 恒瑞医药（600276）REDUCE：Thesis STRENGTHENING: KPI growth 超预期: actual=25.443 > expected=20.0+5%；纪律：逼近止损
+  · 国电南瑞（600406）HOLD：Thesis STRENGTHENING: KPI growth 超预期: actual=8.6988 > expected=8.0+5%
+🎯 关注机会（5 项）：
+  · 立讯精密（002475）HOLD  已在买区 51.5~52.5
+  · 紫金矿业（601899）ADD  低于买区下沿 33
+  · XD吉比特（603444）BUY_WATCH
+🚫 被拦标的（3 项）：
+  · 阳光电源（300274）HOLD：strategy: Strategy veto-BLOCKED（primary=Rotation） → 解除：需权限层审批通过或 regime 升级至允许新建仓
+  · 洛阳钼业（603993）HOLD：多空信号分歧，阻断 BUY → 解除：需宏观与微观信号重新对齐（当前多空分歧）
+  · 山金国际（000975）HOLD：strategy: Strategy veto-BLOCKED（primary=Rotation） → 解除：需权限层审批通过或 regime 升级至允许新建仓
+🔗 完整报告：https://eod-20260917.app.workbuddy.host/
+
+📅 全天三报导航（稳定链接，点击查看完整报告）
+  早报：https://693471ad5f9c4ee8867a9a7fcf380c11.app.workbuddy.link
+  午报：https://noon-comment.app.workbuddy.host/
+  晚报：https://6eadee85ab584d5a9823da21d1c60e3b.app.workbuddy.link

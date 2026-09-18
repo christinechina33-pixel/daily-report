@@ -1,8 +1,23 @@
 【每日投资早报】2026-09-16
 市场：🔴 盈利恶化 + 流动性收缩，defend；降权模式
-持仓：6只，总资产 ¥719,246，仓位 16.9%，现金 ¥597,900
-今日动作：无（EXECUTE 0 / WATCH 5 / HOLD 6 / DRAFT 3） · 今天什么都不做
-Q5预算：⚠️ 超限，权益 ¥121,346 > 授权 ¥71,925（超 ¥49,421），新增暴露一律 BLOCK
+持仓：6只，总资产 ¥721,060，仓位 17.1%，现金 ¥597,900
+今日动作：无（EXECUTE 0 / WATCH 2 / HOLD 6 / DRAFT 1） · 今天什么都不做
+Q5预算：⚠️ 超限，权益 ¥123,160 > 授权 ¥72,106（超 ¥51,054），新增暴露一律 BLOCK
+📋 当前 regime=🔴 盈利恶化 + 流动性收缩（defend），系统不允许新增仓位。组合净值 ¥721,060，仓位 17.1%，现金充裕。紫金矿业、西部超导 Thesis 弱化，建议重新审视持仓逻辑。
+⚠️ 持仓注意（5 项）：
+  · 紫金矿业（601899）DECISION_INCOMPLETE：Thesis WEAKENING: KPI pe 低于预期: actual=12.64 < expected=13.5-5%
+  · 西部超导（688122）DECISION_INCOMPLETE：Thesis WEAKENING: KPI growth 低于预期: actual=-8.06 < expected=10.0-5%
+  · 恒瑞医药（600276）DECISION_INCOMPLETE：Thesis STRENGTHENING: KPI growth 超预期: actual=25.443 > expected=20.0+5%；纪律：逼近止损
+  · 国电南瑞（600406）DECISION_INCOMPLETE：Thesis STRENGTHENING: KPI growth 超预期: actual=8.6988 > expected=8.0+5%
+  · 立讯精密（002475）DECISION_INCOMPLETE：Thesis STRENGTHENING: KPI growth 超预期: actual=21.9045 > expected=20.0+5%
+🎯 关注机会（5 项）：
+  · 紫金矿业（601899）ADD  低于买区下沿 33
+  · 立讯精密（002475）BUY_WATCH  距买区上沿 52.5 约 0.7%
+  · 吉比特（603444）HOLD
+🚫 被拦标的（3 项）：
+  · 洛阳钼业（603993）BUY_WATCH：多空信号分歧，阻断 BUY → 解除：需宏观与微观信号重新对齐（当前多空分歧）
+  · 浙大网新（600797）BUY_WATCH：strategy: Strategy veto-BLOCKED（primary=Growth） → 解除：需权限层审批通过或 regime 升级至允许新建仓
+  · 蔚蓝锂芯（002245）HOLD：多空信号分歧，阻断 BUY → 解除：需宏观与微观信号重新对齐（当前多空分歧）
 🔗 完整报告：本次发布失败，请稍后查看
 
 📅 全天三报导航（稳定链接，点击查看完整报告）
